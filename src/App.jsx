@@ -4,8 +4,8 @@ import { Outlet } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
 import GeneralLayout from './layout/GeneralLayout';
-import Header from './ui-components/Header';
 import DivFlex from './ui-components/DivFlex';
+import Header from './ui-components/Header';
 const App = () => {
   return (
     <div className="App">
