@@ -2,7 +2,6 @@ import './App.css';
 
 import { Outlet } from 'react-router-dom';
 
-import Footer from './components/Footer/Footer';
 import GeneralLayout from './layout/GeneralLayout';
 import Button from './ui-components/Button';
 import DivFlex from './ui-components/DivFlex';
@@ -27,7 +26,6 @@ const App = () => {
           </DivFlex>
         </Header>
         <Outlet />
-        <Footer></Footer>
       </GeneralLayout>
     </div>
   );
