@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import Palette from '../styles.jsx/Palette';
 
 const HeaderStyled = styled.header`
