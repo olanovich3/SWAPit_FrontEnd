@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import GeneralLayout from './layout/GeneralLayout';
 import Button from './ui-components/Button';
 import DivFlex from './ui-components/DivFlex';
+import Footer from './ui-components/Footer';
 import Header from './ui-components/Header';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           </DivFlex>
         </Header>
         <Outlet />
+        <Footer />
       </GeneralLayout>
     </div>
   );
