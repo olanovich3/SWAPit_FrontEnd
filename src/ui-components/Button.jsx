@@ -31,7 +31,6 @@ const ButtonStyled = styled.button`
   &.secondary:hover {
     background-color: ${Palette.secondary};
     color: ${Palette.background};
-    border: none;
   }
 `;
 

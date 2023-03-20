@@ -4,8 +4,10 @@ import { Outlet } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
 import GeneralLayout from './layout/GeneralLayout';
+import Button from './ui-components/Button';
 import DivFlex from './ui-components/DivFlex';
 import Header from './ui-components/Header';
+
 const App = () => {
   return (
     <div className="App">
@@ -14,6 +16,14 @@ const App = () => {
           <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
             <h3>Register</h3>
             <h3>Login</h3>
+            <Button className={'principal'} text={'Crear producto'}></Button>
+            <Button
+              className={'secondary'}
+              bg={'second'}
+              color={'second'}
+              text={'Crear producto'}
+              border={'yes'}
+            ></Button>
           </DivFlex>
         </Header>
         <Outlet />
