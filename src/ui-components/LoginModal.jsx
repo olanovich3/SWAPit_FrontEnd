@@ -95,7 +95,7 @@ const LoginModalStyled = styled.div`
   }
 
   .form button:hover {
-    background-color: ${Palette.higlight};
+    background-color: ${Palette.highlight};
   }
 `;
 
