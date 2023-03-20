@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FooterStyled = styled.footer`
@@ -16,25 +15,6 @@ const Footer = ({ justify, align }) => {
   return (
     <FooterStyled justify={justify} align={align}>
       <div className="footer-container">
-        <div className="navlinks">
-          <ul>
-            <li>
-              <NavLink to="/">HOME</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">REGISTER</NavLink>
-            </li>
-            <li>
-              <NavLink to="/login">LOGIN</NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile">PROFILE</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">ABOUT</NavLink>
-            </li>
-          </ul>
-        </div>
         <div className="links">
           <ul>
             <li>
