@@ -34,7 +34,7 @@ const ButtonStyled = styled.button`
   }
 `;
 
-const Button = ({ className, text, bg, border, color, size, padding, type }) => {
+const Button = ({ className, text, bg, border, color, size, padding }) => {
   return (
     <ButtonStyled
       className={className}
@@ -43,7 +43,6 @@ const Button = ({ className, text, bg, border, color, size, padding, type }) => 
       color={color}
       size={size}
       padding={padding}
-      type={type}
     >
       {text}
     </ButtonStyled>
