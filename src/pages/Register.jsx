@@ -64,6 +64,17 @@ const RegisterStyled = styled.div`
     color: #005ce6;
     text-decoration: underline;
   }
+  & .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .inputfile + label {
+    cursor: pointer;
+  }
 `;
 
 const Register = () => {
@@ -141,13 +152,15 @@ const Register = () => {
               placeholder="password"
               {...register(`password`)}
             />
+
             <input
               type="file"
-              className="input"
+              className="inputfile"
               id="avatar"
               placeholder="avatar"
               {...register(`avatar`)}
             />
+            <label htmlFor="avatar">Choose a file</label>
           </div>
           <Button type="submit" className={'principal'} text={'Sign up'} />
         </form>
