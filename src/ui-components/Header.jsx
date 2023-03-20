@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import Palette from '../styles/Palette';
+import Button from './Button';
+import DivFlex from './DivFlex';
 
 const HeaderStyled = styled.header`
   display: flex;
@@ -36,7 +39,8 @@ const HeaderStyled = styled.header`
   width: 100vw;
   padding: ${({ padding }) => padding};
 `;
-const Header = ({ children, justify, align, color, height, padding, variant }) => {
+const Header = ({ justify, align, color, height, padding, variant }) => {
+  const navigate = useNavigate();
   return (
     <HeaderStyled
       justify={justify}
@@ -46,7 +50,25 @@ const Header = ({ children, justify, align, color, height, padding, variant }) =
       padding={padding}
       variant={variant}
     >
-      {children}
+      <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
+        <Button
+          className={'principal'}
+          text={'Register'}
+          action={() => {
+            navigate('/register');
+          }}
+        ></Button>
+        <Button
+          className={'secondary'}
+          bg={'second'}
+          color={'second'}
+          text={'Login'}
+          border={'yes'}
+          action={() => {
+            navigate('/login');
+          }}
+        ></Button>
+      </DivFlex>
     </HeaderStyled>
   );
 };
