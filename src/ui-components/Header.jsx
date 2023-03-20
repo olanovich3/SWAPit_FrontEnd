@@ -58,6 +58,7 @@ const Header = ({ justify, align, color, height, padding, variant, direction }) 
     >
       <DivFlex padding={'20px'}>
         <img src="../../public/vite.svg" alt="logoswapit" height={20}></img>
+        <h1>SWAPit</h1>
       </DivFlex>
       <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
         <Button
