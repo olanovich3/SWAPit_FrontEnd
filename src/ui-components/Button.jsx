@@ -25,7 +25,7 @@ const ButtonStyled = styled.button`
   transition: all 0.1s ease-in-out;
 
   &.principal:hover {
-    background-color: ${Palette.higlight};
+    background-color: ${Palette.highlight};
     color: ${Palette.background};
   }
   &.secondary:hover {

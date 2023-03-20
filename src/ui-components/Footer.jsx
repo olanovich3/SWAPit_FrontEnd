@@ -21,7 +21,7 @@ const FooterStyled = styled.footer`
     color: ${Palette.primary};
   }
   & a:hover {
-    color: ${Palette.higlight};
+    color: ${Palette.highlight};
   }
   & p {
     color: #505050;
@@ -32,7 +32,7 @@ const Footer = () => {
   return (
     <FooterStyled>
       <DivFlex gap={'3rem'}>
-        <img src="../../public/logo.svg" alt="Swapit logo" />
+        <NavLink to="/"><img src="../../public/logo.svg" alt="Swapit logo" /></NavLink>
         <Anchor
           href="https://about.wallapop.com/en/legal-terms-and-conditions/"
           target="_blank"
