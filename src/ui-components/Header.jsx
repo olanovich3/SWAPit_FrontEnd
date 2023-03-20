@@ -38,8 +38,13 @@ const HeaderStyled = styled.header`
   height: ${({ height }) => height};
   width: 100vw;
   padding: ${({ padding }) => padding};
+  flex-direction: ${({ direction }) => direction};
+  & img {
+    height: 20px;
+    width: 20px;
+  }
 `;
-const Header = ({ justify, align, color, height, padding, variant }) => {
+const Header = ({ justify, align, color, height, padding, variant, direction }) => {
   const navigate = useNavigate();
   return (
     <HeaderStyled
@@ -49,7 +54,12 @@ const Header = ({ justify, align, color, height, padding, variant }) => {
       height={height}
       padding={padding}
       variant={variant}
+      direction={direction}
     >
+      <DivFlex padding={'20px'}>
+        <img src="../../public/vite.svg" alt="logoswapit" height={20}></img>
+        <h1>SWAPit</h1>
+      </DivFlex>
       <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
         <Button
           className={'principal'}
