@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import Palette from '../styles.jsx/Palette';
+import Palette from '../styles/Palette';
 
 const ButtonStyled = styled.button`
   background-color: ${({ bg }) =>
