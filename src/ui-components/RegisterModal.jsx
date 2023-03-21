@@ -48,7 +48,7 @@ const RegisterStyled = styled.div`
     border: 0;
     outline: 0;
     height: 40px;
-    width: 100%;
+    width: 60%;
     border-bottom: 1px solid #eee;
     font-size: 0.9rem;
     padding: 8px 15px;
@@ -109,6 +109,19 @@ const RegisterStyled = styled.div`
     color: ${Palette.secondary};
     border: none;
   }
+  & .registerModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
+  & .registernbtn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: ${Palette.secondary};
+  }
 `;
 
 const RegisterModal = () => {
@@ -125,9 +138,10 @@ const RegisterModal = () => {
       password: formData.password,
       avatar: formData.avatar[0],
     };
-    API.post('/users/register', data).then(() => {
+    API.post('/users/register', data).then((res) => {
+      setShowRegister(!showRegister);
       navigate('/');
-      console.log(data);
+      login(res.data.user, res.data.token);
     });
   };
   const { login } = useContext(UserContext);
@@ -147,7 +161,7 @@ const RegisterModal = () => {
         className={'secondary'}
         bg={'second'}
         color={'second'}
-        text={'Login'}
+        text={'Log In'}
         border={'yes'}
         action={() => {
           setShowLogin(!showLogin);
@@ -184,15 +198,22 @@ const RegisterModal = () => {
                     {...register('password')}
                   />
                 </div>
-                <button type="submit">Login</button>
+                <Button text={'Log in'} type="submit">
+                  Login
+                </Button>
               </form>
-              <Button
-                action={() => {
-                  setShowRegister(!showRegister);
-                  setShowLogin(!showLogin);
-                }}
-                text={'Register'}
-              ></Button>
+              <span className="registerModal">
+                <p>Don´t have an account?</p>
+                <button
+                  className="registernbtn"
+                  onClick={() => {
+                    setShowRegister(!showRegister);
+                    setShowLogin(!showLogin);
+                  }}
+                >
+                  Register
+                </button>
+              </span>
             </div>
           </div>
         </div>
@@ -206,7 +227,7 @@ const RegisterModal = () => {
                   Close
                 </button>
               </span>
-              <div className="title">Sign up</div>
+              <h1 className="title">Sign up</h1>
               <span className="subtitle">Create a free account with your email.</span>
               <div className="form-container">
                 <input
@@ -270,12 +291,7 @@ const RegisterModal = () => {
                   <nav className="buttonfile">Choose an avatar</nav>
                 </label>
               </div>
-              <Button
-                type="submit"
-                className={'principal'}
-                text={'Sign up'}
-                action={() => setShowRegister(!showRegister)}
-              />
+              <Button type="submit" className={'principal'} text={'Sign up'} />
             </form>
           </div>
         </div>
