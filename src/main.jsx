@@ -19,7 +19,6 @@ import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter basename="/">
