@@ -41,8 +41,8 @@ const HeaderStyled = styled.header`
   padding: ${({ padding }) => padding};
   flex-direction: ${({ direction }) => direction};
   & img {
-    height: 20px;
-    width: 20px;
+    height: 2rem;
+    width: auto;
   }
 `;
 const Header = ({ justify, align, color, height, padding, variant, direction }) => {
@@ -57,12 +57,14 @@ const Header = ({ justify, align, color, height, padding, variant, direction }) 
       variant={variant}
       direction={direction}
     >
-      <DivFlex padding={'20px'}>
-        <img src="../../public/vite.svg" alt="logoswapit" height={20}></img>
-        <h1>SWAPit</h1>
+      <DivFlex padding={'2rem 4rem'}>
+        <img
+          src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
+          alt="swapitlogo"
+        ></img>
       </DivFlex>
       {user == null && (
-        <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
+        <DivFlex padding={'2rem 4rem'} gap={'1.5rem'}>
           <RegisterModal />
           <LoginModal />
         </DivFlex>

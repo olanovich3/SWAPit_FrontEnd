@@ -33,7 +33,10 @@ const Footer = () => {
     <FooterStyled>
       <DivFlex gap={'3rem'}>
         <NavLink to="/">
-          <img src="../../public/logo.svg" alt="Swapit logo" />
+          <img
+            src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
+            alt="Swapit logo"
+          />
         </NavLink>
         <Anchor
           href="https://about.wallapop.com/en/legal-terms-and-conditions/"
