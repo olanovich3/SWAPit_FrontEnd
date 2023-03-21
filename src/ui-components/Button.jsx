@@ -8,7 +8,7 @@ const ButtonStyled = styled.button`
   border: ${({ border }) => (border === 'yes' ? '1px solid #07689f' : 'none')};
   border-radius: 2rem;
   color: ${({ color }) => (color == 'second' ? Palette.secondary : Palette.background)};
-  width: fit-content;
+  width: ${({ width }) => width};
   height: 38px;
   font-size: ${({ size }) =>
     size === 'lg' ? '25px' : size === 'sm' ? '14px' : size === 'xm' ? '10px' : '16px'};

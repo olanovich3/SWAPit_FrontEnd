@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       <GeneralLayout>
-        <Header direction={'row'} height={'10vh'} justify={'space-between'}></Header>
+        <Header direction={'row'} height={'10vh'} justify={'space-between'} />
         <Outlet />
         <Footer />
       </GeneralLayout>
