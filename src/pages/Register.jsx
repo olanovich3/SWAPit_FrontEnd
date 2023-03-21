@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import { API } from '../services/API';
+import Palette from '../styles/Palette';
 import Button from '../ui-components/Button';
 
 const RegisterStyled = styled.div`
@@ -68,8 +69,14 @@ const RegisterStyled = styled.div`
     display: none;
   }
   .inputfile + label {
-    display: flex;
     cursor: pointer;
+    width: 100%;
+  }
+
+  & .buttonfile:hover {
+    padding: 8px;
+    background-color: ${Palette.secondary};
+    color: ${Palette.background};
   }
 `;
 
@@ -157,8 +164,7 @@ const Register = () => {
               {...register(`avatar`)}
             />
             <label htmlFor="avatar">
-              <span className="filename">No file seleted</span>
-              <span className="filebutton">Choose an avatar</span>
+              <nav className="buttonfile">Choose an avatar</nav>
             </label>
           </div>
           <Button type="submit" className={'principal'} text={'Sign up'} />
