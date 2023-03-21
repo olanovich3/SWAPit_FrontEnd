@@ -22,16 +22,28 @@ const HeaderStyled = styled.header`
   & .navheader {
     color: ${Palette.primary};
     transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
-  & .navheader:hover {
+
+  & .logoname {
     color: ${Palette.secondary};
   }
-  & .logoname{
-    color: ${Palette.secondary}
+  & .favorite {
+    width: 20px;
+  }
+  & .favoriteavatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
   }
 `;
 const Header = () => {
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
   return (
     <HeaderStyled>
       <div>
@@ -40,22 +52,43 @@ const Header = () => {
       <div className="headerNav">
         {user && (
           <NavLink className="navheader" to="favorites">
+            <img
+              className="favorite"
+              src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/heart_juccjj.png"
+              alt="favorite Logo"
+            />
             Favorites
           </NavLink>
         )}
         {user && (
           <NavLink className="navheader" to="chat">
+            <img
+              className="favorite"
+              src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/correo_hogtcn.png"
+              alt="favorite Logo"
+            />
             InBox
           </NavLink>
         )}
         {user && (
           <NavLink className="navheader" to="profile">
-            Profile
+            <img className="favoriteavatar" src={user.avatar} alt="favorite Logo" />
+            {user.name}
           </NavLink>
         )}
 
+        <Button className={'principal'} text={'Create Product'} />
         {!user && <RegisterModal />}
-        <Button text={'Create Product'} />
+        {user && (
+          <Button
+            className={'secondary'}
+            bg={'second'}
+            color={'second'}
+            text={'Logout'}
+            border={'yes'}
+            action={() => logout()}
+          />
+        )}
       </div>
     </HeaderStyled>
   );

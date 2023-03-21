@@ -22,7 +22,7 @@ export const UserContextProvider = ({ children }) => {
     setJwt(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/');
   };
 
   const login = (resUser, resToken) => {
