@@ -1,12 +1,11 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
 import Palette from '../styles/Palette';
-import Button from './Button';
 import DivFlex from './DivFlex';
 import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
@@ -47,7 +46,6 @@ const HeaderStyled = styled.header`
   }
 `;
 const Header = ({ justify, align, color, height, padding, variant, direction }) => {
-  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   return (
     <HeaderStyled
@@ -65,13 +63,7 @@ const Header = ({ justify, align, color, height, padding, variant, direction }) 
       </DivFlex>
       {user == null && (
         <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
-          <Button
-            className={'principal'}
-            text={'Register'}
-            action={() => {
-              navigate('/register');
-            }}
-          ></Button>
+          <RegisterModal />
           <LoginModal />
         </DivFlex>
       )}
