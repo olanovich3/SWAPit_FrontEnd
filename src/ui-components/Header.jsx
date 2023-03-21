@@ -1,72 +1,62 @@
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
 import Palette from '../styles/Palette';
-import DivFlex from './DivFlex';
-import LoginModal from './LoginModal';
+import Button from './Button';
 import RegisterModal from './RegisterModal';
 const HeaderStyled = styled.header`
   display: flex;
-  flex-direction: column;
-  justify-content: ${({ justify }) =>
-    justify === 'center'
-      ? 'center'
-      : justify === 'flex-end'
-      ? 'flex-end'
-      : justify === 'flex-star'
-      ? 'flex-star'
-      : justify === 'space-around'
-      ? 'space-around'
-      : justify === 'space-between'
-      ? 'space-between'
-      : 'center'};
-  align-items: ${({ align }) =>
-    align === 'center'
-      ? 'center'
-      : align === 'flex-end'
-      ? 'flex-end'
-      : align === 'flex-star'
-      ? 'flex-star'
-      : align === 'space-around'
-      ? 'space-around'
-      : align === 'space-between'
-      ? 'space-between'
-      : 'center'};
-  background-color: ${({ variant }) => (variant ? variant : Palette.background)};
-  /* background: linear-gradient(#264a5f, #10101c); */
-  color: ${({ color }) => (color ? color : Palette.primary)};
-  height: ${({ height }) => height};
-  width: 100vw;
-  padding: ${({ padding }) => padding};
-  flex-direction: ${({ direction }) => direction};
-  & img {
-    height: 20px;
-    width: 20px;
+  justify-content: space-between;
+  padding: 0 5rem;
+  align-items: center;
+  background-color: ${Palette.background};
+
+  & .headerNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  & .navheader {
+    color: ${Palette.primary};
+    transition: all 0.2s ease-in-out;
+  }
+  & .navheader:hover {
+    color: ${Palette.secondary};
+  }
+  & .logoname{
+    color: ${Palette.secondary}
   }
 `;
-const Header = ({ justify, align, color, height, padding, variant, direction }) => {
+const Header = () => {
   const { user } = useContext(UserContext);
   return (
-    <HeaderStyled
-      justify={justify}
-      align={align}
-      color={color}
-      height={height}
-      padding={padding}
-      variant={variant}
-      direction={direction}
-    >
-      <DivFlex padding={'20px'}>
-        <img src="../../public/vite.svg" alt="logoswapit" height={20}></img>
-        <h1>SWAPit</h1>
-      </DivFlex>
-      {user == null && (
-        <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
-          <RegisterModal />
-          <LoginModal />
-        </DivFlex>
-      )}
+    <HeaderStyled>
+      <div>
+        <h1 className="logoname">Swap it</h1>
+      </div>
+      <div className="headerNav">
+        {user && (
+          <NavLink className="navheader" to="favorites">
+            Favorites
+          </NavLink>
+        )}
+        {user && (
+          <NavLink className="navheader" to="chat">
+            InBox
+          </NavLink>
+        )}
+        {user && (
+          <NavLink className="navheader" to="profile">
+            Profile
+          </NavLink>
+        )}
+
+        {!user && <RegisterModal />}
+        <Button text={'Create Product'} />
+      </div>
     </HeaderStyled>
   );
 };
