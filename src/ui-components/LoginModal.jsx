@@ -146,7 +146,9 @@ const LoginModal = () => {
         color={'second'}
         text={'Login'}
         border={'yes'}
-        action={() => toggleModal()}
+        action={() => {
+          toggleModal();
+        }}
       ></Button>
       <div className={modal ? 'modal' : 'hidden'}>
         <div className="form-box">

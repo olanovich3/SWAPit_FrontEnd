@@ -1,12 +1,13 @@
+import { useContext } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import Button from '../ui-components/Button';
-import LoginModal from './LoginModal';
 
 const RegisterStyled = styled.div`
   display: flex;
@@ -98,6 +99,16 @@ const RegisterStyled = styled.div`
   & .hidden {
     display: none !important;
   }
+  & .form span {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  & .form-box .form span .close {
+    background-color: transparent;
+    color: ${Palette.secondary};
+    border: none;
+  }
 `;
 
 const RegisterModal = () => {
@@ -116,103 +127,159 @@ const RegisterModal = () => {
     };
     API.post('/users/register', data).then(() => {
       navigate('/');
+      console.log(data);
     });
   };
-  const [modal, setModal] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => {
-    setModal(!modal);
-    setShowModal(!showModal);
+  const { login } = useContext(UserContext);
+  const formLoginSubmit = (formData) => {
+    API.post('/users/login', formData).then((res) => {
+      login(res.data.user, res.data.token);
+      navigate('/');
+    });
   };
+
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   return (
     <RegisterStyled>
       <Button
-        className={'principal'}
-        text={'Register'}
+        className={'secondary'}
+        bg={'second'}
+        color={'second'}
+        text={'Login'}
+        border={'yes'}
         action={() => {
-          toggleModal();
+          setShowLogin(!showLogin);
         }}
       ></Button>
-      <div className={modal ? 'modal' : 'hidden'}>
-        <div className="form-box">
-          <form className="form" onSubmit={handleSubmit(formSubmit)}>
-            <span className="title">Sign up</span>
-            <span className="subtitle">Create a free account with your email.</span>
-            <div className="form-container">
-              <input
-                type="text"
-                className="input"
-                id="name"
-                placeholder="name"
-                {...register(`name`)}
-              />
-              <input
-                type="text"
-                className="input"
-                id="lastname"
-                placeholder="lastname"
-                {...register(`lastname`)}
-              />
-              <input
-                type="text"
-                className="input"
-                id="gender"
-                placeholder="gender"
-                {...register(`gender`)}
-              />
-              <input
-                type="date"
-                className="input"
-                id="birthdate"
-                placeholder="birthdate"
-                {...register(`birthdate`)}
-              />
-              <input
-                type="text"
-                className="input"
-                id="location"
-                placeholder="location"
-                {...register(`location`)}
-              />
-              <input
-                type="text"
-                className="input"
-                id="email"
-                placeholder="email"
-                {...register(`email`)}
-              />
-              <input
-                type="password"
-                className="input"
-                id="password"
-                placeholder="password"
-                {...register(`password`)}
-              />
-
-              <input
-                type="file"
-                className="inputfile"
-                id="avatar"
-                placeholder="avatar"
-                {...register(`avatar`)}
-              />
-              <label htmlFor="avatar">
-                <nav className="buttonfile">Choose an avatar</nav>
-              </label>
+      {showLogin && (
+        <div>
+          <div className={showLogin ? 'modal' : 'hidden'}>
+            <div className="form-box">
+              <form className="form" onSubmit={handleSubmit(formLoginSubmit)}>
+                <span>
+                  <button className="close" onClick={() => setShowLogin(!showLogin)}>
+                    Close
+                  </button>
+                </span>
+                <div className="title">Log In</div>
+                <div className="form-container">
+                  <label htmlFor="email">Email </label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="email"
+                    name="email"
+                    {...register('email')}
+                  />
+                </div>
+                <div className="form-container">
+                  <label htmlFor="password">Password </label>
+                  <input
+                    className="input"
+                    type="password"
+                    id="password"
+                    name="password"
+                    {...register('password')}
+                  />
+                </div>
+                <button type="submit">Login</button>
+              </form>
+              <Button
+                action={() => {
+                  setShowRegister(!showRegister);
+                  setShowLogin(!showLogin);
+                }}
+                text={'Register'}
+              ></Button>
             </div>
-            <Button
-              type="submit"
-              className={'principal'}
-              text={'Sign up'}
-              action={() => toggleModal()}
-            />
-          </form>
-          <div className="form-section">
-            <LoginModal />
           </div>
         </div>
-      </div>
+      )}
+      {showRegister && (
+        <div className={showRegister ? 'modal' : 'hidden'}>
+          <div className="form-box">
+            <form className="form" onSubmit={handleSubmit(formSubmit)}>
+              <span>
+                <button className="close" onClick={() => setShowRegister(!showRegister)}>
+                  Close
+                </button>
+              </span>
+              <div className="title">Sign up</div>
+              <span className="subtitle">Create a free account with your email.</span>
+              <div className="form-container">
+                <input
+                  type="text"
+                  className="input"
+                  id="name"
+                  placeholder="name"
+                  {...register(`name`)}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="lastname"
+                  placeholder="lastname"
+                  {...register(`lastname`)}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="gender"
+                  placeholder="gender"
+                  {...register(`gender`)}
+                />
+                <input
+                  type="date"
+                  className="input"
+                  id="birthdate"
+                  placeholder="birthdate"
+                  {...register(`birthdate`)}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="location"
+                  placeholder="location"
+                  {...register(`location`)}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="email"
+                  placeholder="email"
+                  {...register(`email`)}
+                />
+                <input
+                  type="password"
+                  className="input"
+                  id="password"
+                  placeholder="password"
+                  {...register(`password`)}
+                />
+
+                <input
+                  type="file"
+                  className="inputfile"
+                  id="avatar"
+                  placeholder="avatar"
+                  {...register(`avatar`)}
+                />
+                <label htmlFor="avatar">
+                  <nav className="buttonfile">Choose an avatar</nav>
+                </label>
+              </div>
+              <Button
+                type="submit"
+                className={'principal'}
+                text={'Sign up'}
+                action={() => setShowRegister(!showRegister)}
+              />
+            </form>
+          </div>
+        </div>
+      )}
     </RegisterStyled>
   );
 };
