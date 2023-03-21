@@ -1,10 +1,12 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import Palette from '../styles/Palette';
 import Button from './Button';
 import DivFlex from './DivFlex';
-
+import LoginModal from './LoginModal';
 const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
@@ -46,6 +48,7 @@ const HeaderStyled = styled.header`
 `;
 const Header = ({ justify, align, color, height, padding, variant, direction }) => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   return (
     <HeaderStyled
       justify={justify}
@@ -60,25 +63,18 @@ const Header = ({ justify, align, color, height, padding, variant, direction }) 
         <img src="../../public/vite.svg" alt="logoswapit" height={20}></img>
         <h1>SWAPit</h1>
       </DivFlex>
-      <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
-        <Button
-          className={'principal'}
-          text={'Register'}
-          action={() => {
-            navigate('/register');
-          }}
-        ></Button>
-        <Button
-          className={'secondary'}
-          bg={'second'}
-          color={'second'}
-          text={'Login'}
-          border={'yes'}
-          action={() => {
-            navigate('/login');
-          }}
-        ></Button>
-      </DivFlex>
+      {user == null && (
+        <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'}>
+          <Button
+            className={'principal'}
+            text={'Register'}
+            action={() => {
+              navigate('/register');
+            }}
+          ></Button>
+          <LoginModal />
+        </DivFlex>
+      )}
     </HeaderStyled>
   );
 };

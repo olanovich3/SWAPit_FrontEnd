@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,22 +7,33 @@ import styled from 'styled-components';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
+import Button from './Button';
+
 const LoginModalStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  & .modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+  }
   .form-box {
     max-width: 300px;
-    background: ${Palette.background};
+    background: rgba(250, 250, 250, 0.8);
     overflow: hidden;
     border-radius: 16px;
     color: ${Palette.primary};
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
   .form {
@@ -97,9 +109,25 @@ const LoginModalStyled = styled.div`
   .form button:hover {
     background-color: ${Palette.highlight};
   }
+  & .hidden {
+    display: none !important;
+  }
+  & .form span {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  & .form span .close {
+    background-color: transparent;
+    color: ${Palette.secondary};
+  }
 `;
 
 const LoginModal = () => {
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
   const { login } = useContext(UserContext);
@@ -112,31 +140,46 @@ const LoginModal = () => {
   };
   return (
     <LoginModalStyled>
-      <div className="form-box">
-        <form className="form" onSubmit={handleSubmit(formSubmit)}>
-          <span className="title">Log In</span>
-          <div className="form-container">
-            <label htmlFor="email">Email </label>
-            <input
-              className="input"
-              type="text"
-              id="email"
-              name="email"
-              {...register('email')}
-            />
-          </div>
-          <div className="form-container">
-            <label htmlFor="password">Password </label>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              name="password"
-              {...register('password')}
-            />
-          </div>
-          <button type="submit">Login</button>
-        </form>
+      <Button
+        className={'secondary'}
+        bg={'second'}
+        color={'second'}
+        text={'Login'}
+        border={'yes'}
+        action={() => toggleModal()}
+      ></Button>
+      <div className={modal ? 'modal' : 'hidden'}>
+        <div className="form-box">
+          <form className="form" onSubmit={handleSubmit(formSubmit)}>
+            <span>
+              <button className="close" onClick={() => toggleModal()}>
+                Close
+              </button>
+            </span>
+            <div className="title">Log In</div>
+            <div className="form-container">
+              <label htmlFor="email">Email </label>
+              <input
+                className="input"
+                type="text"
+                id="email"
+                name="email"
+                {...register('email')}
+              />
+            </div>
+            <div className="form-container">
+              <label htmlFor="password">Password </label>
+              <input
+                className="input"
+                type="password"
+                id="password"
+                name="password"
+                {...register('password')}
+              />
+            </div>
+            <button type="submit">Login</button>
+          </form>
+        </div>
       </div>
     </LoginModalStyled>
   );
