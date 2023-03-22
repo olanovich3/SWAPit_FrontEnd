@@ -1,11 +1,17 @@
 import { useContext /* , useState  */ } from 'react';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
 
 /* import { useNavigate } from 'react-router-dom'; */
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Button from '../ui-components/Button';
-import DivFlex from '../ui-components/DivFlex';
+
+const CreateProductStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const CreateProduct = () => {
   const { register, handleSubmit } = useForm();
   /*  let navigate = useNavigate();
@@ -32,7 +38,7 @@ const CreateProduct = () => {
   };
   return (
     <main>
-      <DivFlex padding={'20px'} margin={'20px'} gap={'2rem'} direction={'column'}>
+      <CreateProductStyled>
         <form className="form" onSubmit={handleSubmit(formSubmit)}>
           <label id="owner" name="owner" {...register('{user._id}')}>
             {user.name} wants to create a product
@@ -116,7 +122,7 @@ const CreateProduct = () => {
           </select>
           <Button type="submit" text={'Create a Product'} />
         </form>
-      </DivFlex>
+      </CreateProductStyled>
     </main>
   );
 };
