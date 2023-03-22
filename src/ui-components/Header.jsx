@@ -13,6 +13,10 @@ const HeaderStyled = styled.header`
   align-items: center;
   background-color: ${Palette.background};
 
+  & .swapitlogo img {
+    height: 2rem;
+    width: auto;
+  }
   & .headerNav {
     display: flex;
     justify-content: center;
@@ -29,10 +33,6 @@ const HeaderStyled = styled.header`
     font-size: 1.1rem;
     font-weight: 500;
   }
-
-  & .logoname {
-    color: ${Palette.secondary};
-  }
   & .favorite {
     width: 20px;
   }
@@ -46,9 +46,12 @@ const Header = () => {
   const { user, logout } = useContext(UserContext);
   return (
     <HeaderStyled>
-      <div>
-        <h1 className="logoname">Swap it</h1>
-      </div>
+      <NavLink className="swapitlogo" to="/">
+        <img
+          src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
+          alt="Swapit logo"
+        />
+      </NavLink>
       <div className="headerNav">
         {user && (
           <NavLink className="navheader" to="favorites">
