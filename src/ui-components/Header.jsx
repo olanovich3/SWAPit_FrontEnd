@@ -70,7 +70,7 @@ const Header = () => {
               src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/correo_hogtcn.png"
               alt="favorite Logo"
             />
-            InBox
+            Inbox
           </NavLink>
         )}
         {user && (
