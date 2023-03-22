@@ -1,33 +1,44 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import CategoryCard from '../ui-components/CategoryCard';
+import Divflex from '../ui-components/DivFlex';
 
 const Categories = () => {
-  const [categories, setCategories] = useState(null);
+  const { category } = useContext(UserContext);
+  const [categories, setCategories] = useState([null]);
+  const [load, setLoad] = useState(false);
 
   const [cat, setCat] = useState('');
-  const { category } = useParams();
-  const getCategories = async () => {
-    try {
-      const res = await API.get(`/products/categories/${category}`);
+
+  const getCategories = () => {
+    API.get(`/products/categories/${category}`).then((res) => {
       setCategories(res.data);
       setCat(category);
-      console.log(res.data);
-    } catch (error) {
-      console.log(categories);
-    }
+      setLoad(true);
+    });
   };
-
   useEffect(() => {
     getCategories();
   }, []);
-
   return (
     <main>
-      <CategoryCard cat={cat}>categories</CategoryCard>
+      {!load ? (
+        <h2>Loading...</h2>
+      ) : (
+        <div>
+          <Divflex transform={'capitalize'}>
+            <h2 className="categoryTitle">{cat}</h2>
+          </Divflex>
+          <Divflex>
+            {categories.map((item) => (
+              <CategoryCard category={item} key={item._id} />
+            ))}
+          </Divflex>
+        </div>
+      )}
     </main>
   );
 };
