@@ -88,8 +88,9 @@ const Header = () => {
             className={'secondary'}
             bg={'second'}
             color={'second'}
-            text={'Logout'}
+            text={'Log out'}
             border={'yes'}
+            padding={'sm'}
             action={() => logout()}
           />
         )}
