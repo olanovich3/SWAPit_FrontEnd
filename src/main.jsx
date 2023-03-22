@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './App';
 import { PageContexProvider } from './context/PageContext';
-import { ProductContexProvider } from './context/ProductContext';
+import { ProductContextProvider } from './context/ProductContext';
 import { UserContextProvider } from './context/UserContext';
 import About from './pages/About';
 import Categories from './pages/Categories';
@@ -25,7 +25,24 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter basename="/">
       <UserContextProvider>
         <PageContexProvider>
-
+          <ProductContextProvider>
+            <Routes>
+              <Route path="/" element={<App />}>
+                <Route index element={<Home />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/product" element={<Product />} />
+                <Route path="/createproduct" element={<CreateProduct />} />
+                <Route path="/editproduct" element={<EditProduct />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </ProductContextProvider>
         </PageContexProvider>
       </UserContextProvider>
     </BrowserRouter>
