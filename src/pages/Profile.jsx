@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Button from '../ui-components/Button';
@@ -62,19 +64,18 @@ const ProfileStyled = styled.main`
 `;
 
 const Profile = () => {
+  let navigate = useNavigate();
   const [data, setData] = useState({});
+  const { setEditProduct } = useContext(ProductContext);
   const { user } = useContext(UserContext);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
-  const [editProduct, setEditProduct] = useState(false);
   const getProfile = () => {
     API.get(`/users/${user._id}`).then((res) => {
       setData(res.data);
     });
   };
-  console.log(editProduct);
-  console.log(data);
 
   useEffect(() => {
     getProfile();
@@ -128,14 +129,20 @@ const Profile = () => {
         <div className="productdata">
           {data.products.map((item) => {
             return (
-              <div className="productcard" key={item._id}>
+              <article className="productcard" key={item._id}>
                 <img src={item.image1} alt={item._id} />
                 <div className="description">
                   <h2>{item.title}</h2>
                   <p>{item.description}</p>
-                  <Button text="EDIT" action={() => setEditProduct(true)} />
+                  <Button
+                    text="EDIT"
+                    action={() => {
+                      navigate('/editproduct');
+                      setEditProduct(item);
+                    }}
+                  />
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
