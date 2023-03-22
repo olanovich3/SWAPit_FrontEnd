@@ -8,8 +8,8 @@ const NotFound = () => {
         src="https://res.cloudinary.com/damtbzspb/image/upload/v1679435830/e78c5f4d033f7f8841ab0157ec9f16bc_ngchpf.jpg"
         alt="Error 404 gif"
       />
-      <Title>¡Nada por aquí!</Title>
-      <Description>
+      <Title className="h1">¡Nada por aquí!</Title>
+      <Description className="p">
         Uish... Esta página no existe en Swap It, lo que sí que existen son miles de
         oportunidades esperándote..
       </Description>

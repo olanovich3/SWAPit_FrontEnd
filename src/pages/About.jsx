@@ -1,8 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function About() {
   return (
-    <div className="Container">
+    <AboutContainer>
       <section className="Hero">
         <header>
           <h1 className="h1">
@@ -202,8 +203,97 @@ function About() {
           />
         </div>
       </section>
-    </div>
+    </AboutContainer>
   );
 }
+
+const AboutContainer = styled.div`
+  .Hero {
+    /* Estilos para la sección de hero */
+    header {
+      /* Estilos para el header de la sección de hero */
+      .h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #111827;
+        strong {
+          color: #22d3ee;
+        }
+      }
+    }
+    .hero-images {
+      margin-top: 2.5rem;
+      @media (min-width: 640px) {
+        margin-top: 3rem;
+      }
+      @media (min-width: 768px) {
+        margin-top: 4rem;
+      }
+      @media (min-width: 1280px) {
+        margin-top: 5rem;
+      }
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        @media (min-width: 640px) {
+          justify-content: flex-start;
+        }
+        .small-image {
+          @media (min-width: 640px) {
+            justify-content: flex-start;
+          }
+          .rounded-wp {
+            @media (min-width: 640px) {
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .Historia {
+    /* Estilos para la sección de historia */
+    header {
+      /* Estilos para el header de la sección de historia */
+      .h5 {
+        /* Estilos para el subtítulo */
+      }
+      .h2 {
+        /* Estilos para el título principal */
+        strong {
+          /* Estilos para la parte en negrita del título */
+        }
+      }
+    }
+    .body-copy {
+      /* Estilos para el contenido de la sección */
+      p {
+        /* Estilos para los párrafos */
+      }
+    }
+  }
+
+  .about__cifras {
+    /* Estilos para la sección de cifras */
+    header {
+      /* Estilos para el header de la sección de cifras */
+      .h2 {
+        /* Estilos para el título principal */
+        strong {
+          /* Estilos para la parte en negrita del título */
+        }
+      }
+    }
+    .cifra {
+      /* Estilos para el número de la cifra */
+    }
+    .body-copy {
+      /* Estilos para la descripción de la cifra */
+    }
+  }
+`;
 
 export default About;
