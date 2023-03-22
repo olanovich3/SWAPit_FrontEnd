@@ -25,24 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter basename="/">
       <UserContextProvider>
         <PageContexProvider>
-          <ProductContexProvider>
-            <Routes>
-              <Route path="/" element={<App />}>
-                <Route index element={<Home />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/product" element={<Product />} />
-                <Route path="/createproduct" element={<CreateProduct />} />
-                <Route path="/editproduct" element={<EditProduct />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </ProductContexProvider>
+
         </PageContexProvider>
       </UserContextProvider>
     </BrowserRouter>
