@@ -2,6 +2,11 @@
 
 .home {
   font-family: 'Manrope', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4rem 14rem;
+  gap: 0.5rem;
 }
 
 h1,
@@ -9,6 +14,12 @@ h2,
 h3,
 h4 {
   color: black;
+}
+
+.h-search {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
 }
 
 .categbtns {
