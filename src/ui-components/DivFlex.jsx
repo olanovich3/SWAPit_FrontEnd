@@ -43,6 +43,7 @@ const StyledDiv = styled.div`
   overflow-x: ${({ flowx }) => flowx};
   overflow-y: ${({ flowy }) => flowy};
   position: ${({ position }) => position};
+  text-transform: ${({ transform }) => transform};
 `;
 
 const DivFlex = ({
@@ -62,9 +63,11 @@ const DivFlex = ({
   position,
   flowx,
   flowy,
+  transform,
 }) => {
   return (
     <StyledDiv
+      transform={transform}
       justify={justify}
       align={align}
       background={background}

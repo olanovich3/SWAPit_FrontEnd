@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './App';
-import { PageContexProvider } from './context/PageContext';
+import { PageContextProvider } from './context/PageContext';
 import { ProductContextProvider } from './context/ProductContext';
 import { UserContextProvider } from './context/UserContext';
 import About from './pages/About';
@@ -24,12 +24,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter basename="/">
       <UserContextProvider>
-        <PageContexProvider>
+        <PageContextProvider>
           <ProductContextProvider>
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<Home />} />
-                <Route path="/categories" element={<Categories />} />
+                <Route path="/categories/:category" element={<Categories />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
@@ -43,7 +43,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </Route>
             </Routes>
           </ProductContextProvider>
-        </PageContexProvider>
+        </PageContextProvider>
       </UserContextProvider>
     </BrowserRouter>
   </React.StrictMode>,

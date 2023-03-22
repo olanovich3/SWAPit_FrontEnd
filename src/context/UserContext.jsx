@@ -32,6 +32,8 @@ export const UserContextProvider = ({ children }) => {
     localStorage.setItem('token', resToken);
   };
 
+  const [category, setCategory] = useState('');
+
   return (
     <UserContext.Provider
       value={{
@@ -41,6 +43,8 @@ export const UserContextProvider = ({ children }) => {
         login,
         setUser,
         setJwt,
+        category,
+        setCategory,
       }}
     >
       {children}
