@@ -90,7 +90,7 @@ const Profile = () => {
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);
   const { setEditProduct } = useContext(ProductContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
@@ -99,10 +99,10 @@ const Profile = () => {
     API.get(`/users/${user._id}`).then((res) => {
       setData(res.data);
       setLoaded(true);
+      setUser(res.data);
     });
   };
   const formSubmit = (formData) => {
-    console.log(formData);
     const updatedata = {
       name: formData.name,
       lastname: formData.lastname,
@@ -113,7 +113,9 @@ const Profile = () => {
       password: formData.password,
       avatar: formData.avatar[0],
     };
-    API.patch(`/users/${data._id}`, updatedata).then(() => {
+    API.patch(`/users/${data._id}`, updatedata, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then(() => {
       setEditProfile(false);
       getProfile();
     });
