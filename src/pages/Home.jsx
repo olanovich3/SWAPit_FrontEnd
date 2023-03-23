@@ -1,8 +1,10 @@
 import './Home.css';
 
 import Button from '../ui-components/Button';
+import Carousel from '../ui-components/Carousel';
+import CarouselByFavorites from '../ui-components/CarouselbyFavorites';
+import CarouselUltimosProductos from '../ui-components/CarouselUltimosProductos';
 import CategoriesNav from '../ui-components/CategoriesNav';
-/* import Carousel from '../ui-components/Carousel'; */
 import DivFlex from '../ui-components/DivFlex';
 import Search from '../ui-components/Search';
 
@@ -22,7 +24,15 @@ const Home = () => {
         <h2>Discover</h2>
       </DivFlex>
       <CategoriesNav />
-      <div>{/* <Carousel /> */}</div>
+      <div>
+        <CarouselUltimosProductos />
+      </div>
+      <div>
+        <CarouselByFavorites />
+      </div>
+      <div>
+        <Carousel />
+      </div>
     </main>
   );
 };
