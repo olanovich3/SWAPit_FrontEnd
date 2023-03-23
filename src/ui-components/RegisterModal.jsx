@@ -148,6 +148,7 @@ const RegisterModal = () => {
   const formLoginSubmit = (formData) => {
     API.post('/users/login', formData).then((res) => {
       login(res.data.user, res.data.token);
+      console.log(formData);
       navigate('/');
     });
   };
@@ -198,9 +199,7 @@ const RegisterModal = () => {
                     {...register('password')}
                   />
                 </div>
-                <Button text={'Log in'} type="submit">
-                  Login
-                </Button>
+                <Button text={'Log in'} type="submit" />
               </form>
               <span className="registerModal">
                 <p>Don´t have an account?</p>
