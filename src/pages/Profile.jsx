@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -55,31 +56,72 @@ const ProfileStyled = styled.main`
     height: 450px;
     display: flex;
     align-items: center;
+    flex-direction: column;
+  }
+  & .profiledataimgdetails {
+    display: flex;
+    justify-content: center;
+    height: 90%;
+    width: 100%;
+  }
+  & .profiledataimg {
+    width: 50%;
+    height: 100%;
   }
   & .profiledataimg img {
     height: 80%;
-    width: 60%;
+    width: 70%;
     border-radius: 50%;
+
+    padding: 2rem;
+  }
+  & .profiledatadetails {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 50%;
   }
 `;
 
 const Profile = () => {
+  const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
   const [data, setData] = useState({});
+  const [loaded, setLoaded] = useState(false);
   const { setEditProduct } = useContext(ProductContext);
   const { user } = useContext(UserContext);
+  const [editProfile, setEditProfile] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
   const getProfile = () => {
     API.get(`/users/${user._id}`).then((res) => {
       setData(res.data);
+      setLoaded(true);
+    });
+  };
+  const formSubmit = (formData) => {
+    console.log(formData);
+    const updatedata = {
+      name: formData.name,
+      lastname: formData.lastname,
+      gender: formData.gender,
+      birthdate: formData.birthdate,
+      location: formData.location,
+      email: formData.email,
+      password: formData.password,
+      avatar: formData.avatar[0],
+    };
+    API.patch(`/users/${data._id}`, updatedata).then(() => {
+      setEditProfile(false);
+      getProfile();
     });
   };
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [loaded]);
 
   return (
     <ProfileStyled>
@@ -90,7 +132,12 @@ const Profile = () => {
           color={'second'}
           text={'PROFILE'}
           border={'yes'}
-          action={() => setProfile(true) & setOpinion(false) & setProducts(false)}
+          action={() =>
+            setProfile(true) &
+            setOpinion(false) &
+            setProducts(false) &
+            setEditProfile(false)
+          }
         />
 
         <Button
@@ -110,20 +157,94 @@ const Profile = () => {
           action={() => setProducts(true) & setOpinion(false) & setProfile(false)}
         />
       </div>
-      {profile && (
-        <div className="profiledata">
-          <div className="profiledataimg">
-            <img src={data.avatar} alt={data.name} />
+      {profile & loaded ? (
+        editProfile === false ? (
+          <div className="profiledata">
+            <div className="profiledataimgdetails">
+              <div className="profiledataimg">
+                <img src={data.avatar} alt={data.name} />
+              </div>
+              <div className="profiledatadetails">
+                <h1>{data.name}</h1>
+                <h2>{data.lastname}</h2>
+                <h2>{data.email}</h2>
+                <h2>{data.birthdate}</h2>
+                <h2>{data.location}</h2>
+              </div>
+            </div>
+            <Button text="EDIT" action={() => setEditProfile(true)} />
           </div>
-          <div className="profiledatadetails">
-            <h1>{data.name}</h1>
-            <h2>{data.lastname}</h2>
-            <h2>{data.email}</h2>
-            <h2>{data.birthdate}</h2>
-            <h2>{data.location}</h2>
-          </div>
-        </div>
-      )}
+        ) : (
+          <form className="profiledata" onSubmit={handleSubmit(formSubmit)}>
+            <div className="profiledataimgdetails">
+              <div className="profiledataimg">
+                <input
+                  type="file"
+                  className="inputfile"
+                  id="avatar"
+                  placeholder="avatar"
+                  {...register(`avatar`)}
+                />
+                <label htmlFor="avatar">
+                  <nav className="buttonfile">Choose an avatar</nav>
+                </label>
+              </div>
+              <div className="profiledatadetails">
+                <input
+                  type="text"
+                  className="input"
+                  id="name"
+                  placeholder="name"
+                  {...register(`name`)}
+                  defaultValue={data.name}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="lastname"
+                  placeholder="lastname"
+                  {...register(`lastname`)}
+                  defaultValue={data.lastname}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="email"
+                  placeholder="email"
+                  {...register(`email`)}
+                  defaultValue={data.email}
+                />
+                <input
+                  type="date"
+                  className="input"
+                  id="birthdate"
+                  placeholder="birthdate"
+                  {...register(`birthdate`)}
+                  defaultValue={data.birthdate}
+                />
+                <input
+                  type="text"
+                  className="input"
+                  id="location"
+                  placeholder="location"
+                  {...register(`location`)}
+                  defaultValue={data.location}
+                />
+
+                <input
+                  type="password"
+                  className="input"
+                  id="password"
+                  placeholder="password"
+                  {...register(`password`)}
+                />
+              </div>
+            </div>
+
+            <Button type="submit" className={'principal'} text={'UPDATE'} />
+          </form>
+        )
+      ) : null}
       {opinion && <div className="opinionsdata">OPINION</div>}
       {products && (
         <div className="productdata">
