@@ -88,25 +88,25 @@ const EditProductStyled = styled.main`
 const EditProduct = () => {
   let navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const { editProduct } = useContext(ProductContext);
-
+  const { productdeleted } = useContext(ProductContext);
+  const productoStorage = JSON.parse(localStorage.getItem('product'));
   const defaultsValue = {
-    title: editProduct.title,
-    owner: editProduct.owner,
-    image1: editProduct.image1,
-    image2: editProduct.image2,
-    image3: editProduct.image3,
-    description: editProduct.description,
-    category: editProduct.category,
-    condition: editProduct.condition,
-    status: editProduct.status,
+    title: productoStorage.title,
+    owner: productoStorage.owner,
+    image1: productoStorage.image1,
+    image2: productoStorage.image2,
+    image3: productoStorage.image3,
+    description: productoStorage.description,
+    category: productoStorage.category,
+    condition: productoStorage.condition,
+    status: productoStorage.status,
   };
-  const [showImage2, setShowImage2] = useState(editProduct.image3);
-  const [showImage3, setShowImage3] = useState(editProduct.image2);
-  const [showImage1, setShowImage1] = useState(editProduct.image1);
-  const [valueimg, setValueimg] = useState(editProduct.image1);
-  const [valueimg2, setValueimg2] = useState(editProduct.image2);
-  const [valueimg3, setValueimg3] = useState(editProduct.image3);
+  const [showImage3, setShowImage3] = useState(productoStorage.image3);
+  const [showImage2, setShowImage2] = useState(productoStorage.image2);
+  const [showImage1, setShowImage1] = useState(productoStorage.image1);
+  const [valueimg, setValueimg] = useState(productoStorage.image1);
+  const [valueimg2, setValueimg2] = useState(productoStorage.image2);
+  const [valueimg3, setValueimg3] = useState(productoStorage.image3);
   const onChangeimg1 = (e) => {
     setValueimg(e.target.files[0]);
     setShowImage1(URL.createObjectURL(e.target.files[0]));
@@ -131,9 +131,10 @@ const EditProduct = () => {
       condition: formData.condition,
       status: formData.status,
     };
-    API.patch(`/products/${editProduct._id}`, data, {
+    API.patch(`/products/${productoStorage._id}`, data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then(() => {
+      productdeleted();
       navigate('/profile');
     });
   };

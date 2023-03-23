@@ -89,8 +89,7 @@ const Profile = () => {
   let navigate = useNavigate();
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const { setEditProduct } = useContext(ProductContext);
-  const { user, setUser } = useContext(UserContext);
+
   const [editProfile, setEditProfile] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
@@ -261,7 +260,7 @@ const Profile = () => {
                     text="EDIT"
                     action={() => {
                       navigate('/editproduct');
-                      setEditProduct(item);
+                      productsaved(item);
                     }}
                   />
                 </div>
