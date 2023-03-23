@@ -14,3 +14,5 @@ const getAllProducts = () => {
   return <main></main>;
 };
  */
+import { useState } from 'react';
+useState();
