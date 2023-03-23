@@ -35,9 +35,10 @@ const ProductsStyled = styled.div`
     text-align: center;
   }
 `;
-const Categories = () => {
+const Products = () => {
   const { value } = useContext(UserContext);
   const [products, setProducts] = useState([]);
+  products;
   const [load, setLoad] = useState(false);
   load;
   const [filterProd, setFilterProd] = useState([]);
@@ -74,7 +75,7 @@ const Categories = () => {
   return (
     <main>
       <ProductsStyled>
-        {products.map((item) => {
+        {filterProd.map((item) => {
           return (
             <figure key={item._id} className="productscard">
               <img src={item.image1} alt={item.title} />
@@ -87,4 +88,3 @@ const Categories = () => {
   );
 };
 
-export default Categories;
