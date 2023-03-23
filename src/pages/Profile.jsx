@@ -118,6 +118,7 @@ const Profile = () => {
   const [products, setProducts] = useState(false);
   const [showAvatar, setShowAvatar] = useState(user.avatar);
   const [valueAvatar, SetValueAvatar] = useState(user.avatar);
+
   const onChangeAvatar = (e) => {
     SetValueAvatar(e.target.files[0]);
     setShowAvatar(URL.createObjectURL(e.target.files[0]));
@@ -127,8 +128,10 @@ const Profile = () => {
       setData(res.data);
       setLoaded(true);
       setUser(res.data);
+      console.log(res.data);
     });
   };
+
   const formSubmit = (formData) => {
     const updatedata = {
       name: formData.name,
@@ -197,7 +200,7 @@ const Profile = () => {
                 <h1>{data.name}</h1>
                 <h2>{data.lastname}</h2>
                 <h2>{data.email}</h2>
-                <h2>{data.birthdate}</h2>
+                <h2>{new Date(data.birthdate).toISOString().substr(0, 10)}</h2>
                 <h2>{data.location}</h2>
               </div>
             </div>
@@ -252,7 +255,7 @@ const Profile = () => {
                   id="birthdate"
                   placeholder="birthdate"
                   {...register(`birthdate`)}
-                  defaultValue={data.birthdate}
+                  defaultValue={new Date(data.birthdate).toISOString().substr(0, 10)}
                 />
                 <input
                   type="text"
@@ -269,6 +272,7 @@ const Profile = () => {
                   id="password"
                   placeholder="password"
                   {...register(`password`)}
+                  defaultValue={data.password}
                   // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
                 />
               </div>
