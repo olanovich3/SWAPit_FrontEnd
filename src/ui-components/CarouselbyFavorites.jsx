@@ -83,7 +83,6 @@ const CarouselByFavorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [sortedFavorites, setSortFavorites] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  setLoaded;
   const ref = useRef();
   const navigate = useNavigate();
 
@@ -93,8 +92,13 @@ const CarouselByFavorites = () => {
   const getProducts = () => {
     API.get('/products').then((res) => {
       setFavorites(res.data);
+      const sorted = favorites.sort((a, b) => {
+        const aLength = Object.keys(a.users).length;
+        const bLength = Object.keys(b.users).length;
+        return bLength - aLength;
+      });
       setLoaded(true);
-      sortFavorites();
+      setSortFavorites(sorted);
     });
   };
   const sortFavorites = () => {
@@ -106,9 +110,15 @@ const CarouselByFavorites = () => {
     setSortFavorites(sorted);
   };
   useEffect(() => {
+    if (sortedFavorites.length === 0) {
+      sortFavorites();
+    }
+  }, [favorites]);
+
+  useEffect(() => {
     getProducts();
+    sortFavorites();
   }, []);
-  console.log(favorites);
   return (
     <CarouselStyled className="carousel">
       <div className="carousel-head">
