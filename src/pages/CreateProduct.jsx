@@ -88,17 +88,15 @@ const CreateProduct = () => {
   const formSubmit = (formData) => {
     const data = {
       title: formData.title,
-      owner: formData.owner,
-      image: valueimg,
+      owner: user._id,
+      image1: valueimg,
       image2: valueimg2,
       image3: valueimg3,
       description: formData.description,
-      location: formData.location,
       category: formData.category,
       condition: formData.condition,
       status: formData.status,
     };
-    console.log(data);
     API.post('/products', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then(() => {
