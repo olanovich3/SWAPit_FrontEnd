@@ -89,7 +89,8 @@ const Profile = () => {
   let navigate = useNavigate();
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);
-
+  const { productsaved } = useContext(ProductContext);
+  const { user, setUser } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
