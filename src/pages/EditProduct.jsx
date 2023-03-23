@@ -101,8 +101,8 @@ const EditProduct = () => {
     condition: editProduct.condition,
     status: editProduct.status,
   };
-  const [showImage2, setShowImage2] = useState(editProduct.image3);
-  const [showImage3, setShowImage3] = useState(editProduct.image2);
+  const [showImage3, setShowImage3] = useState(editProduct.image3);
+  const [showImage2, setShowImage2] = useState(editProduct.image2);
   const [showImage1, setShowImage1] = useState(editProduct.image1);
   const [valueimg, setValueimg] = useState(editProduct.image1);
   const [valueimg2, setValueimg2] = useState(editProduct.image2);
