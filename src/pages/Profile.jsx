@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
+import Palette from '../styles/Palette';
 import Button from '../ui-components/Button';
 
 const ProfileStyled = styled.main`
@@ -50,7 +51,7 @@ const ProfileStyled = styled.main`
   & .profiledata {
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
     padding: 20px;
     width: 50%;
     height: 450px;
@@ -70,7 +71,8 @@ const ProfileStyled = styled.main`
   }
   & .profiledataimg img {
     height: 80%;
-    width: 70%;
+    width: 100%;
+    object-fit: cover;
     border-radius: 50%;
 
     padding: 2rem;
@@ -82,6 +84,25 @@ const ProfileStyled = styled.main`
     gap: 16px;
     width: 50%;
   }
+  & .inputfile {
+    display: none;
+  }
+  .inputfile + label {
+    cursor: pointer;
+    width: 100%;
+  }
+  & .buttonfile {
+    padding: 8px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .buttonfile:hover {
+    padding: 8px;
+    background-color: ${Palette.secondary};
+    color: ${Palette.background};
+  }
 `;
 
 const Profile = () => {
@@ -89,20 +110,26 @@ const Profile = () => {
   let navigate = useNavigate();
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const { setEditProduct } = useContext(ProductContext);
-  const { user } = useContext(UserContext);
+  const { productsaved } = useContext(ProductContext);
+  const { user, setUser } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
+  const [showAvatar, setShowAvatar] = useState(user.avatar);
+  const [valueAvatar, SetValueAvatar] = useState(user.avatar);
+  const onChangeAvatar = (e) => {
+    SetValueAvatar(e.target.files[0]);
+    setShowAvatar(URL.createObjectURL(e.target.files[0]));
+  };
   const getProfile = () => {
     API.get(`/users/${user._id}`).then((res) => {
       setData(res.data);
       setLoaded(true);
+      setUser(res.data);
     });
   };
   const formSubmit = (formData) => {
-    console.log(formData);
     const updatedata = {
       name: formData.name,
       lastname: formData.lastname,
@@ -111,14 +138,16 @@ const Profile = () => {
       location: formData.location,
       email: formData.email,
       password: formData.password,
-      avatar: formData.avatar[0],
+      avatar: valueAvatar,
     };
-    API.patch(`/users/${data._id}`, updatedata).then(() => {
+    API.patch(`/users/${data._id}`, updatedata, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then(() => {
       setEditProfile(false);
       getProfile();
     });
   };
-
+  //hola
   useEffect(() => {
     getProfile();
   }, [loaded]);
@@ -184,7 +213,10 @@ const Profile = () => {
                   id="avatar"
                   placeholder="avatar"
                   {...register(`avatar`)}
+                  onChange={onChangeAvatar}
                 />
+
+                <img src={showAvatar} alt="" />
                 <label htmlFor="avatar">
                   <nav className="buttonfile">Choose an avatar</nav>
                 </label>
@@ -237,6 +269,7 @@ const Profile = () => {
                   id="password"
                   placeholder="password"
                   {...register(`password`)}
+                  // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
                 />
               </div>
             </div>
@@ -259,7 +292,7 @@ const Profile = () => {
                     text="EDIT"
                     action={() => {
                       navigate('/editproduct');
-                      setEditProduct(item);
+                      productsaved(item);
                     }}
                   />
                 </div>
