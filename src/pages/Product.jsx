@@ -24,7 +24,7 @@ const ProductStyled = styled.div`
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
   & .prod-figure img {
-    height: 20rem;
+    height: 30rem;
     width: auto;
   }
   & .prod-figure a {
@@ -34,12 +34,26 @@ const ProductStyled = styled.div`
     text-transform: uppercase;
     font-weight: 500;
   }
+  & .imgbtns {
+    display: flex;
+    gap: 4rem;
+  }
+  & .imgbtns button {
+    border: none;
+    background: transparent;
+  }
+  & .imgbtns button:hover {
+    color: ${Palette.secondary};
+  }
 `;
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [showImage3, setShowImage3] = useState(false);
+  const [showImage2, setShowImage2] = useState(false);
+  const [showImage1, setShowImage1] = useState(true);
 
   const getProduct = () => {
     API.get(`/products/${id}`).then((res) => {
@@ -52,11 +66,50 @@ const Product = () => {
     getProduct();
   }, []);
 
+  const handlePrevImg = () => {
+    if (showImage3) {
+      setShowImage3(false);
+      setShowImage2(true);
+      setShowImage1(false);
+    } else if (showImage2) {
+      setShowImage3(false);
+      setShowImage2(false);
+      setShowImage1(true);
+    } else {
+      setShowImage3(true);
+      setShowImage2(false);
+      setShowImage1(false);
+    }
+  };
+  const handleNextImg = () => {
+    if (showImage1) {
+      setShowImage3(false);
+      setShowImage2(true);
+      setShowImage1(false);
+    } else if (showImage2) {
+      setShowImage3(true);
+      setShowImage2(false);
+      setShowImage1(false);
+    } else {
+      setShowImage3(false);
+      setShowImage2(false);
+      setShowImage1(true);
+    }
+  };
+
   return (
     <ProductStyled>
       {loaded ? (
         <div className="prod-figure" key={product._id}>
-          <img src={product.image1} alt={product.title} />
+          <div className="prod-imgs">
+            {showImage1 && <img src={product.image1} alt={product.title} />}
+            {showImage2 && <img src={product.image2} alt={product.title} />}
+            {showImage3 && <img src={product.image3} alt={product.title} />}
+          </div>
+          <div className="imgbtns">
+            <button onClick={handlePrevImg}>Previous</button>
+            <button onClick={handleNextImg}>Next</button>
+          </div>
           <h3>{product.title}</h3>
           <h4>{product.category}</h4>
           <h4>{product.condition} </h4>
