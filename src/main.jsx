@@ -17,6 +17,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Product from './pages/Product';
+import Products from './pages/Products';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 
@@ -34,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/createproduct" element={<CreateProduct />} />
                 <Route path="/editproduct" element={<EditProduct />} />

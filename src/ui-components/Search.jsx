@@ -20,7 +20,14 @@ const SearchStyled = styled.input`
       : ' 0 2rem'};
 `;
 
-const Search = ({ className, placeholder }) => {
-  return <SearchStyled className={className} placeholder={placeholder}></SearchStyled>;
+const Search = ({ className, placeholder, action, value }) => {
+  return (
+    <SearchStyled
+      value={value}
+      onChange={action}
+      className={className}
+      placeholder={placeholder}
+    ></SearchStyled>
+  );
 };
 export default Search;
