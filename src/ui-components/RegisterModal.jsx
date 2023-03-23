@@ -53,6 +53,7 @@ const RegisterStyled = styled.div`
     font-size: 0.9rem;
     padding: 8px 15px;
   }
+
   & .form-section {
     padding: 16px;
     font-size: 0.85rem;
@@ -122,10 +123,25 @@ const RegisterStyled = styled.div`
     font-size: 1rem;
     color: ${Palette.secondary};
   }
+  & .avatarimg {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  & .form-control {
+    position: relative;
+  }
 `;
 
 const RegisterModal = () => {
   const { register, handleSubmit } = useForm();
+  const [showAvatar, setShowAvatar] = useState(null);
+  const [valueAvatar, SetValueAvatar] = useState(null);
+  const onChangeAvatar = (e) => {
+    SetValueAvatar(e.target.files[0]);
+    setShowAvatar(URL.createObjectURL(e.target.files[0]));
+  };
   let navigate = useNavigate();
   const formSubmit = (formData) => {
     const data = {
@@ -136,7 +152,7 @@ const RegisterModal = () => {
       location: formData.location,
       email: formData.email,
       password: formData.password,
-      avatar: formData.avatar[0],
+      avatar: valueAvatar,
     };
     API.post('/users/register', data).then((res) => {
       setShowRegister(!showRegister);
@@ -145,10 +161,12 @@ const RegisterModal = () => {
     });
   };
   const { login } = useContext(UserContext);
+
   const formLoginSubmit = (formData) => {
+    console.log(formData);
     API.post('/users/login', formData).then((res) => {
       login(res.data.user, res.data.token);
-      console.log(formData);
+
       navigate('/');
     });
   };
@@ -229,26 +247,34 @@ const RegisterModal = () => {
               <h1 className="title">Sign up</h1>
               <span className="subtitle">Create a free account with your email.</span>
               <div className="form-container">
-                <input
-                  type="text"
-                  className="input"
-                  id="name"
-                  placeholder="name"
-                  {...register(`name`)}
-                />
-                <input
-                  type="text"
-                  className="input"
-                  id="lastname"
-                  placeholder="lastname"
-                  {...register(`lastname`)}
-                />
+                <div className="form-control">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    type="text"
+                    className="input"
+                    id="name"
+                    placeholder="Name"
+                    {...register(`name`)}
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <input
+                    type="text"
+                    className="input"
+                    id="lastname"
+                    placeholder="lastname"
+                    {...register(`lastname`)}
+                    required
+                  />
+                </div>
                 <input
                   type="text"
                   className="input"
                   id="gender"
                   placeholder="gender"
                   {...register(`gender`)}
+                  required
                 />
                 <input
                   type="date"
@@ -256,6 +282,7 @@ const RegisterModal = () => {
                   id="birthdate"
                   placeholder="birthdate"
                   {...register(`birthdate`)}
+                  required
                 />
                 <input
                   type="text"
@@ -263,6 +290,7 @@ const RegisterModal = () => {
                   id="location"
                   placeholder="location"
                   {...register(`location`)}
+                  required
                 />
                 <input
                   type="text"
@@ -270,6 +298,7 @@ const RegisterModal = () => {
                   id="email"
                   placeholder="email"
                   {...register(`email`)}
+                  required
                 />
                 <input
                   type="password"
@@ -277,6 +306,7 @@ const RegisterModal = () => {
                   id="password"
                   placeholder="password"
                   {...register(`password`)}
+                  required
                 />
 
                 <input
@@ -285,9 +315,13 @@ const RegisterModal = () => {
                   id="avatar"
                   placeholder="avatar"
                   {...register(`avatar`)}
+                  onChange={onChangeAvatar}
                 />
                 <label htmlFor="avatar">
                   <nav className="buttonfile">Choose an avatar</nav>
+                  {showAvatar != null && (
+                    <img className="avatarimg" src={showAvatar} alt="" />
+                  )}
                 </label>
               </div>
               <Button type="submit" className={'principal'} text={'Sign up'} />
