@@ -19,7 +19,7 @@ const CategoriesNavBarStyled = styled.div`
     gap: 1rem;
   }
   & .categoriebtns img {
-    height: 5rem;
+    height: 3rem;
     width: auto;
   }
 `;
@@ -61,7 +61,11 @@ const CategoriesNav = () => {
         />
         <p>Videogames</p>
       </button>
-      <button type="button" onClick={() => handleCategoryClick('appliances')}>
+      <button
+        type="button"
+        className="categoriebtns"
+        onClick={() => handleCategoryClick('appliances')}
+      >
         <img
           src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679410936/SWAPit/6020736_dvs8rj.png"
           alt="icon"

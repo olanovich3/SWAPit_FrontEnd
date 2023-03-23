@@ -71,15 +71,15 @@ const CarouselStyled = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     margin-top: 0.8rem;
     cursor: pointer;
-    border-radius: 5px;
     transition: 0.3s all ease-in-out;
+    border-radius: 5px;
   }
   & .recent-prods img:hover {
     transform: translateY(-10px);
   }
 `;
 
-const Carousel = () => {
+const CarouselUltimosProductos = () => {
   const [recentProd, setRecentProd] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const ref = useRef();
@@ -90,7 +90,10 @@ const Carousel = () => {
   };
   const getRecent = () => {
     API.get('/products').then((res) => {
-      setRecentProd(res.data);
+      const sortedProducts = res.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+      setRecentProd(sortedProducts);
       setLoaded(true);
     });
   };
@@ -102,7 +105,7 @@ const Carousel = () => {
   return (
     <CarouselStyled className="carousel">
       <div className="carousel-head">
-        <h2>All Products</h2>
+        <h2>Recent products</h2>
 
         <button
           onClick={() => {
@@ -140,4 +143,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default CarouselUltimosProductos;

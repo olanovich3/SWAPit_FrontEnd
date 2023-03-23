@@ -71,38 +71,48 @@ const CarouselStyled = styled.div`
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     margin-top: 0.8rem;
     cursor: pointer;
-    border-radius: 5px;
     transition: 0.3s all ease-in-out;
+    border-radius: 5px;
   }
   & .recent-prods img:hover {
     transform: translateY(-10px);
   }
 `;
 
-const Carousel = () => {
-  const [recentProd, setRecentProd] = useState([]);
+const CarouselByFavorites = () => {
+  const [favorites, setFavorites] = useState([]);
+  const [sortedFavorites, setSortFavorites] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  setLoaded;
   const ref = useRef();
   const navigate = useNavigate();
 
   const scroll = (offset) => {
     ref.current.scrollLeft += offset;
   };
-  const getRecent = () => {
+  const getProducts = () => {
     API.get('/products').then((res) => {
-      setRecentProd(res.data);
+      setFavorites(res.data);
       setLoaded(true);
+      sortFavorites();
     });
   };
-
+  const sortFavorites = () => {
+    const sorted = favorites.sort((a, b) => {
+      const aLength = Object.keys(a.users).length;
+      const bLength = Object.keys(b.users).length;
+      return bLength - aLength;
+    });
+    setSortFavorites(sorted);
+  };
   useEffect(() => {
-    getRecent();
+    getProducts();
   }, []);
-
+  console.log(favorites);
   return (
     <CarouselStyled className="carousel">
       <div className="carousel-head">
-        <h2>All Products</h2>
+        <h2>Most Popular</h2>
 
         <button
           onClick={() => {
@@ -122,7 +132,7 @@ const Carousel = () => {
         </button>
         <div className="recent-prods" ref={ref}>
           {loaded ? (
-            recentProd.map((prod) => (
+            sortedFavorites.map((prod) => (
               <img src={prod.image1} alt={prod.title} key={prod._id} />
             ))
           ) : (
@@ -140,4 +150,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default CarouselByFavorites;

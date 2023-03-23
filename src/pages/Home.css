@@ -1,19 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
-
 .home {
-  font-family: 'Manrope', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 4rem 14rem;
   gap: 0.5rem;
+  padding: 5rem 0;
 }
-
-h1,
-h2,
-h3,
-h4 {
-  color: black;
+.home h2 {
+  font-weight: 400;
+  padding: 0.5rem;
+  letter-spacing: 0.1rem;
 }
 
 .h-search {
