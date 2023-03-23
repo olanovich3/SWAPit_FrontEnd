@@ -34,8 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/product" element={<Product />} />
+                <Route path="/product/:id" element={<Product />} />
                 <Route path="/createproduct" element={<CreateProduct />} />
                 <Route path="/editproduct" element={<EditProduct />} />
                 <Route path="/chat" element={<Chat />} />

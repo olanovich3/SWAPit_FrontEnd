@@ -1,48 +1,48 @@
 import styled from 'styled-components';
-/* import { keyframes } from 'styled-components'; */
 
-/* const breatheAnimation = keyframes`
- 0% {
-      transform: rotate(0);
-      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-    }
- 50% {
-      transform: rotate(900deg);
-      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
- 100% { height: 100px; width: 100px; opacity: 0.6; }`; */
-
-const SpinnerStyled = styled.span`
-  width: 56px;
-  height: 56px;
-  display: grid;
-  border: 4.5px solid #0000;
+const SpinnerStyled = styled.div`
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border: 4px solid #444;
+  margin: calc(50vh - 28px) auto;
   border-radius: 50%;
-  border-color: #ff0000 #0000;
-  animation: spinner-e04l1k 1s infinite linear;
-  &::before,
-  &::after {
+  animation: spin 5s linear infinite;
+  position: relative;
+
+  &:before,
+  &:after {
     content: '';
-    grid-area: 1/1;
-    margin: 2.2px;
-    border: inherit;
-    border-radius: 50%;
-  }
-  &::before {
-    border-color: #ff0000 #0000;
-    animation: inherit;
-    animation-duration: 0.5s;
-    animation-direction: reverse;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-top: 4px solid #444;
+    border-right: 4px solid #444;
+    position: absolute;
+    top: 5px;
+    left: -5px;
+    box-shadow: 4px -4px 0 4px #fff;
   }
 
-  &::after {
-    margin: 8.9px;
+  &:after {
+    top: 39px;
+    left: 35px;
+    border: none;
+    border-bottom: 4px solid #444;
+    border-left: 4px solid #444;
+    box-shadow: -4px 4px 0 4px #fff;
   }
-  /*   @keyframes spinner-e04l1k {
-    100% {
-      transform: rotate(1turn);
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
     }
-  } */
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 const Spinner = () => {
