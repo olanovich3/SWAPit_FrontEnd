@@ -22,7 +22,7 @@ const Categories = () => {
   };
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [category]);
   return (
     <main>
       {!load ? (
