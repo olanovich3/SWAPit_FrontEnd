@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
@@ -77,10 +78,12 @@ const Products = () => {
       <ProductsStyled>
         {filterProd.map((item) => {
           return (
-            <figure key={item._id} className="productscard">
-              <img src={item.image1} alt={item.title} />
-              <h3>{item.title}</h3>
-            </figure>
+            <Link to={item._id} key={item._id}>
+              <figure key={item._id} className="productscard">
+                <img src={item.image1} alt={item.title} />
+                <h3>{item.title}</h3>
+              </figure>
+            </Link>
           );
         })}
       </ProductsStyled>

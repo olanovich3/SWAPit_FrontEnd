@@ -17,6 +17,11 @@ const HeaderStyled = styled.header`
     height: 2rem;
     width: auto;
   }
+  .mainLogo {
+    font-family: 'Caveat Brush', cursive;
+    color: #07689f;
+    font-size: 3.2rem;
+  }
   & .headerNav {
     display: flex;
     justify-content: center;
