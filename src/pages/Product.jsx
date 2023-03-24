@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import Spinner from '../ui-components/Spinner';
@@ -75,9 +75,7 @@ const ProductStyled = styled.div`
   & .container input:checked ~ .checkmark {
     animation: like_effect 400ms ease;
   }
-  & .container:hover {
-    transform: scale(1.1);
-  }
+
   @keyframes like_effect {
     0% {
       transform: scale(0);
@@ -103,38 +101,35 @@ const ProductStyled = styled.div`
 `;
 
 const Product = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
-  /*   const [favorite, setFavorite] = useState([]); */
+
 
   const getProduct = () => {
-    API.get(`/products/${id}`).then((res) => {
+    API.get(`/products/${producto}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
     });
   };
 
-  /*  const addFavorite = () => {
-    API.put(`/favorites/${id}`).then((res) => {
-      setLoaded(true);
-      setFavorite(res.data);
-    });
-  };
-
-  const removeFavorite = () => {
-    API.patch(`/favorites/${id}`).then((res) => {
-      setLoaded(true);
-      setFavorite(res.data);
-    });
-  }; */
-
   useEffect(() => {
     getProduct();
   }, []);
+
+  const addFavorite = (product) => {
+    API.put(`/favorites/${product._id}`).then(() => {
+      setFavorite(product._id);
+    });
+  };
+
+  const removeFavorite = (product) => {
+    API.patch(`/favorites/${product._id}`).then(() => {
+      setFavorite(product._id);
+    });
+  };
 
   const handlePrevImg = () => {
     if (showImage3) {
@@ -151,6 +146,7 @@ const Product = () => {
       setShowImage1(false);
     }
   };
+
   const handleNextImg = () => {
     if (showImage1) {
       setShowImage3(false);
@@ -169,19 +165,18 @@ const Product = () => {
 
   return (
     <ProductStyled>
-      {/* {product.owner !== localStorage.getItem('user') ? (
+      {
         <label className="container">
           <input
             type="checkbox"
             className="heart"
             onChange={() => {
-              if (favorite.includes(id)) {
-                removeFavorite();
+              if (user.favorites.includes(product)) {
+                addFavorite(favorite);
               } else {
-                addFavorite();
+                removeFavorite(favorite);
               }
             }}
-            checked={favorite.includes(id)}
           />
           <div className="checkmark">
             <svg viewBox="0 0 256 256">
@@ -195,9 +190,7 @@ const Product = () => {
             </svg>
           </div>
         </label>
-      ) : (
-        <h4>You cant add this product to favorites.</h4>
-      )} */}
+      }
       {loaded ? (
         <div className="prod-figure" key={product._id}>
           <div className="prod-imgs">
@@ -214,7 +207,8 @@ const Product = () => {
           <h4>{product.condition} </h4>
           <h4> {product.status}</h4>
           <p>{product.description}</p>
-          <NavLink to="/chat">Contact {product.owner}</NavLink>
+          <p>Contact: {product.owner.name}</p>
+          <p>Location: {product.owner.location}</p>
         </div>
       ) : (
         <Spinner />
