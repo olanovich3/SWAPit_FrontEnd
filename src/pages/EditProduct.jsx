@@ -38,6 +38,7 @@ const EditProductStyled = styled.main`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: 1rem;
     width: 100%;
     height: 100%;
   }
@@ -82,6 +83,11 @@ const EditProductStyled = styled.main`
     padding: 8px;
     background-color: ${Palette.secondary};
     color: ${Palette.background};
+  }
+  &.buttons {
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
   }
 `;
 
@@ -135,6 +141,11 @@ const EditProduct = () => {
       headers: { 'Content-Type': 'multipart/form-data' },
     }).then(() => {
       productdeleted();
+      navigate('/profile');
+    });
+  };
+  const deleteProduct = () => {
+    API.delete(`/products/${productoStorage._id}`).then(() => {
       navigate('/profile');
     });
   };
@@ -238,8 +249,8 @@ const EditProduct = () => {
               </label>
             </div>
           </div>
-
-          <Button type="submit" text="EDIT PRODUCT" />
+          <Button type="submit" text="SAVE EDITS" />
+          <Button action={deleteProduct} text="DELETE PRODUCT"></Button>
         </form>
       </div>
     </EditProductStyled>

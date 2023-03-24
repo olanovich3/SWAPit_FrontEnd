@@ -109,7 +109,7 @@ const Product = () => {
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
-/*   const [favorite, setFavorite] = useState([]); */
+  /*   const [favorite, setFavorite] = useState([]); */
 
   const getProduct = () => {
     API.get(`/products/${id}`).then((res) => {
