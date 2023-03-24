@@ -15,16 +15,16 @@ function About() {
           </header>
           <div className="hero-images">
             <div className="avatar">
-                <img
-                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679441981/Mery_gp0vyy.png"
-                  alt=""
-                />
+              <img
+                src="https://res.cloudinary.com/damtbzspb/image/upload/v1679441981/Mery_gp0vyy.png"
+                alt=""
+              />
             </div>
             <div className="auricular">
-                <img
-                  src="https://i0.wp.com/about.wallapop.com/wp-content/uploads/2021/07/hero-brand-2-768x643.jpg?fit=768%2C643&amp;ssl=1"
-                  alt=""
-                />
+              <img
+                src="https://i0.wp.com/about.wallapop.com/wp-content/uploads/2021/07/hero-brand-2-768x643.jpg?fit=768%2C643&amp;ssl=1"
+                alt=""
+              />
             </div>
             <div className="boy">
               <img
@@ -68,12 +68,12 @@ function About() {
               caben 15.000.000. Y <strong>tú</strong>, también.
             </h2>
           </header>
-              <div className="cifra">+15 millones</div>
-              <div className="body-copy">de Swapers</div>
-              <div className="cifra">180 millones</div>
-              <div className="body-copy">de productos subidos</div>
-              <div className="cifra">Muchos miles</div>
-              <div className="body-copy">de encuentros</div>
+          <div className="cifra">+15 millones</div>
+          <div className="body-copy">de Swapers</div>
+          <div className="cifra">180 millones</div>
+          <div className="body-copy">de productos subidos</div>
+          <div className="cifra">Muchos miles</div>
+          <div className="body-copy">de encuentros</div>
         </section>
         <section className="about__categories">
           <header>
@@ -89,84 +89,82 @@ function About() {
 
           <div className="categories">
             <div className="box-1">
-                <a className="Movies, Books & Music">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679660529/books-movies-music_t60r4r.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Movies, Books & Music</h4>
-                </a>
+              <a className="Movies, Books & Music">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679660529/books-movies-music_t60r4r.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Movies, Books & Music</h4>
+              </a>
 
-                <a className="Videogames">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679660642/OIP_uyj8x2.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Videogames</h4>
-                </a>
+              <a className="Videogames">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679660642/OIP_uyj8x2.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Videogames</h4>
+              </a>
 
-                <a className="Appliances">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661390/1486144529home-appliances-png-simple_ke3mwu.png"
-                    alt=""
-                  />
-                  <h4 className="h4">Appliances</h4>
-                </a>
+              <a className="Appliances">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661390/1486144529home-appliances-png-simple_ke3mwu.png"
+                  alt=""
+                />
+                <h4 className="h4">Appliances</h4>
+              </a>
 
-                <a className="Electronic">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661496/OIP_sfrfyn.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Electronic</h4>
-                </a>
+              <a className="Electronic">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661496/OIP_sfrfyn.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Electronic</h4>
+              </a>
 
-                <a className="Sports&Leissure">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661542/983-9832325_sport-clipart-clear-background-school-sports-logo-png_cody3l.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Sports&Leissure</h4>
-                </a>
+              <a className="Sports&Leissure">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661542/983-9832325_sport-clipart-clear-background-school-sports-logo-png_cody3l.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Sports&Leissure</h4>
+              </a>
 
-                <a className="Home">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661607/download_goqpu6.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Home</h4>
-                </a>
+              <a className="Home">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661607/download_goqpu6.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Home</h4>
+              </a>
 
-                <a className="Other">
-                  <Link to="/Mi enlace">Mi enlace</Link>
-                  <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661650/OIP_az8a8t.jpg"
-                    alt=""
-                  />
-                  <h4 className="h4">Other</h4>
-                </a>
-             </div>
-           </div>
+              <a className="Other">
+                <Link to="/Mi enlace">Mi enlace</Link>
+                <img
+                  src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661650/OIP_az8a8t.jpg"
+                  alt=""
+                />
+                <h4 className="h4">Other</h4>
+              </a>
+            </div>
+          </div>
         </section>
 
         <section className="about__trabajar">
-            <h2>
-              ¿Te gustaría
-              <br />
-              <strong>trabajar</strong> en
-              <br />
-              Swap It?
-            </h2>
-
-            <Link to="/Trabaja con nosotros"></Link>
-              ¡Hagamos match!{' '}
-
+          <h2>
+            ¿Te gustaría
+            <br />
+            <strong>trabajar</strong> en
+            <br />
+            Swap It?
+          </h2>
+          <Link to="/Trabaja con nosotros"></Link>
+          ¡Hagamos match!{' '}
           <div className="Finish">
             <img
               src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661734/OIP_kjhtmw.jpg"

@@ -15,6 +15,7 @@ const CarouselStyled = styled.div`
   margin: 2rem auto;
   margin-top: 5rem;
   margin-bottom: 8rem;
+  background-color: none;
   & .carousel-head {
     display: flex;
     align-items: center;
@@ -125,7 +126,7 @@ const Carousel = () => {
         <div className="recent-prods" ref={ref}>
           {loaded ? (
             recentProd.map((prod) => (
-              <Link to={prod._id} key={prod._id}>
+              <Link to={`/product/${prod._id}`} key={prod._id}>
                 <img src={prod.image1} alt={prod.title} />
               </Link>
             ))

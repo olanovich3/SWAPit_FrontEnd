@@ -34,6 +34,8 @@ const FooterStyled = styled.footer`
     color: #505050;
     font-size: 13px;
   }
+  & .aboutNav {
+  }
 `;
 
 const Footer = () => {

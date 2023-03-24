@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+/* import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
@@ -106,7 +106,6 @@ const Product = () => {
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
-
 
   const getProduct = () => {
     API.get(`/products/${producto}`).then((res) => {
@@ -218,3 +217,4 @@ const Product = () => {
 };
 
 export default Product;
+ */
