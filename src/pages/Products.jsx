@@ -39,6 +39,7 @@ const Products = () => {
   const { value } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [load, setLoad] = useState(false);
+  products;
   load;
   const [filterProd, setFilterProd] = useState([]);
   const getProducts = () => {
@@ -74,7 +75,7 @@ const Products = () => {
   return (
     <main>
       <ProductsStyled>
-        {products.map((item) => {
+        {filterProd.map((item) => {
           return (
             <figure key={item._id} className="productscard">
               <img src={item.image1} alt={item.title} />
