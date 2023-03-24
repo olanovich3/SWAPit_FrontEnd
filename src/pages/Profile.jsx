@@ -299,8 +299,7 @@ const Profile = () => {
                     id="password"
                     placeholder="password"
                     {...register(`password`)}
-
-                    // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                    pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
                   />
                 )}
               </div>
