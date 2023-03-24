@@ -144,17 +144,17 @@ const EditProduct = () => {
         <form className="form" onSubmit={handleSubmit(formSubmit)}>
           <div className="editproductimgdata">
             <div className="editproductimg">
-              {defaultsValue.image1 != null && (
+              {valueimg != null && (
                 <>
                   <img className="img1" src={showImage1} alt="" />
                 </>
               )}
-              {defaultsValue.image2 != null && (
+              {valueimg2 != null && (
                 <>
                   <img className="img2" src={showImage2} alt="" />
                 </>
               )}
-              {defaultsValue.image3 != null && (
+              {valueimg3 != null && (
                 <>
                   <img className="img3" src={showImage3} alt="" />
                 </>
