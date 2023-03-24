@@ -216,92 +216,153 @@ function About() {
 }
 
 const AboutContainer = styled.div`
-  .Hero {
-    /* Estilos para la sección de hero */
-    header {
-      /* Estilos para el header de la sección de hero */
-      .h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        line-height: 1.2;
-        color: #111827;
-        strong {
-          color: #22d3ee;
+  .Container {
+    .Hero {
+      header {
+        .h1 {
+          font-size: 4.5rem;
+          font-weight: 700;
+          margin: 0;
+          margin-bottom: 2rem;
+
+          strong {
+            font-weight: 900;
+          }
         }
       }
-    }
-    .hero-images {
-      margin-top: 2.5rem;
-      @media (min-width: 640px) {
-        margin-top: 3rem;
-      }
-      @media (min-width: 768px) {
-        margin-top: 4rem;
-      }
-      @media (min-width: 1280px) {
-        margin-top: 5rem;
-      }
-      .flex {
+
+      .hero-images {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        @media (min-width: 640px) {
-          justify-content: flex-start;
-        }
+        margin-top: 4rem;
+
         .small-image {
-          @media (min-width: 640px) {
-            justify-content: flex-start;
-          }
-          .rounded-wp {
-            @media (min-width: 640px) {
-              justify-content: flex-start;
-            }
-          }
-        }
-      }
-    }
-  }
+          margin-bottom: 1rem;
+          width: 100%;
 
-  .Historia {
-    /* Estilos para la sección de historia */
-    header {
-      /* Estilos para el header de la sección de historia */
-      .h5 {
-        /* Estilos para el subtítulo */
-      }
-      .h2 {
-        /* Estilos para el título principal */
-        strong {
-          /* Estilos para la parte en negrita del título */
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+          }
         }
-      }
-    }
-    .body-copy {
-      /* Estilos para el contenido de la sección */
-      p {
-        /* Estilos para los párrafos */
-      }
-    }
-  }
 
-  .about__cifras {
-    /* Estilos para la sección de cifras */
-    header {
-      /* Estilos para el header de la sección de cifras */
-      .h2 {
-        /* Estilos para el título principal */
-        strong {
-          /* Estilos para la parte en negrita del título */
+        .flex {
+          & > * {
+            flex: 1 1 0;
+          }
+        }
+
+        .sm\\:w-2\\/5 {
+          width: 40%;
+        }
+
+        .sm\\:w-3\\/5 {
+          width: 60%;
+        }
+
+        .mt-10 {
+          margin-top: 2.5rem;
+        }
+
+        .sm\\:mt-12 {
+          margin-top: 3rem;
+        }
+
+        .md\\:mt-16 {
+          margin-top: 4rem;
+        }
+
+        .xl\\:mt-20 {
+          margin-top: 5rem;
         }
       }
     }
-    .cifra {
-      /* Estilos para el número de la cifra */
+
+    .Historia {
+      header {
+        .h5 {
+          font-size: 1.125rem;
+          font-weight: 700;
+          margin: 0;
+          margin-bottom: 1rem;
+        }
+
+        .h2 {
+          font-size: 3rem;
+          font-weight: 700;
+          margin: 0;
+          margin-bottom: 2rem;
+
+          strong {
+            font-weight: 900;
+          }
+        }
+      }
+
+      .body-copy {
+        font-size: 1.125rem;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        line-height: 1.5;
+      }
     }
-    .body-copy {
-      /* Estilos para la descripción de la cifra */
-    }
-  }
-`;
+
+    .about__cifras {
+      header {
+        .h2 {
+          font-size: 3rem;
+          font-weight: 700;
+          margin: 0;
+          margin-bottom: 2rem;
+
+          strong {
+            font-weight: 900;
+          }
+        }
+      }
+
+      .cifra {
+        font-size: 4rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .body-copy {
+        font-size: 1.125rem;
+        margin-top: 0.5rem;
+        margin-bottom: 3rem;
+        line-height: 1.5;
+      }
+
+      .sm\\:items-end {
+        align-items: flex-end;
+      }
+
+      .sm\\:w-1\\/3 {
+        width: 33.33%;
+      }
+
+      .mt-14 {
+        margin-top: 3.5rem;
+      }
+
+      .sm\\:mt-0 {
+        margin-top: 0;
+      }
+
+      .sm\\:mt-0:not(:first-of-type) {
+        margin-left: 6%;
+      }
+
+      .sm\\:mt-0:nth-child(3n+1) {
+        margin-left: 0;
+      }
+
+      .xl\\:mt-32 {
+        margin-top: 8rem;
+      }
+    `;
 
 export default About;
