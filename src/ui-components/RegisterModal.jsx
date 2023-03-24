@@ -154,7 +154,10 @@ const RegisterModal = () => {
       password: formData.password,
       avatar: valueAvatar,
     };
-    API.post('/users/register', data).then((res) => {
+
+    API.post('/users/register', data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then((res) => {
       setShowRegister(!showRegister);
       navigate('/');
       login(res.data.user, res.data.token);
