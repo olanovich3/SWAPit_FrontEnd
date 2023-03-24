@@ -51,6 +51,7 @@ const Header = () => {
           src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
           alt="Swapit logo"
         />
+        {/* <h1 className="mainLogo">Swap it</h1> */}
       </NavLink>
       <div className="headerNav">
         {user && (

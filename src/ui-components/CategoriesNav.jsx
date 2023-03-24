@@ -17,10 +17,17 @@ const CategoriesNavBarStyled = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    cursor: pointer;
+  }
+  & .categoriebtns:focus {
   }
   & .categoriebtns img {
     height: 3rem;
     width: auto;
+    transition: all 0.2s ease-in-out;
+  }
+  & .categoriebtns img:hover {
+    transform: scale(1.5);
   }
 `;
 

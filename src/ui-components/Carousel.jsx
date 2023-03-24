@@ -13,6 +13,8 @@ const CarouselStyled = styled.div`
   gap: 1rem;
   border: none;
   margin: 2rem auto;
+  margin-top: 5rem;
+  margin-bottom: 8rem;
   & .carousel-head {
     display: flex;
     align-items: center;
