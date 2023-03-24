@@ -107,18 +107,38 @@ const ProfileStyled = styled.main`
     display: flex;
     gap: 2rem;
   }
+  & .comment {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    width: 650px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+
+    gap: 1.5rem;
+  }
+  & .comment img {
+    height: 80%;
+    width: 20%;
+  }
+  & .commentarist {
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 const Profile = () => {
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
   const [data, setData] = useState({});
+  const [comments, setComments] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const { productsaved } = useContext(ProductContext);
   const { user, setUser, logout } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  console.log(editProfile);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
@@ -134,6 +154,11 @@ const Profile = () => {
       setData(res.data);
       setLoaded(true);
       setUser(res.data);
+    });
+  };
+  const getComments = () => {
+    API.get(`/user/comments/${user._id}`).then((res) => {
+      setComments(res.data);
     });
   };
 
@@ -163,6 +188,7 @@ const Profile = () => {
 
   useEffect(() => {
     getProfile();
+    getComments();
   }, [loaded]);
 
   return (
@@ -288,8 +314,10 @@ const Profile = () => {
                   {...register(`location`)}
                   defaultValue={data.location}
                 />
+
                 <Button
                   text="Change Password"
+                  type="button"
                   action={() => setShowPassword(!showPassword)}
                 />
                 {showPassword && (
@@ -309,7 +337,25 @@ const Profile = () => {
           </form>
         )
       ) : null}
-      {opinion && <div className="opinionsdata">OPINION</div>}
+      {opinion && (
+        <div className="opinionsdata">
+          {comments !=
+            null(
+              <div className="comment">
+                {/* <img src={comments[0].product.image1} alt="" /> */}
+
+                <nav>
+                  <div className="commentarist">
+                    <h2>{comments[0].userfrom.name}</h2>
+                    <h2>{comments[0].userfrom.lastname}</h2>
+                  </div>
+
+                  <p>{comments[0].comment}</p>
+                </nav>
+              </div>,
+            )}
+        </div>
+      )}
       {products && (
         <div className="productdata">
           {data.products.map((item) => {
