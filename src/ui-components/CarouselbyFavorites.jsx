@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API } from '../services/API';
@@ -144,7 +145,9 @@ const CarouselByFavorites = () => {
         <div className="recent-prods" ref={ref}>
           {loaded ? (
             sortedFavorites.map((prod) => (
-              <img src={prod.image1} alt={prod.title} key={prod._id} />
+              <Link key={prod._id} to={prod._id}>
+                <img src={prod.image1} alt={prod.title} />{' '}
+              </Link>
             ))
           ) : (
             <Spinner />

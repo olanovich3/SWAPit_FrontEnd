@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Palette from '../styles/Palette';
@@ -43,13 +44,15 @@ const CategoryCardStyled = styled.div`
 const CategoryCard = ({ category }) => {
   return (
     <CategoryCardStyled category>
-      <div className="catcard">
-        <figure>
-          <img src={category.image1} alt={category.title} />
-          <h3>{category.title}</h3>
-          <p>{category.description}</p>
-        </figure>
-      </div>
+      <Link to={category._id}>
+        <div className="catcard">
+          <figure>
+            <img src={category.image1} alt={category.title} />
+            <h3>{category.title}</h3>
+            <p>{category.description}</p>
+          </figure>
+        </div>
+      </Link>
     </CategoryCardStyled>
   );
 };

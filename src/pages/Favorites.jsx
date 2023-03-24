@@ -5,7 +5,7 @@ import { API } from '../services/API';
 import DivFlex from '../ui-components/DivFlex';
 
 const Favorites = () => {
-  const [fav, setFav] = useState();
+  const [setFav] = useState();
   const { user } = useContext(UserContext);
   const getFavorites = () => {
     API.get(`/users/${user._id}`).then((res) => {

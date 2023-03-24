@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API } from '../services/API';
@@ -127,7 +127,9 @@ const CarouselUltimosProductos = () => {
         <div className="recent-prods" ref={ref}>
           {loaded ? (
             recentProd.map((prod) => (
-              <img src={prod.image1} alt={prod.title} key={prod._id} />
+              <Link key={prod._id} to={prod._id}>
+                <img src={prod.image1} alt={prod.title} key={prod._id} />{' '}
+              </Link>
             ))
           ) : (
             <Spinner />
