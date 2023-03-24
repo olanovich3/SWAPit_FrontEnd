@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
-
+import Spinner from '../ui-components/Spinner';
 const ProductsStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -39,8 +39,7 @@ const Products = () => {
   const { value } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   products;
-  const [load, setLoad] = useState(false);
-  load;
+  const [loaded, setLoaded] = useState(false);
   const [filterProd, setFilterProd] = useState([]);
   const getProducts = () => {
     API.get('/products').then((res) => {
@@ -48,7 +47,7 @@ const Products = () => {
       setFilterProd(res.data);
       localStorage.setItem('products', JSON.stringify(res.data));
       filterProducts(value);
-      setLoad(true);
+      setLoaded(true);
       if (!value) {
         return [];
       }
@@ -75,14 +74,18 @@ const Products = () => {
   return (
     <main>
       <ProductsStyled>
-        {filterProd.map((item) => {
-          return (
-            <figure key={item._id} className="productscard">
-              <img src={item.image1} alt={item.title} />
-              <h3>{item.title}</h3>
-            </figure>
-          );
-        })}
+        {loaded ? (
+          filterProd.map((item) => {
+            return (
+              <figure key={item._id} className="productscard">
+                <img src={item.image1} alt={item.title} />
+                <h3>{item.title}</h3>
+              </figure>
+            );
+          })
+        ) : (
+          <Spinner />
+        )}
       </ProductsStyled>
     </main>
   );
