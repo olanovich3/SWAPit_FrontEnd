@@ -133,7 +133,7 @@ const Profile = () => {
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
   const [data, setData] = useState({});
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState({});
   const [loaded, setLoaded] = useState(false);
   const { productsaved } = useContext(ProductContext);
   const { user, setUser, logout } = useContext(UserContext);
@@ -161,6 +161,7 @@ const Profile = () => {
       setComments(res.data);
     });
   };
+  console.log(comments);
 
   const formSubmit = (formData) => {
     const updatedata = {
@@ -337,25 +338,26 @@ const Profile = () => {
           </form>
         )
       ) : null}
-      {opinion && (
+      {opinion && <h1>reviews</h1>}
+
+      {/*       
+      comments.length ? (
         <div className="opinionsdata">
-          {comments !=
-            null(
-              <div className="comment">
-                {/* <img src={comments[0].product.image1} alt="" /> */}
+          <div className="comment">
+            <img src={comments[0].product.image1} alt="" />
 
-                <nav>
-                  <div className="commentarist">
-                    <h2>{comments[0].userfrom.name}</h2>
-                    <h2>{comments[0].userfrom.lastname}</h2>
-                  </div>
+            <nav>
+              <div className="commentarist">
+                <h2>{comments[0].userfrom.name}</h2>
+                <h2>{comments[0].userfrom.lastname}</h2>
+              </div>
 
-                  <p>{comments[0].comment}</p>
-                </nav>
-              </div>,
-            )}
+              <p>{comments[0].comment}</p>
+            </nav>
+          </div>
         </div>
-      )}
+      ) 
+      ) */}
       {products && (
         <div className="productdata">
           {data.products.map((item) => {
