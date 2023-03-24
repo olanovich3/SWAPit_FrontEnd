@@ -118,7 +118,7 @@ const CarouselUltimosProductos = () => {
       </div>
 
       <div className="scroll-container">
-        <button className="prev" onClick={() => scroll(-1000)}>
+        <button className="prev" onClick={() => scroll(-215)}>
           <img
             src="https://res.cloudinary.com/dnb4ujbgr/image/upload/v1676822765/Giphy/svg_xml_base64_PHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMTUgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiPjxnIHRyYW5zZm9ybT0idHJhbnN_afv3jd.svg"
             alt="prev icon"
@@ -135,7 +135,7 @@ const CarouselUltimosProductos = () => {
             <Spinner />
           )}
         </div>
-        <button className="next" onClick={() => scroll(1000)}>
+        <button className="next" onClick={() => scroll(215)}>
           <img
             src="https://res.cloudinary.com/dnb4ujbgr/image/upload/v1676822765/Giphy/svg_xml_base64_PHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMTUgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiPjxnIHRyYW5zZm9ybT0idHJhbnN_afv3jd.svg"
             alt="next icon"
