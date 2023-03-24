@@ -179,7 +179,6 @@ const RegisterModal = () => {
   const { login } = useContext(UserContext);
 
   const formLoginSubmit = (formData) => {
-    console.log(formData);
     API.post('/users/login', formData).then((res) => {
       login(res.data.user, res.data.token);
 
@@ -232,22 +231,26 @@ const RegisterModal = () => {
                     name="password"
                     {...register('password')}
                   />
-                  <button className="passwordeye" onClick={toggleShowPassword}>
-                    {showPassword ? (
-                      <img
-                        className="passwordimg"
-                        src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_1_zgm7ud.png"
-                        alt="Password shown"
-                      />
-                    ) : (
-                      <img
-                        className="passwordimg"
-                        src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_trum0j.png"
-                        alt="Password hidden"
-                      />
-                    )}
-                  </button>
                 </div>
+                <button
+                  className="passwordeye"
+                  type="button"
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_1_zgm7ud.png"
+                      alt="Password shown"
+                    />
+                  ) : (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_trum0j.png"
+                      alt="Password hidden"
+                    />
+                  )}
+                </button>
                 <Button text={'Log in'} type="submit" />
               </form>
               <span className="registerModal">
@@ -341,7 +344,11 @@ const RegisterModal = () => {
                   {...register(`password`)}
                   required
                 />
-                <button className="passwordeye" onClick={toggleShowPassword}>
+                <button
+                  className="passwordeye"
+                  type="button"
+                  onClick={toggleShowPassword}
+                >
                   {showPassword ? (
                     <img
                       className="passwordimg"
