@@ -13,6 +13,7 @@ import Categories from './pages/Categories';
 import Chat from './pages/Chat';
 import CreateProduct from './pages/CreateProduct';
 import EditProduct from './pages/EditProduct';
+import Favorites from './pages/Favorites';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -39,6 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/createproduct" element={<CreateProduct />} />
                 <Route path="/editproduct" element={<EditProduct />} />
+                <Route path="/:user" element={<Favorites />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="*" element={<NotFound />} />
               </Route>

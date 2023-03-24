@@ -34,12 +34,12 @@ const Home = () => {
           value={searchValue}
           action={handleInputChange}
           className={'categories'}
-          placeholder={'🔍 Search in all categories'}
+          placeholder={' Search in all categories'}
         ></Search>
         <Button action={handleSearch} text={'Search'}></Button>
       </div>
-      <DivFlex direction={'column'} gap={'2rem'} padding={'3rem 0'}>
-        <h2>Discover</h2>
+      <DivFlex direction={'column'} gap={'2rem'} padding={'2rem 0'}>
+        <h2>Discover our categories</h2>
       </DivFlex>
       <CategoriesNav />
       <div>
