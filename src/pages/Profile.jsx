@@ -103,16 +103,42 @@ const ProfileStyled = styled.main`
     background-color: ${Palette.secondary};
     color: ${Palette.background};
   }
+  & .buttoneditdelete {
+    display: flex;
+    gap: 2rem;
+  }
+  & .comment {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    width: 650px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+
+    gap: 1.5rem;
+  }
+  & .comment img {
+    height: 80%;
+    width: 20%;
+  }
+  & .commentarist {
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 const Profile = () => {
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
   const [data, setData] = useState({});
+  const [comments, setComments] = useState({});
   const [loaded, setLoaded] = useState(false);
   const { productsaved } = useContext(ProductContext);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, logout } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
@@ -128,9 +154,14 @@ const Profile = () => {
       setData(res.data);
       setLoaded(true);
       setUser(res.data);
-      console.log(res.data);
     });
   };
+  const getComments = () => {
+    API.get(`/user/comments/${user._id}`).then((res) => {
+      setComments(res.data);
+    });
+  };
+  console.log(comments);
 
   const formSubmit = (formData) => {
     const updatedata = {
@@ -150,9 +181,15 @@ const Profile = () => {
       getProfile();
     });
   };
-  //hola
+  const deleteUser = (user) => {
+    API.delete(`/users/${user._id}`).then(() => {
+      logout();
+    });
+  };
+
   useEffect(() => {
     getProfile();
+    getComments();
   }, [loaded]);
 
   return (
@@ -204,7 +241,20 @@ const Profile = () => {
                 <h2>{data.location}</h2>
               </div>
             </div>
-            <Button text="EDIT" action={() => setEditProfile(true)} />
+            <nav className="buttoneditdelete">
+              <Button
+                className={'principal'}
+                text="EDIT"
+                action={() => setEditProfile(true)}
+              />
+              <Button
+                className={'principal'}
+                text="DELETE"
+                action={() => {
+                  deleteUser(data);
+                }}
+              />
+            </nav>
           </div>
         ) : (
           <form className="profiledata" onSubmit={handleSubmit(formSubmit)}>
@@ -266,15 +316,21 @@ const Profile = () => {
                   defaultValue={data.location}
                 />
 
-                <input
-                  type="password"
-                  className="input"
-                  id="password"
-                  placeholder="password"
-                  {...register(`password`)}
-                  defaultValue={data.password}
-                  // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                <Button
+                  text="Change Password"
+                  type="button"
+                  action={() => setShowPassword(!showPassword)}
                 />
+                {showPassword && (
+                  <input
+                    type="password"
+                    className="input"
+                    id="password"
+                    placeholder="password"
+                    {...register(`password`)}
+                    pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                  />
+                )}
               </div>
             </div>
 
@@ -282,7 +338,26 @@ const Profile = () => {
           </form>
         )
       ) : null}
-      {opinion && <div className="opinionsdata">OPINION</div>}
+      {opinion && <h1>reviews</h1>}
+
+      {/*       
+      comments.length ? (
+        <div className="opinionsdata">
+          <div className="comment">
+            <img src={comments[0].product.image1} alt="" />
+
+            <nav>
+              <div className="commentarist">
+                <h2>{comments[0].userfrom.name}</h2>
+                <h2>{comments[0].userfrom.lastname}</h2>
+              </div>
+
+              <p>{comments[0].comment}</p>
+            </nav>
+          </div>
+        </div>
+      ) 
+      ) */}
       {products && (
         <div className="productdata">
           {data.products.map((item) => {

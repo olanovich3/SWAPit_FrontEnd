@@ -17,6 +17,11 @@ const HeaderStyled = styled.header`
     height: 2rem;
     width: auto;
   }
+  .mainLogo {
+    font-family: 'Caveat Brush', cursive;
+    color: #07689f;
+    font-size: 3.2rem;
+  }
   & .headerNav {
     display: flex;
     justify-content: center;
@@ -47,11 +52,11 @@ const Header = () => {
   return (
     <HeaderStyled>
       <NavLink className="swapitlogo" to="/">
-        <img
+        {/* <img
           src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
           alt="Swapit logo"
-        />
-        {/* <h1 className="mainLogo">Swap it</h1> */}
+        /> */}
+        <h1 className="mainLogo">Swap it</h1>
       </NavLink>
       <div className="headerNav">
         {user && (

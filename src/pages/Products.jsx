@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
@@ -34,11 +35,17 @@ const ProductsStyled = styled.div`
     font-size: 16px;
     text-align: center;
   }
+  & .categoriesbtns {
+    background: none;
+    border: none;
+  }
 `;
 const Products = () => {
+  const navigate = useNavigate();
   const { value } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [load, setLoad] = useState(false);
+  products;
   load;
   const [filterProd, setFilterProd] = useState([]);
   const getProducts = () => {
@@ -74,12 +81,22 @@ const Products = () => {
   return (
     <main>
       <ProductsStyled>
-        {products.map((item) => {
+        {filterProd.map((item) => {
           return (
-            <figure key={item._id} className="productscard">
-              <img src={item.image1} alt={item.title} />
-              <h3>{item.title}</h3>
-            </figure>
+            <button
+              to={item._id}
+              key={item._id}
+              className="categoriesbtns"
+              onClick={() => {
+                navigate(`/product/${item._id}`);
+                localStorage.setItem('detail', item._id);
+              }}
+            >
+              <figure key={item._id} className="productscard">
+                <img src={item.image1} alt={item.title} />
+                <h3>{item.title}</h3>
+              </figure>
+            </button>
           );
         })}
       </ProductsStyled>

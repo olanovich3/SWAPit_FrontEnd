@@ -4,6 +4,7 @@ import Palette from '../styles/Palette';
 
 const AnchorStyled = styled.a`
   color: ${Palette.primary};
+  font-size: 14px;
   &:hover {
     color: ${Palette.highlight};
   }

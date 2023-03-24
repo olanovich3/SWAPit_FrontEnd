@@ -132,12 +132,25 @@ const RegisterStyled = styled.div`
   & .form-control {
     position: relative;
   }
+  & .passwordeye {
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+  & .passwordimg {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 const RegisterModal = () => {
   const { register, handleSubmit } = useForm();
   const [showAvatar, setShowAvatar] = useState(null);
   const [valueAvatar, SetValueAvatar] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const onChangeAvatar = (e) => {
     SetValueAvatar(e.target.files[0]);
     setShowAvatar(URL.createObjectURL(e.target.files[0]));
@@ -154,7 +167,10 @@ const RegisterModal = () => {
       password: formData.password,
       avatar: valueAvatar,
     };
-    API.post('/users/register', data).then((res) => {
+
+    API.post('/users/register', data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }).then((res) => {
       setShowRegister(!showRegister);
       navigate('/');
       login(res.data.user, res.data.token);
@@ -163,7 +179,6 @@ const RegisterModal = () => {
   const { login } = useContext(UserContext);
 
   const formLoginSubmit = (formData) => {
-    console.log(formData);
     API.post('/users/login', formData).then((res) => {
       login(res.data.user, res.data.token);
 
@@ -211,12 +226,31 @@ const RegisterModal = () => {
                   <label htmlFor="password">Password </label>
                   <input
                     className="input"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
                     {...register('password')}
                   />
                 </div>
+                <button
+                  className="passwordeye"
+                  type="button"
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_1_zgm7ud.png"
+                      alt="Password shown"
+                    />
+                  ) : (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_trum0j.png"
+                      alt="Password hidden"
+                    />
+                  )}
+                </button>
                 <Button text={'Log in'} type="submit" />
               </form>
               <span className="registerModal">
@@ -248,7 +282,6 @@ const RegisterModal = () => {
               <span className="subtitle">Create a free account with your email.</span>
               <div className="form-container">
                 <div className="form-control">
-                  <label htmlFor="name">Name</label>
                   <input
                     type="text"
                     className="input"
@@ -268,14 +301,17 @@ const RegisterModal = () => {
                     required
                   />
                 </div>
-                <input
-                  type="text"
+
+                <select
                   className="input"
+                  name="gender"
                   id="gender"
-                  placeholder="gender"
                   {...register(`gender`)}
                   required
-                />
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
                 <input
                   type="date"
                   className="input"
@@ -301,13 +337,32 @@ const RegisterModal = () => {
                   required
                 />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   className="input"
                   id="password"
                   placeholder="password"
                   {...register(`password`)}
                   required
                 />
+                <button
+                  className="passwordeye"
+                  type="button"
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_1_zgm7ud.png"
+                      alt="Password shown"
+                    />
+                  ) : (
+                    <img
+                      className="passwordimg"
+                      src="https://res.cloudinary.com/dysog0ybg/image/upload/v1679668893/SocialMedia%20Icons/ojo_trum0j.png"
+                      alt="Password hidden"
+                    />
+                  )}
+                </button>
 
                 <input
                   type="file"

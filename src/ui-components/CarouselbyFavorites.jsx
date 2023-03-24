@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { API } from '../services/API';
@@ -135,7 +136,7 @@ const CarouselByFavorites = () => {
       </div>
 
       <div className="scroll-container">
-        <button className="prev" onClick={() => scroll(-1000)}>
+        <button className="prev" onClick={() => scroll(-215)}>
           <img
             src="https://res.cloudinary.com/dnb4ujbgr/image/upload/v1676822765/Giphy/svg_xml_base64_PHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMTUgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiPjxnIHRyYW5zZm9ybT0idHJhbnN_afv3jd.svg"
             alt="prev icon"
@@ -144,13 +145,15 @@ const CarouselByFavorites = () => {
         <div className="recent-prods" ref={ref}>
           {loaded ? (
             sortedFavorites.map((prod) => (
-              <img src={prod.image1} alt={prod.title} key={prod._id} />
+              <Link key={prod._id} to={prod._id}>
+                <img src={prod.image1} alt={prod.title} />{' '}
+              </Link>
             ))
           ) : (
             <Spinner />
           )}
         </div>
-        <button className="next" onClick={() => scroll(1000)}>
+        <button className="next" onClick={() => scroll(215)}>
           <img
             src="https://res.cloudinary.com/dnb4ujbgr/image/upload/v1676822765/Giphy/svg_xml_base64_PHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIzMHB4IiB2aWV3Qm94PSIwIDAgMTUgMzAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9Im5vbmUiIGZpbGw9Im5vbmUiPjxnIHRyYW5zZm9ybT0idHJhbnN_afv3jd.svg"
             alt="next icon"

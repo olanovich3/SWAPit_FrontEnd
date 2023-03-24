@@ -18,6 +18,7 @@ const Categories = () => {
       setCategories(res.data);
       setCat(category);
       setLoad(true);
+      console.log(res.data);
     });
   };
   useEffect(() => {
