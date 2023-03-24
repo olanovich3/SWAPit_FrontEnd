@@ -103,6 +103,10 @@ const ProfileStyled = styled.main`
     background-color: ${Palette.secondary};
     color: ${Palette.background};
   }
+  & .buttoneditdelete {
+    display: flex;
+    gap: 2rem;
+  }
 `;
 
 const Profile = () => {
@@ -111,8 +115,10 @@ const Profile = () => {
   const [data, setData] = useState({});
   const [loaded, setLoaded] = useState(false);
   const { productsaved } = useContext(ProductContext);
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, logout } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  console.log(editProfile);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
   const [products, setProducts] = useState(false);
@@ -128,7 +134,6 @@ const Profile = () => {
       setData(res.data);
       setLoaded(true);
       setUser(res.data);
-      console.log(res.data);
     });
   };
 
@@ -150,7 +155,12 @@ const Profile = () => {
       getProfile();
     });
   };
-  //hola
+  const deleteUser = (user) => {
+    API.delete(`/users/${user._id}`).then(() => {
+      logout();
+    });
+  };
+
   useEffect(() => {
     getProfile();
   }, [loaded]);
@@ -204,7 +214,20 @@ const Profile = () => {
                 <h2>{data.location}</h2>
               </div>
             </div>
-            <Button text="EDIT" action={() => setEditProfile(true)} />
+            <nav className="buttoneditdelete">
+              <Button
+                className={'principal'}
+                text="EDIT"
+                action={() => setEditProfile(true)}
+              />
+              <Button
+                className={'principal'}
+                text="DELETE"
+                action={() => {
+                  deleteUser(data);
+                }}
+              />
+            </nav>
           </div>
         ) : (
           <form className="profiledata" onSubmit={handleSubmit(formSubmit)}>
@@ -265,16 +288,21 @@ const Profile = () => {
                   {...register(`location`)}
                   defaultValue={data.location}
                 />
-
-                <input
-                  type="password"
-                  className="input"
-                  id="password"
-                  placeholder="password"
-                  {...register(`password`)}
-                  defaultValue={data.password}
-                  // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                <Button
+                  text="Change Password"
+                  action={() => setShowPassword(!showPassword)}
                 />
+                {showPassword && (
+                  <input
+                    type="password"
+                    className="input"
+                    id="password"
+                    placeholder="password"
+                    {...register(`password`)}
+
+                    // pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
+                  />
+                )}
               </div>
             </div>
 
