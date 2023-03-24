@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { UserContext } from '../context/UserContext';
+/* import { UserContext } from '../context/UserContext'; */
 import { API } from '../services/API';
 import DivFlex from '../ui-components/DivFlex';
 import Spinner from '../ui-components/Spinner';
@@ -26,6 +25,7 @@ const ProductStyled = styled.div`
   & .prod-imgs {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
   & .prod-imgs img {
     height: 30rem;
@@ -105,17 +105,17 @@ const ProductStyled = styled.div`
 `;
 
 const Product = () => {
-  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
   const [favorite, setFavorite] = useState([]);
-  const [user] = useState(UserContext);
+  /* const [user] = useState(UserContext); */
+  const detail = localStorage.getItem('detail');
 
   const getProduct = () => {
-    API.get(`/products/${id}`).then((res) => {
+    API.get(`/products/${detail}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
       console.log(res.data);
@@ -172,17 +172,14 @@ const Product = () => {
 
   return (
     <ProductStyled>
-      {
+      {product.owner.name !== localStorage.getItem('user') ? (
         <label className="container">
           <input
             type="checkbox"
             className="heart"
             onChange={() => {
-              if (user.favorites.includes(product)) {
-                addFavorite(favorite);
-              } else {
-                removeFavorite(favorite);
-              }
+              addFavorite(product);
+              removeFavorite(favorite);
             }}
           />
           <div className="checkmark">
@@ -197,7 +194,9 @@ const Product = () => {
             </svg>
           </div>
         </label>
-      }
+      ) : (
+        <h2>You cant add this to favorites.</h2>
+      )}
       {loaded ? (
         <div className="prod-figure" key={product._id}>
           <div className="prod-imgs">
@@ -227,14 +226,12 @@ const Product = () => {
             <p>{product.description}</p>
             <p>Contact: {product.owner.name}</p>
             {product.owner.location == 'Madrid' ? (
-              <>
-                <iframe
-                  title="map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38441032713!2d-3.8196196332355483!3d40.438131079723014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1679435067702!5m2!1ses!2ses"
-                  width="350"
-                  height="200"
-                ></iframe>
-              </>
+              <iframe
+                title="map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38441032713!2d-3.8196196332355483!3d40.438131079723014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1679435067702!5m2!1ses!2ses"
+                width="350"
+                height="200"
+              ></iframe>
             ) : (
               product.owner.location
             )}
