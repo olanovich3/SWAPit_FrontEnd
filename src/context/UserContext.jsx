@@ -36,7 +36,7 @@ export const UserContextProvider = ({ children }) => {
   const [producto, setProducto] = useState('');
   const [value, setValue] = useState('');
   const [detail, setDetail] = useState('');
-  const [addFav, setAddFav] = useState(false);
+  const [addFav, setAddFav] = useState(true);
 
   return (
     <UserContext.Provider

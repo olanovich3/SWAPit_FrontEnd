@@ -65,7 +65,7 @@ const Favorites = () => {
             );
           })
         ) : (
-          <p>No hay favoritos guardados</p>
+          <p>No favorites found</p>
         )}
       </DivFlex>
     </main>
