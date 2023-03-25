@@ -349,25 +349,28 @@ const Profile = () => {
           </form>
         )
       ) : null}
-      {opinion && (
-        <div className="opinionsdata">
-          {comments.map((item) => (
-            <div className="comment" key={item._id}>
-              <img src={item.product.image1} alt="" />
+      {opinion &&
+        (comments.length ? (
+          <div className="opinionsdata">
+            {comments.map((item) => (
+              <div className="comment" key={item._id}>
+                <img src={item.product.image1} alt="" />
 
-              <nav>
-                <div className="commentarist">
-                  <h2>{item.userfrom.name}</h2>
-                  <h2>{item.userfrom.lastname}</h2>
-                </div>
+                <nav>
+                  <div className="commentarist">
+                    <h2>{item.userfrom.name}</h2>
+                    <h2>{item.userfrom.lastname}</h2>
+                  </div>
 
-                <p>{item.comment}</p>
-              </nav>
-              <StarRating rating={item.rating} />
-            </div>
-          ))}
-        </div>
-      )}
+                  <p>{item.comment}</p>
+                </nav>
+                <StarRating rating={item.rating} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h1>no reviews</h1>
+        ))}
       {products && (
         <div className="productdata">
           {data.products.map((item) => {
