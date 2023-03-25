@@ -85,9 +85,14 @@ const Header = () => {
             {user.name}
           </NavLink>
         )}
-        <NavLink to="createproduct">
+        {user ? (
+          <NavLink to="createproduct">
+            <Button className={'principal'} text={'Create Product'} />
+          </NavLink>
+        ) : (
           <Button className={'principal'} text={'Create Product'} />
-        </NavLink>
+        )}
+
         {!user && <RegisterModal />}
         {user && (
           <Button

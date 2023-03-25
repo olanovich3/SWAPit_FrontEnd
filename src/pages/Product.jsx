@@ -111,9 +111,8 @@ const Product = () => {
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
 
-
   const getProduct = () => {
-    API.get(`/products/${detail}`).then((res) => {
+    API.get(`/products/${product}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
       console.log(res.data);

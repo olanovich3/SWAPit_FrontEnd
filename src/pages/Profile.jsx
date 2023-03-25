@@ -161,7 +161,6 @@ const Profile = () => {
       setComments(res.data);
     });
   };
-  console.log(comments);
 
   const formSubmit = (formData) => {
     const updatedata = {
@@ -338,26 +337,24 @@ const Profile = () => {
           </form>
         )
       ) : null}
-      {opinion && <h1>reviews</h1>}
-
-      {/*       
-      comments.length ? (
+      {opinion && (
         <div className="opinionsdata">
-          <div className="comment">
-            <img src={comments[0].product.image1} alt="" />
+          {comments.map((item) => (
+            <div className="comment" key={item._id}>
+              <img src={item.product.image1} alt="" />
 
-            <nav>
-              <div className="commentarist">
-                <h2>{comments[0].userfrom.name}</h2>
-                <h2>{comments[0].userfrom.lastname}</h2>
-              </div>
+              <nav>
+                <div className="commentarist">
+                  <h2>{item.userfrom.name}</h2>
+                  <h2>{item.userfrom.lastname}</h2>
+                </div>
 
-              <p>{comments[0].comment}</p>
-            </nav>
-          </div>
+                <p>{item.comment}</p>
+              </nav>
+            </div>
+          ))}
         </div>
-      ) 
-      ) */}
+      )}
       {products && (
         <div className="productdata">
           {data.products.map((item) => {
