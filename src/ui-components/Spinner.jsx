@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 const SpinnerStyled = styled.div`
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
   width: 50px;
   height: 50px;
   border: 4px solid #444;
