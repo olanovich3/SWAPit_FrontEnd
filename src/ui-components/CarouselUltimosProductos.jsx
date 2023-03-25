@@ -66,14 +66,15 @@ const CarouselStyled = styled.div`
     width: 0;
   }
   & .recent-prods img {
-    height: 100%;
-    max-width: 200px;
+    height: 190px;
+    width: 180px;
     object-fit: cover;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     margin-top: 0.8rem;
     cursor: pointer;
     transition: 0.3s all ease-in-out;
     border-radius: 5px;
+    object-fit: cover;
   }
   & .recent-prods img:hover {
     transform: translateY(-10px);
