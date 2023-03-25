@@ -12,12 +12,14 @@ const ProductStyled = styled.main`
 
   & .containerproduct {
     display: grid;
+    grid-gap: 1rem;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 4rem auto;
     width: 50vw;
+    padding-right: 1rem;
     height: 480px;
     background-color: ${Palette.background};
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -63,6 +65,29 @@ const ProductStyled = styled.main`
     display: flex;
     justify-content: space-between;
     padding-right: 1.5rem;
+    padding-top: 1.8rem;
+  }
+  & .articles {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1.3rem;
+  }
+  & .articles span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    background-color: rgba(248, 251, 252, 0.6);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  & .articles span p {
+    text-align: center;
+    color: ${Palette.primary};
+    font-size: 13px;
+    color: gray;
+    text-transform: capitalize;
   }
 `;
 
@@ -91,9 +116,7 @@ const Product = () => {
   }, []);
 
   const addFavorite = () => {
-    API.put(`products/favorites/${detail}`).then((res) => {
-      console.log(res.data);
-    });
+    API.put(`products/favorites/${detail}`).then(() => {});
   };
 
   const removeFavorite = () => {
@@ -154,13 +177,23 @@ const Product = () => {
           </div>
           <div className="textcontainer">
             <h2>{product.title}</h2>
-            <h4>{product.category}</h4>
-            <h4>{product.condition} </h4>
-            <h4> {product.status}</h4>
+
             <p>{product.description}</p>
             <p>Location: {product.owner.location}</p>
+
+            <div className="articles">
+              <span>
+                <p>{product.category}</p>
+              </span>
+              <span>
+                <p>{product.condition} </p>
+              </span>
+              <span>
+                <p> {product.status}</p>
+              </span>
+            </div>
             <div className="restofcard">
-              <p>Contact: {product.owner.name}</p>
+              <button>Contact the owner</button>
 
               <button
                 onClick={() => {
