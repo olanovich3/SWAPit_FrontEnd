@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 const FavIconStyled = styled.img`
   background-color: transparent;
-  & .favicon {
-    width: 40px;
-    height: 40px;
-  }
+  border: none;
+  background: none;
+  width: 25px;
+  height: 25px;
 `;
 
 const FavIcon = ({ src, alt, className }) => {

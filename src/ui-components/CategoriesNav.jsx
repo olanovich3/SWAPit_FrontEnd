@@ -40,7 +40,7 @@ const CategoriesNav = () => {
   };
   return (
     <CategoriesNavBarStyled>
-      <button className="categoriebtns" onClick={() => handleCategoryClick('all')}>
+      <button className="categoriebtns" onClick={() => navigate('/products')}>
         <img
           src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679410545/Resources/6344366_tfv88q.png"
           alt="icon"
