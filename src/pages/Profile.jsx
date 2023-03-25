@@ -7,7 +7,9 @@ import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
+import AverageRating from '../ui-components/AverageRating';
 import Button from '../ui-components/Button';
+import StarRating from '../ui-components/StarsRating';
 
 const ProfileStyled = styled.main`
   display: flex;
@@ -15,6 +17,7 @@ const ProfileStyled = styled.main`
   flex-direction: column;
   padding: 3rem;
   gap: 2rem;
+  overflow: auto;
   & .profilebutton {
     display: flex;
     gap: 48px;
@@ -83,6 +86,14 @@ const ProfileStyled = styled.main`
     flex-direction: column;
     gap: 16px;
     width: 50%;
+  }
+  & .opinionsdata {
+    height: 500px;
+    width: 700px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   & .inputfile {
     display: none;
@@ -238,6 +249,7 @@ const Profile = () => {
                 <h2>{data.email}</h2>
                 <h2>{new Date(data.birthdate).toISOString().substr(0, 10)}</h2>
                 <h2>{data.location}</h2>
+                <AverageRating ratings={data.rating} />
               </div>
             </div>
             <nav className="buttoneditdelete">
@@ -351,6 +363,7 @@ const Profile = () => {
 
                 <p>{item.comment}</p>
               </nav>
+              <StarRating rating={item.rating} />
             </div>
           ))}
         </div>
