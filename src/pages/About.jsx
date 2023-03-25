@@ -10,17 +10,18 @@ const AboutContainer = styled.div`
 
   & img {
     height: 400px;
-    width: 400px;
+    width: 300px;
     display: flex;
+    flex-wrap: wrap
     align-items: center;
     gap: 5rem;
-    padding: 5rem 0;
+    padding: 2rem 0;
   }
 
   & .hero-images {
     display: flex;
     justify-content: space-between;
-    margin: 50px 50px 1px;
+    margin: 20px 50px 1px;
   }
 
   & .Container {
@@ -220,16 +221,20 @@ const AboutContainer = styled.div`
   .card {
     width: 300px;
     height: 400px;
-    background-color: #07689f;
     border-radius: 20px;
     margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+    box-shadow: 10px 5px 10px rgba(7, 104, 159, 0.3);
     position: relative;
-    viewox: 0 0 24 24;
+    viewBox: 0 0 24 24;
+  }
+
+  .card:hover {
+    transform: scale(0.95);
+    transition: transform 0.5s ease-in-out;
   }
   
   .card img {
@@ -244,12 +249,46 @@ const AboutContainer = styled.div`
     text-align: center;
     text-shadow: 10px 10px 10px rgba(10, 10, 10, 10.3);
   }
-  
 
-
+  .Link {
+    font-size: 24px; 
+    color: #07689f; 
+    text-decoration: none; 
+    transition: all 0.3s ease; 
+  }
   
- }
+  .Link:hover {
+    color: #07689f; 
+    transform: scale(1.1);
+  }
+
+  .about__trabajar {
+    border: 2px solid #07689f;
+    box-shadow: #07689f;
+    padding: 20px;
+    margin: 230px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+  }
+  
+  .about__trabajar:hover {
+    border-color: #ff8c00;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+  }
+  
+  .about__trabajar h2 {
+    color: #07689f;
+  }
+  
+  .about__trabajar .Finish img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
 `;
+
 function About() {
   return (
     <body>
@@ -417,7 +456,7 @@ function About() {
 
                 <a className="card">
                   <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679660642/OIP_uyj8x2.jpg"
+                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679689998/OIP_uyj8x2-removebg-preview_kmfef3.png"
                     alt=""
                   />
                   <h4 className="Link">
@@ -437,7 +476,7 @@ function About() {
 
                 <a className="card">
                   <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661496/OIP_sfrfyn.jpg"
+                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679690069/OIP_sfrfyn-removebg-preview_dmr7ko.png"
                     alt=""
                   />
                   <h4 className="Link">
@@ -447,7 +486,7 @@ function About() {
 
                 <a className="card">
                   <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661542/983-9832325_sport-clipart-clear-background-school-sports-logo-png_cody3l.jpg"
+                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679690043/983-9832325_sport-clipart-clear-background-school-sports-logo-png_cody3l-removebg-preview_iqfsy1.png"
                     alt=""
                   />
                   <h4 className="Link">
@@ -457,7 +496,7 @@ function About() {
 
                 <a className="card">
                   <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661607/download_goqpu6.jpg"
+                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679689967/download_goqpu6-removebg-preview_xuviiu.png"
                     alt=""
                   />
                   <h4 className="Link">
@@ -467,7 +506,7 @@ function About() {
 
                 <a className="card">
                   <img
-                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661650/OIP_az8a8t.jpg"
+                    src="https://res.cloudinary.com/damtbzspb/image/upload/v1679688821/OIP_az8a8t-removebg-preview_kqcipj.png"
                     alt=""
                   />
                   <h4 className="Link">
@@ -479,15 +518,15 @@ function About() {
           </section>
 
           <section className="about__trabajar">
-            <h2>
+            <h2 className="trabajar">
               ¿Te gustaría
               <br />
               <strong>trabajar</strong> en
               <br />
               Swap It?
+              <br />
+              <Link to="/Trabaja con nosotros">¡Hagamos match! </Link>
             </h2>
-            <Link to="/Trabaja con nosotros"></Link>
-            ¡Hagamos match!{' '}
             <div className="Finish">
               <img
                 src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661734/OIP_kjhtmw.jpg"
