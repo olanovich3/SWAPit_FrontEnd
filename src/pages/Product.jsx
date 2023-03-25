@@ -124,7 +124,7 @@ const Product = () => {
     getProduct();
   }, []);
 
-  const addFavorite = (product) => {
+  /*   const addFavorite = (product) => {
     API.put(`/favorites/${product._id}`).then(() => {
       setFavorite(product._id);
     });
@@ -134,7 +134,7 @@ const Product = () => {
     API.patch(`/favorites/${product._id}`).then(() => {
       setFavorite(product._id);
     });
-  };
+  }; */
 
   const handlePrevImg = () => {
     if (showImage3) {
@@ -170,7 +170,7 @@ const Product = () => {
 
   return (
     <ProductStyled>
-      {product.owner.name !== localStorage.getItem('user') ? (
+      {/*   {product.owner.name !== localStorage.getItem('user') ? (
         <label className="container">
           <input
             type="checkbox"
@@ -194,7 +194,7 @@ const Product = () => {
         </label>
       ) : (
         <h2>You cant add this to favorites.</h2>
-      )}
+      )} */}
       {loaded ? (
         <div className="prod-figure" key={product._id}>
           <div className="prod-imgs">

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 
 const ChatStyled = styled.main`
@@ -38,10 +39,10 @@ const ChatStyled = styled.main`
 `;
 
 const Chat = () => {
+  const { user } = useContext(UserContext);
   const [chat, setChat] = useState({});
   const getChat = () => {
-    API.get('/chats').then((res) => {
-      console.log(res);
+    API.get(`/chats/:${user}`).then((res) => {
       setChat(res.data);
       console.log(chat);
     });
