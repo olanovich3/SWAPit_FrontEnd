@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
+import ProductFigure from '../ui-components/ProductFigure';
 
 const ProductsStyled = styled.div`
   display: flex;
@@ -12,36 +12,8 @@ const ProductsStyled = styled.div`
   align-items: center;
   gap: 2rem;
   padding: 4rem;
-
-  & .productscard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid black;
-    padding: 1rem;
-    gap: 1rem;
-    width: 250px;
-    height: 320px;
-    border-radius: 0.5rem;
-  }
-  & .productscard img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-  }
-  & .productscard h3 {
-    font-size: 16px;
-    text-align: center;
-  }
-  & .categoriesbtns {
-    background: none;
-    border: none;
-  }
 `;
 const Products = () => {
-  const navigate = useNavigate();
   const { value } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [load, setLoad] = useState(false);
@@ -81,24 +53,9 @@ const Products = () => {
   return (
     <main>
       <ProductsStyled>
-        {filterProd.map((item) => {
-          return (
-            <button
-              to={item._id}
-              key={item._id}
-              className="categoriesbtns"
-              onClick={() => {
-                navigate(`/product/${item._id}`);
-                localStorage.setItem('detail', item._id);
-              }}
-            >
-              <figure key={item._id} className="productscard">
-                <img src={item.image1} alt={item.title} />
-                <h3>{item.title}</h3>
-              </figure>
-            </button>
-          );
-        })}
+        {filterProd.map((prod) => (
+          <ProductFigure product={prod} key={prod._id}></ProductFigure>
+        ))}
       </ProductsStyled>
     </main>
   );
