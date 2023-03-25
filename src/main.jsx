@@ -19,8 +19,8 @@ import NotFound from './pages/NotFound';
 import Product from './pages/Product';
 import Products from './pages/Products';
 import Profile from './pages/Profile';
+import UserCard from './pages/UserCard';
 import ProtectedRoute from './ui-components/ProtectedRoute';
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter basename="/">
@@ -41,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 />
 
                 <Route path="/about" element={<About />} />
+                <Route path="/usercard" element={<UserCard />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route
