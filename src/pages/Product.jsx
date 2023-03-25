@@ -1,115 +1,73 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
+import FavIcon from '../ui-components/Favicon';
 import Spinner from '../ui-components/Spinner';
 
-const ProductStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 5rem;
+const ProductStyled = styled.main`
+  height: 90vh;
 
-  & .prod-figure {
+  & .containerproduct {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 4rem auto;
+    width: 50vw;
+    height: 480px;
+    background-color: ${Palette.background};
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 0.5rem;
+  }
+
+  & .imgcontainer {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+
+  & .imgcontainer img {
+    height: 100%;
+    width: 90%;
+    object-fit: cover;
+  }
+  & .textcontainer {
+    grid-column: 2 / 2;
+    grid-row: 1 / 2;
+  }
+  & .favicon {
+    width: 25px;
+    height: 25px;
+  }
+  & .textcontainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 4rem;
-    text-align: center;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  }
-  & .prod-figure img {
-    height: 30rem;
-    width: auto;
-  }
-  & .prod-figure a {
-    color: ${Palette.secondary};
-  }
-  & .prod-figure h4 {
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-  & .imgbtns {
-    display: flex;
-    gap: 4rem;
-  }
-  & .imgbtns button {
-    border: none;
-    background: transparent;
-  }
-  & .imgbtns button:hover {
-    color: ${Palette.secondary};
-  }
-  & .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  & .container {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 20px;
-    user-select: none;
-    transition: 100ms;
-  }
-  & .checkmark {
-    top: 0;
-    left: 0;
-    height: 1em;
-    width: 1em;
-    transition: 100ms;
-    animation: dislike_effect 400ms ease;
-  }
-  & .container input:checked ~ .checkmark path {
-    fill: #ff5353;
-    stroke-width: 0;
-  }
-  & .container input:checked ~ .checkmark {
-    animation: like_effect 400ms ease;
-  }
 
-  @keyframes like_effect {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-    }
+    gap: 1rem;
+    padding: 1rem;
   }
-  @keyframes dislike_effect {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  & .prod-figure .favicon {
-    width: 40px;
-    height: 40px;
-  }
-  & .prod-figure button {
+  & .textcontainer button {
+    height: 100%;
     background: none;
     border: none;
-    background-color: transparent;
+  }
+  & .restofcard {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1.5rem;
   }
 `;
 
 const Product = () => {
-  const [addFav, setAddFav] = useState(true);
+  const { addFav, setAddFav } = useContext(UserContext);
   const detail = localStorage.getItem('detail');
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -118,7 +76,7 @@ const Product = () => {
   const [showImage1, setShowImage1] = useState(true);
 
   const getProduct = () => {
-    API.get(`/products/${product}`).then((res) => {
+    API.get(`/products/${detail}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
       console.log(res.data);
@@ -184,44 +142,52 @@ const Product = () => {
   return (
     <ProductStyled>
       {loaded ? (
-        <div className="prod-figure" key={product._id}>
-          <div className="prod-imgs">
+        <div className="containerproduct">
+          <div className="imgcontainer">
             {showImage1 && <img src={product.image1} alt={product.title} />}
             {showImage2 && <img src={product.image2} alt={product.title} />}
             {showImage3 && <img src={product.image3} alt={product.title} />}
-          </div>
-          <div className="imgbtns">
-            <button onClick={handlePrevImg}>Previous</button>
-            <button onClick={handleNextImg}>Next</button>
-          </div>
-          <h3>{product.title}</h3>
-          <h4>{product.category}</h4>
-          <h4>{product.condition} </h4>
-          <h4> {product.status}</h4>
-          <p>{product.description}</p>
-          <p>Contact: {product.owner.name}</p>
-          <p>Location: {product.owner.location}</p>
 
-          <button
-            onClick={() => {
-              handleFavs();
-              handleFavorites();
-            }}
-          >
-            {addFav ? (
-              <img
-                className="favicon"
-                src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png"
-                alt="favadd icon"
-              ></img>
-            ) : (
-              <img
-                className="favicon"
-                src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png"
-                alt="notfav icon"
-              />
-            )}
-          </button>
+            {showImage1 ||
+              (showImage2 && <button onClick={handlePrevImg}>Previous</button>)}
+            {showImage2 || (showImage3 && <button onClick={handleNextImg}>Next</button>)}
+          </div>
+          <div className="textcontainer">
+            <h2>{product.title}</h2>
+            <h4>{product.category}</h4>
+            <h4>{product.condition} </h4>
+            <h4> {product.status}</h4>
+            <p>{product.description}</p>
+            <p>Location: {product.owner.location}</p>
+            <div className="restofcard">
+              <p>Contact: {product.owner.name}</p>
+
+              <button
+                onClick={() => {
+                  handleFavs();
+                  handleFavorites();
+                }}
+              >
+                {addFav ? (
+                  <FavIcon
+                    src={
+                      'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
+                    }
+                    alt={'favadd icon'}
+                    className={'favicon'}
+                  />
+                ) : (
+                  <FavIcon
+                    src={
+                      'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
+                    }
+                    alt={'favadd icon'}
+                    className={'favicon'}
+                  />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         <Spinner />

@@ -1,18 +1,12 @@
 import { createContext, useState } from 'react';
 
-import { API } from '../services/API';
 export const FavoritesContext = createContext();
 
 export const FavoritesContextProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState('');
-  const addFavorites = () => {
-    API.put(`/favorites/:id`).then((res) => {
-      console.log(res.data);
-    });
-  };
+  const [addFav, setAddFav] = useState(false);
 
   return (
-    <FavoritesContext.Provider value={{ favorites, setFavorites, addFavorites }}>
+    <FavoritesContext.Provider value={{ addFav, setAddFav }}>
       {children}
     </FavoritesContext.Provider>
   );
