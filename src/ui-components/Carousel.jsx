@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Spinner from './Spinner';
 
@@ -13,9 +14,7 @@ const CarouselStyled = styled.div`
   gap: 1rem;
   border: none;
   margin: 2rem auto;
-  margin-top: 5rem;
-  margin-bottom: 8rem;
-  background-color: none;
+  padding: 4rem;
   & .carousel-head {
     display: flex;
     align-items: center;
@@ -68,14 +67,14 @@ const CarouselStyled = styled.div`
     width: 0;
   }
   & .recent-prods img {
-    height: 100%;
-    max-width: 200px;
+    height: 190px;
+    width: 180px;
     object-fit: cover;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     margin-top: 0.8rem;
     cursor: pointer;
-    border-radius: 5px;
     transition: 0.3s all ease-in-out;
+    border-radius: 5px;
   }
   & .recent-prods img:hover {
     transform: translateY(-10px);
@@ -83,6 +82,7 @@ const CarouselStyled = styled.div`
 `;
 
 const Carousel = () => {
+  const { producto } = useContext(UserContext);
   const [recentProd, setRecentProd] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const ref = useRef();
@@ -109,7 +109,7 @@ const Carousel = () => {
 
         <button
           onClick={() => {
-            navigate('/products');
+            navigate(`/products/${producto}`);
           }}
         >
           View All

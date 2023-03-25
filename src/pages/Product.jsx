@@ -70,7 +70,7 @@ const ProductStyled = styled.main`
   & .articles {
     display: flex;
     gap: 1rem;
-    padding-top: 1.3rem;
+    padding-top: 1rem;
   }
   & .articles span {
     display: flex;
@@ -85,7 +85,7 @@ const ProductStyled = styled.main`
   & .articles span p {
     text-align: center;
     color: ${Palette.primary};
-    font-size: 13px;
+    font-size: 14px;
     color: gray;
     text-transform: capitalize;
   }
@@ -116,7 +116,9 @@ const Product = () => {
   }, []);
 
   const addFavorite = () => {
-    API.put(`products/favorites/${detail}`).then(() => {});
+    API.put(`products/favorites/${detail}`).then((res) => {
+      console.log(res.data);
+    });
   };
 
   const removeFavorite = () => {
