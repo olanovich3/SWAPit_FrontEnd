@@ -49,20 +49,8 @@ const Footer = () => {
           /> */}
           <h1 className="footerLogo">Swap it</h1>
         </NavLink>
-        <Anchor
-          href="https://about.wallapop.com/en/legal-terms-and-conditions/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Terms and Conditions
-        </Anchor>
-        <Anchor
-          href="https://about.wallapop.com/en/privacy-policy/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Privacy Policy
-        </Anchor>
+        <NavLink to="/terms-and-conditions">Terms and Conditions</NavLink>
+        <NavLink to="/privacy-policy">Privacy Policy</NavLink>
         <NavLink className={'aboutNav'} to="/about">
           About
         </NavLink>
