@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { UserContext } from '../context/UserContext';
 
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
@@ -89,9 +90,12 @@ const ProductStyled = styled.main`
     text-transform: capitalize;
   }
 `;
-
 const Product = () => {
+  const url = window.location.href;
+  const path = url.substring('http://localhost:5173/product/'.length);
   const [addFav, setAddFav] = useState(true);
+  const { setDetail } = useContext(UserContext);
+  setDetail(path);
   const detail = localStorage.getItem('detail');
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -100,7 +104,7 @@ const Product = () => {
   const [showImage1, setShowImage1] = useState(true);
 
   const getProduct = () => {
-    API.get(`/products/${detail}`).then((res) => {
+    API.get(`/products/${path}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
     });
@@ -114,9 +118,7 @@ const Product = () => {
   }, []);
 
   const addFavorite = () => {
-    API.put(`products/favorites/${detail}`).then((res) => {
-      console.log(res.data);
-    });
+    API.put(`products/favorites/${detail}`).then(() => {});
   };
   const user = JSON.parse(localStorage.getItem('user'));
   const userFav = user.favorites;

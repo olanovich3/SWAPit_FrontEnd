@@ -79,6 +79,33 @@ const CarouselStyled = styled.div`
   & .recent-prods img:hover {
     transform: translateY(-10px);
   }
+  & .container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  & .container img {
+    height: 190px;
+    width: 180px;
+    object-fit: cover;
+  }
+  & .overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    transition: 0.5s ease;
+    opacity: 0;
+    color: white;
+    font-size: 1rem;
+    padding: 20px;
+    text-align: center;
+  }
+  & .container:hover .overlay {
+    opacity: 1;
+  }
 `;
 
 const CarouselUltimosProductos = () => {
@@ -128,8 +155,9 @@ const CarouselUltimosProductos = () => {
         <div className="recent-prods" ref={ref}>
           {loaded ? (
             recentProd.map((prod) => (
-              <Link key={prod._id} to={prod._id}>
-                <img src={prod.image1} alt={prod.title} key={prod._id} />{' '}
+              <Link className="container" to={`/product/${prod._id}`} key={prod._id}>
+                <img src={prod.image1} alt={prod.title} />
+                <div className="overlay">View details</div>
               </Link>
             ))
           ) : (
