@@ -224,7 +224,7 @@ const Profile = () => {
           className={'secondary'}
           bg={'second'}
           color={'second'}
-          text={'REVIEW'}
+          text={'REVIEWS'}
           border={'yes'}
           action={() => setOpinion(true) & setProfile(false) & setProducts(false)}
         />

@@ -16,9 +16,11 @@ import EditProduct from './pages/EditProduct';
 import Favorites from './pages/Favorites';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Product from './pages/Product';
 import Products from './pages/Products';
 import Profile from './pages/Profile';
+import TerminosYCondiciones from './pages/TerminosYCondiciones';
 import UserCard from './pages/UserCard';
 import ProtectedRoute from './ui-components/ProtectedRoute';
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -76,6 +78,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/terms-and-conditions" element={<TerminosYCondiciones />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

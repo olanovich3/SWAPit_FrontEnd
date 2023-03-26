@@ -74,10 +74,6 @@ const ProductStyled = styled.main`
     gap: 1rem;
     padding: 1rem;
   }
-  & .textcontainer p img {
-    height: 1.3rem;
-    width: auto;
-  }
   & .textcontainer button {
     height: 100%;
     background: none;
@@ -110,6 +106,15 @@ const ProductStyled = styled.main`
     font-size: 14px;
     color: gray;
     text-transform: capitalize;
+  }
+  & .prodlocation {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  & .prodlocation img {
+    height: 1.3rem;
+    width: 1.3rem;
   }
   & .disabled {
     opacity: 0.1;
@@ -218,6 +223,8 @@ const Product = () => {
                   ? 'disabled'
                   : showImage2 && product.image3 == null
                   ? 'disabled'
+                  : showImage3
+                  ? 'disabled'
                   : ''
               }`}
               onClick={handleNextImg}
@@ -232,13 +239,6 @@ const Product = () => {
             <h2>{product.title}</h2>
 
             <p>{product.description}</p>
-            <p>
-              <img
-                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679864286/Resources/927667_rngpr5.png"
-                alt="Location icon"
-              />{' '}
-              {product.owner.location}
-            </p>
 
             <div className="articles">
               <span>
@@ -280,6 +280,25 @@ const Product = () => {
                   />
                 )}
               </button>
+            </div>
+            <div className="prodlocation">
+              <div>
+                <img
+                  src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679864286/Resources/927667_rngpr5.png"
+                  alt="Location icon"
+                />
+                {product.owner.location.toUpperCase()}
+              </div>
+              {product.owner.location == 'madrid' ? (
+                <iframe
+                  title="madrid"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38441032713!2d-3.8196196332355483!3d40.438131079723014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1679435067702!5m2!1ses!2ses"
+                  width="200"
+                  height="150"
+                ></iframe>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
