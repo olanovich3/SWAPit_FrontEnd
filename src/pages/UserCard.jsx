@@ -77,14 +77,23 @@ const UserCard = () => {
   const [profile, setProfile] = useState(true);
   const [review, setReview] = useState(false);
   const [rating, setRating] = useState(0);
-  const handleSubmit = (event) => {
-    console.log(event.preventDefault());
-  };
-  const handleRatingChange = (value) => {
-    setRating(value);
+  const resetComment = {
+    comment: '',
+    rating: 0,
   };
   console.log(comment);
   console.log(rating);
+
+  //PREGUNTAR MAÑANA SI ESTO ESTA BIEN HECHO AASI
+  const [newComment, setNewComment] = useState({ ...resetComment });
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    console.log(newComment);
+  };
+  const handleRatingChange = (value) => {
+    setNewComment({ ...newComment, rating: value });
+    setRating(value);
+  };
 
   return (
     <UserStyled>
@@ -136,7 +145,15 @@ const UserCard = () => {
           <div className="usercomment">
             <form onSubmit={handleSubmit}>
               <label htmlFor="comment">Comment:</label>
-              <input className="commentinput" type="text" name="comment" id="comment" />
+              <input
+                className="commentinput"
+                type="text"
+                name="comment"
+                id="comment"
+                onChange={(ev) =>
+                  setNewComment({ ...resetComment, comment: ev.target.value })
+                }
+              />
               <label htmlFor="rating">Rating:</label>
               <StarRatingInput onChange={handleRatingChange} />
 
