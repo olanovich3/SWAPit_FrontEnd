@@ -14,6 +14,7 @@ const ProductFigureStyled = styled.div`
   background-color: ${Palette.background};
   overflow: hidden;
   border-radius: 5px;
+  gap: ${({ gap }) => gap};
 
   &:hover {
     cursor: pointer;
@@ -72,11 +73,11 @@ const ProductFigureStyled = styled.div`
   }
 `;
 
-const ProductFigure = ({ product }) => {
+const ProductFigure = ({ product, gap }) => {
   const { setDetail } = useContext(UserContext);
   const navigate = useNavigate();
   return (
-    <ProductFigureStyled product>
+    <ProductFigureStyled product gap={gap}>
       <button
         to={product._id}
         key={product._id}

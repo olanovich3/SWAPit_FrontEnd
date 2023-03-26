@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import DivFlex from '../ui-components/DivFlex';
-import FavIcon from '../ui-components/Favicon';
+import ProductFigure from '../ui-components/ProductFigure';
 
 const Favorites = () => {
   const [fav, setFav] = useState();
   fav;
-  const { user, addFav } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const getFavorites = () => {
     API.get(`/users/${user._id}`).then((res) => {
       localStorage.setItem('favorites', JSON.stringify(res.data));
@@ -23,36 +23,11 @@ const Favorites = () => {
   console.log(favorits);
   return (
     <main>
-      <DivFlex>
-        {favorits.favorites.map((item) => {
-          return (
-            <figure key={item._id}>
-              <img src={item.image1} alt={item.title} />
-
-              {item.image2 && <img src={item.image2} alt={item.title} />}
-              {item.image3 && <img src={item.image3} alt={item.title} />}
-              <h3>{item.title}</h3>
-
-              {addFav ? (
-                <FavIcon
-                  className={'fav-icon'}
-                  src={
-                    'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
-                  }
-                  alt={'favadd icon'}
-                />
-              ) : (
-                <FavIcon
-                  className={'fav-icon'}
-                  src={
-                    'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
-                  }
-                  alt={'favadd icon'}
-                />
-              )}
-            </figure>
-          );
-        })}
+      <DivFlex gap={'2rem'}>
+        {favorits &&
+          favorits.favorites.map((item) => {
+            return <ProductFigure product={item} key={item._id}></ProductFigure>;
+          })}
       </DivFlex>
     </main>
   );

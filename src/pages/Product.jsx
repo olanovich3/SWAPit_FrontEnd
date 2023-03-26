@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import FavIcon from '../ui-components/Favicon';
@@ -92,7 +91,7 @@ const ProductStyled = styled.main`
 `;
 
 const Product = () => {
-  const { addFav, setAddFav } = useContext(UserContext);
+  const [addFav, setAddFav] = useState(true);
   const detail = localStorage.getItem('detail');
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -104,7 +103,6 @@ const Product = () => {
     API.get(`/products/${detail}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
-      console.log(res.data);
     });
   };
   const handleFavorites = () => {
@@ -120,15 +118,20 @@ const Product = () => {
       console.log(res.data);
     });
   };
-
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userFav = user.favorites;
+  console.log(userFav);
+  console.log(detail);
   const removeFavorite = () => {
     API.patch(`products/favorites/${detail}`).then(() => {});
   };
   const handleFavs = () => {
-    if (addFav) {
-      addFavorite(detail);
+    if (userFav.includes(detail)) {
+      removeFavorite();
+      setAddFav(false);
     } else {
-      removeFavorite(product);
+      addFavorite();
+      setAddFav(true);
     }
   };
 

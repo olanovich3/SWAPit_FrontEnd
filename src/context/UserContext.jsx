@@ -36,7 +36,6 @@ export const UserContextProvider = ({ children }) => {
   const [producto, setProducto] = useState('');
   const [value, setValue] = useState('');
   const [detail, setDetail] = useState('');
-  const [addFav, setAddFav] = useState(false);
 
   return (
     <UserContext.Provider
@@ -55,8 +54,6 @@ export const UserContextProvider = ({ children }) => {
         setProducto,
         detail,
         setDetail,
-        addFav,
-        setAddFav,
       }}
     >
       {children}
