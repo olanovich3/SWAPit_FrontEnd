@@ -33,12 +33,30 @@ const ProductStyled = styled.main`
     height: 100%;
     overflow: hidden;
     border-radius: 0.5rem;
+    position: relative;
   }
-
   & .imgcontainer img {
     height: 100%;
     width: 90%;
     object-fit: cover;
+  }
+  & .imgcontainer button {
+    height: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    padding: 5px;
+  }
+  & .prevbtn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  & .nextbtn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
   }
   & .textcontainer {
     grid-column: 2 / 2;
@@ -55,6 +73,10 @@ const ProductStyled = styled.main`
 
     gap: 1rem;
     padding: 1rem;
+  }
+  & .textcontainer p img {
+    height: 1.3rem;
+    width: auto;
   }
   & .textcontainer button {
     height: 100%;
@@ -88,6 +110,10 @@ const ProductStyled = styled.main`
     font-size: 14px;
     color: gray;
     text-transform: capitalize;
+  }
+  & .disabled {
+    opacity: 0.1;
+    pointer-events: none;
   }
 `;
 const Product = () => {
@@ -174,19 +200,45 @@ const Product = () => {
       {loaded ? (
         <div className="containerproduct">
           <div className="imgcontainer">
+            <button
+              className={`prevbtn ${showImage1 ? 'disabled' : ''}`}
+              onClick={handlePrevImg}
+            >
+              <img
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679674826/Resources/54321_at648w.png"
+                alt="Previous icon"
+              />
+            </button>
             {showImage1 && <img src={product.image1} alt={product.title} />}
             {showImage2 && <img src={product.image2} alt={product.title} />}
             {showImage3 && <img src={product.image3} alt={product.title} />}
-
-            {showImage1 ||
-              (showImage2 && <button onClick={handlePrevImg}>Previous</button>)}
-            {showImage2 || (showImage3 && <button onClick={handleNextImg}>Next</button>)}
+            <button
+              className={`nextbtn ${
+                product.image2 == null && product.image3 == null
+                  ? 'disabled'
+                  : showImage2 && product.image3 == null
+                  ? 'disabled'
+                  : ''
+              }`}
+              onClick={handleNextImg}
+            >
+              <img
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679674761/Resources/709586_ssuf2t.png"
+                alt="Next icon"
+              />
+            </button>
           </div>
           <div className="textcontainer">
             <h2>{product.title}</h2>
 
             <p>{product.description}</p>
-            <p>Location: {product.owner.location}</p>
+            <p>
+              <img
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679864286/Resources/927667_rngpr5.png"
+                alt="Location icon"
+              />{' '}
+              {product.owner.location}
+            </p>
 
             <div className="articles">
               <span>
@@ -200,7 +252,9 @@ const Product = () => {
               </span>
             </div>
             <div className="restofcard">
-              <button>Contact the owner</button>
+              <button>
+                Contact: {product.owner.name} {product.owner.lastname}
+              </button>
 
               <button
                 onClick={() => {
