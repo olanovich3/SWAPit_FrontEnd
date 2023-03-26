@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import Button from '../ui-components/Button';
+import StarRatingInput from '../ui-components/StarsRatingInput';
 
 const UserStyled = styled.main`
   display: flex;
@@ -35,6 +35,9 @@ const UserStyled = styled.main`
     padding: 32px;
     width: 550px;
     height: 400px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   & .usercard img {
@@ -49,21 +52,39 @@ const UserStyled = styled.main`
     display: flex;
     gap: 40px;
   }
+  & .commentbutton {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+  & .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+  }
+  & .commentinput {
+    width: 80%;
+    height: 70%;
+  }
 `;
 
 const UserCard = () => {
-  const { register, handleSubmit } = useForm();
   const [userCard, setUserCard] = useState(true);
   const [comment, setComment] = useState(false);
-  const [chat, setChat] = useState(false);
+  // const [chat, setChat] = useState(false);
   const [profile, setProfile] = useState(true);
   const [review, setReview] = useState(false);
-  const formSubmit = (formData) => {
-    const data = { comment: formData.comment };
-    console.log(data);
+  const [rating, setRating] = useState(0);
+  const handleSubmit = (event) => {
+    console.log(event.preventDefault());
   };
-  console.log(chat);
+  const handleRatingChange = (value) => {
+    setRating(value);
+  };
   console.log(comment);
+  console.log(rating);
 
   return (
     <UserStyled>
@@ -107,30 +128,27 @@ const UserCard = () => {
               <Button
                 text="CHAT"
                 type="button"
-                action={() => setUserCard(false) & setChat(true)}
+                // action={() => setUserCard(false) & setChat(true)}
               />
             </nav>
           </div>
         ) : (
           <div className="usercomment">
-            <form className="form" onSubmit={handleSubmit(formSubmit)}>
-              <label htmlFor="comment">Your opinion es important</label>
-              <input
-                className="commentinput"
-                type="text"
-                name="comment"
-                id="comment"
-                {...register('comment')}
-              />
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="comment">Comment:</label>
+              <input className="commentinput" type="text" name="comment" id="comment" />
+              <label htmlFor="rating">Rating:</label>
+              <StarRatingInput onChange={handleRatingChange} />
+
+              <nav className="commentbutton">
+                <Button type="submit" text={'Submit'} />
+                <Button
+                  type="button"
+                  text="close"
+                  action={() => setComment(false) & setUserCard(true)}
+                />
+              </nav>
             </form>
-            <nav className="commentbutton">
-              <Button type="submit" text={'Submit'} />
-              <Button
-                type="button"
-                text="close"
-                action={() => setComment(false) & setUserCard(true)}
-              />
-            </nav>
           </div>
         ))}
 

@@ -196,6 +196,7 @@ const Profile = () => {
       logout();
     });
   };
+  console.log(data);
 
   useEffect(() => {
     getProfile();
