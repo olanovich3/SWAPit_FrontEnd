@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { UserContext } from '../context/UserContext';
 
+import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import FavIcon from '../ui-components/Favicon';
