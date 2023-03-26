@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { UserContext } from '../context/UserContext';
 
 const AboutContainer = styled.div`
   display: flex;
@@ -288,6 +292,7 @@ const AboutContainer = styled.div`
     margin-top: 20px;
   }
 `;
+const CategoriesNavBarStyled = styled.div``;
 
 function About() {
   return (
@@ -429,8 +434,7 @@ function About() {
               </div>
             </div>
           </section>
-
-          <section className="about__categories">
+          {/*  <section className="about__categories">
             <header>
               <h2 className="cifra2">
                 ¡Empieza a encontrar lo que <strong>buscas</strong>!
@@ -515,29 +519,107 @@ function About() {
                 </a>
               </div>
             </div>
-          </section>
-
-          <section className="about__trabajar">
-            <h2 className="trabajar">
-              ¿Te gustaría
-              <br />
-              <strong>trabajar</strong> en
-              <br />
-              Swap It?
-              <br />
-              <Link to="/Trabaja con nosotros">¡Hagamos match! </Link>
-            </h2>
-            <div className="Finish">
-              <img
-                src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661734/OIP_kjhtmw.jpg"
-                alt=""
-              />
-            </div>
-          </section>
+          </section> */}
         </div>
       </AboutContainer>
     </body>
   );
 }
 
+const CategoriesNav = () => {
+  const { setCategory } = useContext(UserContext);
+  const navigate = useNavigate();
+  const handleCategoryClick = (category) => {
+    setCategory(category);
+    navigate('/categories/category');
+  };
+  return (
+    <CategoriesNavBarStyled>
+      <button
+        className="categoriebtns"
+        onClick={() => handleCategoryClick('movies, books & music')}
+      >
+        <img
+          src="https://res.cloudinary.com/damtbzspb/image/upload/v1679689998/OIP_uyj8x2-removebg-preview_kmfef3.png"
+          alt=""
+        />
+        <p>Movies, Books & Music</p>
+      </button>
+      <button
+        type="button"
+        className="categoriebtns"
+        onClick={() => handleCategoryClick('videogames')}
+      >
+        <img
+          src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679413101/SWAPit/9022479_bztwie.png"
+          alt="icon"
+        />
+        <p>Videogames</p>
+      </button>
+      <button
+        type="button"
+        className="categoriebtns"
+        onClick={() => handleCategoryClick('appliances')}
+      >
+        <img
+          src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661390/1486144529home-appliances-png-simple_ke3mwu.png"
+          alt=""
+        />
+        <p>Appliances</p>
+      </button>
+      <button className="categoriebtns" onClick={() => handleCategoryClick('electronic')}>
+        <img
+          src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679411365/SWAPit/408533_wvtjvm.png"
+          alt="icon"
+        />
+        <p>Electronic</p>
+      </button>
+      <button
+        className="categoriebtns"
+        onClick={() => handleCategoryClick('sports & leisure')}
+      >
+        <img
+          src="https://res.cloudinary.com/damtbzspb/image/upload/v1679690043/983-9832325_sport-clipart-clear-background-school-sports-logo-png_cody3l-removebg-preview_iqfsy1.png"
+          alt=""
+        />
+        <p>Sports & Leisure</p>
+      </button>
+      <button className="categoriebtns" onClick={() => handleCategoryClick('home')}>
+        <img
+          src="https://res.cloudinary.com/damtbzspb/image/upload/v1679689967/download_goqpu6-removebg-preview_xuviiu.png"
+          alt=""
+        />
+        <p>Home</p>
+      </button>
+      <button className="categoriebtns" onClick={() => handleCategoryClick('other')}>
+        <img
+          src="https://res.cloudinary.com/damtbzspb/image/upload/v1679688821/OIP_az8a8t-removebg-preview_kqcipj.png"
+          alt=""
+        />
+        <p>Other</p>
+      </button>
+    </CategoriesNavBarStyled>
+  );
+};
+<AboutContainer>
+  <section className="about__trabajar">
+    <h2 className="trabajar">
+      ¿Te gustaría
+      <br />
+      <strong>trabajar</strong> en
+      <br />
+      Swap It?
+      <br />
+      <Link to="/Trabaja con nosotros">¡Hagamos match! </Link>
+    </h2>
+    <div className="Finish">
+      <img
+        src="https://res.cloudinary.com/damtbzspb/image/upload/v1679661734/OIP_kjhtmw.jpg"
+        alt=""
+      />
+    </div>
+  </section>
+</AboutContainer>;
+
 export default About;
+CategoriesNav;
