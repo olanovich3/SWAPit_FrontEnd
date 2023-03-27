@@ -33,7 +33,6 @@ const Products = () => {
     });
   };
   const filterProducts = (value) => {
-    console.log(value);
     const products = JSON.parse(localStorage.getItem('products'));
     console.log(products);
     const filterProducts = products.filter(
@@ -47,8 +46,6 @@ const Products = () => {
   useEffect(() => {
     getProducts();
   }, [value]);
-
-  console.log(filterProd);
 
   return (
     <main>

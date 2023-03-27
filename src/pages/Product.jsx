@@ -87,6 +87,20 @@ const ProductStyled = styled.main`
     padding-right: 1.5rem;
     padding-top: 1.8rem;
   }
+  & .btncontact {
+    cursor: pointer;
+    font-weight: bolder;
+    padding: 0.4rem;
+    height: 1rem;
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.3rem;
+  }
+  & .btncontact:hover {
+    background: ${Palette.secondary};
+    color: ${Palette.background};
+    padding: 0.4rem;
+    border-radius: 0.3rem;
+  }
   & .articles {
     display: flex;
     gap: 1rem;
@@ -127,10 +141,9 @@ const Product = () => {
   const navigate = useNavigate();
   const url = window.location.href;
   const path = url.substring('http://localhost:5173/product/'.length);
-  const [addFav, setAddFav] = useState(true);
-  const { setDetail } = useContext(UserContext);
+  const { setDetail, user, setUser } = useContext(UserContext);
   setDetail(path);
-  const detail = localStorage.getItem('detail');
+  const [isFavorite, setIsFavorite] = useState(false);
   const { productsaved } = useContext(ProductContext);
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -142,39 +155,48 @@ const Product = () => {
     API.get(`/products/${path}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
-      console.log(product);
     });
   };
-  const handleFavorites = () => {
-    setAddFav(!addFav);
+
+  const getUser = () => {
+    API.get(`http://localhost:8080/api/v1/users/${user._id}`).then((res) => {
+      localStorage.setItem('user', JSON.stringify(res.data));
+      setUser(res.data);
+      res.data.favorites.map((item) => {
+        if (item._id == product._id) {
+          setIsFavorite(true);
+        }
+      });
+      /* setIsFavorite(res.data.favorites.includes(product._id)); */ // actualiza el valor de isFavorite
+    });
   };
+  console.log(isFavorite);
 
   useEffect(() => {
     getProduct();
+    getUser();
   }, []);
 
   const addFavorite = () => {
-    API.put(`products/favorites/${detail}`).then(() => {});
+    API.put(`products/favorites/${path}`).then(() => {
+      navigate('/favorites');
+    });
   };
 
   const removeFavorite = () => {
-    API.patch(`products/favorites/${detail}`).then(() => {});
+    API.patch(`products/favorites/${path}`).then(() => {
+      navigate('/favorites');
+    });
   };
-  const user = JSON.parse(localStorage.getItem('user'));
-  const userFav = user.favorites;
+
   const handleFavs = () => {
-    if (userFav.includes(detail)) {
+    getUser();
+    getProduct();
+    if (isFavorite) {
       removeFavorite();
-      setAddFav(true);
     } else {
       addFavorite();
-      setAddFav(false);
     }
-    const updatedUser = {
-      ...user,
-      favorites: addFav ? [...userFav, detail] : userFav.filter((fav) => fav !== detail),
-    };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
   const handlePrevImg = () => {
@@ -262,21 +284,20 @@ const Product = () => {
             </div>
             <div className="restofcard">
               <button
+                className="btncontact"
                 onClick={() => {
                   productsaved(product);
-                  navigate('/usercard');
                 }}
               >
-                Contact: {product.owner.name}
+                Contact with {product.owner.name}
               </button>
 
               <button
                 onClick={() => {
                   handleFavs();
-                  handleFavorites();
                 }}
               >
-                {!userFav.includes(detail) ? (
+                {isFavorite == false ? (
                   <FavIcon
                     src={
                       'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
@@ -296,14 +317,14 @@ const Product = () => {
               </button>
             </div>
             <div className="prodlocation">
-              <div>
+              {/* <div className="location">
                 <img
                   src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679864286/Resources/927667_rngpr5.png"
                   alt="Location icon"
                 />
                 {product.owner.location.toUpperCase()}
-              </div>
-              {product.owner.location == 'madrid' ? (
+              </div> */}
+              {/* {product.owner.location == 'madrid' ? (
                 <iframe
                   title="madrid"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38441032713!2d-3.8196196332355483!3d40.438131079723014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1679435067702!5m2!1ses!2ses"
@@ -312,7 +333,7 @@ const Product = () => {
                 ></iframe>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
           </div>
         </div>

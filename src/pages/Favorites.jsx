@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
@@ -6,28 +7,45 @@ import DivFlex from '../ui-components/DivFlex';
 import ProductFigure from '../ui-components/ProductFigure';
 
 const Favorites = () => {
-  const [fav, setFav] = useState();
-  fav;
-  const { user } = useContext(UserContext);
-  const getFavorites = () => {
-    API.get(`/users/${user._id}`).then((res) => {
-      localStorage.setItem('favorites', JSON.stringify(res.data));
-      setFav(res.data);
+  const navigate = useNavigate();
+
+  const { user, setUser } = useContext(UserContext);
+
+  const getUser = () => {
+    API.get(`http://localhost:8080/api/v1/users/${user._id}`).then((res) => {
+      localStorage.setItem('localuser', JSON.stringify(res.data));
+      setUser(res.data);
+    });
+  };
+
+  const removeFavorite = (id) => {
+    API.patch(`products/favorites/${id}`).then(() => {
+      getUser();
+      navigate('/favorites');
     });
   };
 
   useEffect(() => {
-    getFavorites();
+    getUser();
   }, []);
-  const favorits = JSON.parse(localStorage.getItem('favorites'));
-  console.log(favorits);
+
   return (
     <main>
       <DivFlex gap={'2rem'}>
-        {favorits &&
-          favorits.favorites.map((item) => {
-            return <ProductFigure product={item} key={item._id}></ProductFigure>;
-          })}
+        {user.favorites.map((item) => {
+          return (
+            <DivFlex key={item._id}>
+              <button
+                onClick={() => {
+                  removeFavorite(item._id);
+                }}
+              >
+                remove
+              </button>
+              <ProductFigure product={item}></ProductFigure>
+            </DivFlex>
+          );
+        })}
       </DivFlex>
     </main>
   );
