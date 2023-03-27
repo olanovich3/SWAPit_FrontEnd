@@ -109,7 +109,7 @@ const CarouselStyled = styled.div`
 `;
 
 const Carousel = () => {
-  const { producto } = useContext(UserContext);
+  const { producto, setDetail } = useContext(UserContext);
   const [recentProd, setRecentProd] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const ref = useRef();
@@ -137,6 +137,7 @@ const Carousel = () => {
         <button
           onClick={() => {
             navigate(`/products/${producto}`);
+            setDetail(producto._id);
           }}
         >
           View All
