@@ -6,6 +6,7 @@ import { UserContext } from '../context/UserContext';
 import Palette from '../styles/Palette';
 import Button from './Button';
 import RegisterModal from './RegisterModal';
+import RegisterModalCreate from './RegisterModalCreate';
 const HeaderStyled = styled.header`
   display: flex;
   justify-content: space-between;
@@ -90,7 +91,7 @@ const Header = () => {
             <Button className={'principal'} text={'Create Product'} />
           </NavLink>
         ) : (
-          <Button className={'principal'} text={'Create Product'} />
+          <RegisterModalCreate/>
         )}
 
         {!user && <RegisterModal />}
