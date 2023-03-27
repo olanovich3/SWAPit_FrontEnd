@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
@@ -122,12 +124,14 @@ const ProductStyled = styled.main`
   }
 `;
 const Product = () => {
+  const navigate = useNavigate();
   const url = window.location.href;
   const path = url.substring('http://localhost:5173/product/'.length);
   const [addFav, setAddFav] = useState(true);
   const { setDetail } = useContext(UserContext);
   setDetail(path);
   const detail = localStorage.getItem('detail');
+  const { productsaved } = useContext(ProductContext);
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showImage3, setShowImage3] = useState(false);
@@ -138,6 +142,7 @@ const Product = () => {
     API.get(`/products/${path}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
+      console.log(product);
     });
   };
   const handleFavorites = () => {
@@ -151,21 +156,25 @@ const Product = () => {
   const addFavorite = () => {
     API.put(`products/favorites/${detail}`).then(() => {});
   };
-  const user = JSON.parse(localStorage.getItem('user'));
-  const userFav = user.favorites;
-  console.log(userFav);
-  console.log(detail);
+
   const removeFavorite = () => {
     API.patch(`products/favorites/${detail}`).then(() => {});
   };
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userFav = user.favorites;
   const handleFavs = () => {
     if (userFav.includes(detail)) {
       removeFavorite();
-      setAddFav(false);
+      setAddFav(true);
     } else {
       addFavorite();
-      setAddFav(true);
+      setAddFav(false);
     }
+    const updatedUser = {
+      ...user,
+      favorites: addFav ? [...userFav, detail] : userFav.filter((fav) => fav !== detail),
+    };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
   const handlePrevImg = () => {
@@ -252,8 +261,13 @@ const Product = () => {
               </span>
             </div>
             <div className="restofcard">
-              <button>
-                Contact: {product.owner.name} {product.owner.lastname}
+              <button
+                onClick={() => {
+                  productsaved(product);
+                  navigate('/usercard');
+                }}
+              >
+                Contact: {product.owner.name}
               </button>
 
               <button
@@ -262,7 +276,7 @@ const Product = () => {
                   handleFavorites();
                 }}
               >
-                {addFav ? (
+                {!userFav.includes(detail) ? (
                   <FavIcon
                     src={
                       'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
