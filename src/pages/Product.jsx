@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ProductContext } from '../context/ProductContext';
@@ -139,10 +139,8 @@ const ProductStyled = styled.main`
 `;
 const Product = () => {
   const navigate = useNavigate();
-  const url = window.location.href;
-  const path = url.substring('http://localhost:5173/product/'.length);
+  const { id } = useParams();
   const { setDetail, user, setUser } = useContext(UserContext);
-  setDetail(path);
   const [isFavorite, setIsFavorite] = useState(false);
   const { productsaved } = useContext(ProductContext);
   const [product, setProduct] = useState(null);
@@ -150,9 +148,10 @@ const Product = () => {
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
+  setDetail(id);
 
   const getProduct = () => {
-    API.get(`/products/${path}`).then((res) => {
+    API.get(`/products/${id}`).then((res) => {
       setLoaded(true);
       setProduct(res.data);
     });
@@ -163,14 +162,13 @@ const Product = () => {
       localStorage.setItem('user', JSON.stringify(res.data));
       setUser(res.data);
       res.data.favorites.map((item) => {
-        if (item._id == product._id) {
+        if (item._id == id) {
           setIsFavorite(true);
         }
       });
       /* setIsFavorite(res.data.favorites.includes(product._id)); */ // actualiza el valor de isFavorite
     });
   };
-  console.log(isFavorite);
 
   useEffect(() => {
     getProduct();
@@ -178,13 +176,13 @@ const Product = () => {
   }, []);
 
   const addFavorite = () => {
-    API.put(`products/favorites/${path}`).then(() => {
+    API.put(`products/favorites/${id}`).then(() => {
       navigate('/favorites');
     });
   };
 
   const removeFavorite = () => {
-    API.patch(`products/favorites/${path}`).then(() => {
+    API.patch(`products/favorites/${id}`).then(() => {
       navigate('/favorites');
     });
   };
@@ -233,6 +231,7 @@ const Product = () => {
 
   return (
     <ProductStyled>
+      {console.log(isFavorite)}
       {loaded ? (
         <div className="containerproduct">
           <div className="imgcontainer">
