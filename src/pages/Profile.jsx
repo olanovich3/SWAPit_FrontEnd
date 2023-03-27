@@ -18,32 +18,6 @@ const ProfileStyled = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  & .productdata {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-  }
-  & .productcard {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    width: 300px;
-    min-height: 400px;
-  }
-  & .productcard img {
-    width: 100%;
-    object-fit: contain;
-    object-position: center;
-    height: 100%;
-  }
-  & .description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-  }
   & .profiledata {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
@@ -91,13 +65,6 @@ const ProfileStyled = styled.main`
     flex-direction: column;
     gap: 16px;
   }
-  & .inputfile {
-    display: none;
-  }
-  .inputfile + label {
-    cursor: pointer;
-    width: 100%;
-  }
   & .buttonfile {
     padding: 8px;
     height: 35px;
@@ -130,8 +97,44 @@ const ProfileStyled = styled.main`
     display: flex;
     gap: 0.5rem;
   }
-  @media (max-width: 400) {
+  & .productdata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
   }
+  & .productcard {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 250px;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 1rem;
+  }
+  & .productcard img {
+    width: auto;
+    height: 250px;
+    border-radius: 5px;
+    object-fit: contain;
+    object-position: center;
+  }
+  & .description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+  & .productcard button {
+    margin: 1rem;
+  }
+  /*   @media (max-width: 400) {
+  } */
 `;
 
 const Profile = () => {
@@ -381,13 +384,11 @@ const Profile = () => {
             {comments.map((item) => (
               <div className="comment" key={item._id}>
                 <img src={item.product.image1} alt="" />
-
                 <nav>
                   <div className="commentarist">
                     <h2>{item.userfrom.name}</h2>
                     <h2>{item.userfrom.lastname}</h2>
                   </div>
-
                   <p>{item.comment}</p>
                 </nav>
                 <StarsRating rating={item.rating} />
@@ -404,16 +405,16 @@ const Profile = () => {
               <article className="productcard" key={item._id}>
                 <img src={item.image1} alt={item._id} />
                 <div className="description">
-                  <h2>{item.title}</h2>
+                  <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                  <Button
-                    text="EDIT"
-                    action={() => {
-                      navigate('/editproduct');
-                      productsaved(item);
-                    }}
-                  />
                 </div>
+                <Button
+                  text="EDIT"
+                  action={() => {
+                    navigate('/editproduct');
+                    productsaved(item);
+                  }}
+                />
               </article>
             );
           })}
