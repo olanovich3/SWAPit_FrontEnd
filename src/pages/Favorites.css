@@ -1,0 +1,15 @@
+.butonfav {
+  color: #0988d0;
+  background: none;
+  border: 1px solid #0988d0;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.butonfav:hover {
+  color: #fafafa;
+  background: #0988d0;
+  border: 1px solid #fafafa;
+  border-radius: 5px;
+  padding: 4px;
+}
