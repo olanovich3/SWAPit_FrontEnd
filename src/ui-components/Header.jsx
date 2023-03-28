@@ -68,6 +68,8 @@ const HeaderStyled = styled.header`
       transform: translate(0) !important;
     }
     .nav_toggle {
+      border: none;
+      background: none;
       display: flex !important;
       flex-direction: column;
       margin: 15px;
