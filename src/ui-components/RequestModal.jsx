@@ -2,18 +2,41 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
+import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 
-const RequestStyled = styled.div``;
+const RequestStyled = styled.div`
+  & .modal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+  }
+  & .hidden {
+    display: none !important;
+    background: none;
+  }
+`;
 
 const RequestModal = () => {
+  const { requestID, modalRequest, setModalRequest } = useContext(ProductContext);
   const { user } = useContext(UserContext);
   const { register, handleSubmit } = useForm();
   const [item, setItem] = useState([]);
   item;
+
   const getProduct = () => {
-    API.get(`/products/6420197f090746410fa57486`).then((res) => {
+    API.get(`/products/${requestID}`).then((res) => {
       console.log(res.data);
       setItem(res.data);
     });
@@ -24,8 +47,8 @@ const RequestModal = () => {
       message: formData.message,
     };
 
-    API.post('request/6420197f090746410fa57486', requestdata).then((res) => {
-      console.log(res);
+    API.post(`/request/${requestID}`, requestdata).then(() => {
+      setModalRequest(false);
     });
   };
 
@@ -35,16 +58,18 @@ const RequestModal = () => {
 
   return (
     <RequestStyled>
-      <form onSubmit={handleSubmit(RequestSubmit)}>
-        <label htmlFor="reqmessage">Send your message to {user.name} </label>
-        <input
-          type="text"
-          id="reqmessage"
-          placeholder="Hi! I`m interesting in your product..."
-          {...register(`message`)}
-        />
-        <button>Submit</button>
-      </form>
+      <div className={modalRequest ? 'modal' : 'hidden'}>
+        <form onSubmit={handleSubmit(RequestSubmit)}>
+          <label htmlFor="reqmessage">Send your message to {user.name} </label>
+          <input
+            type="text"
+            id="reqmessage"
+            placeholder="Hi! I`m interesting in your product..."
+            {...register(`message`)}
+          />
+          <button>Submit</button>
+        </form>
+      </div>
     </RequestStyled>
   );
 };

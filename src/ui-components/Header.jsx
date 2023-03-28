@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react';
+
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { UserContext } from '../context/UserContext';
+import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import Button from './Button';
 import RegisterModal from './RegisterModal';
@@ -35,6 +36,10 @@ const HeaderStyled = styled.header`
     font-weight: 500;
   }
   & .favorite {
+    width: 20px;
+  }
+  & .favoritenew {
+    filter: hue-rotate(150deg);
     width: 20px;
   }
   & .favoriteavatar {
@@ -95,6 +100,32 @@ const HeaderStyled = styled.header`
   }
 `;
 const Header = () => {
+  const [request, setRequest] = useState([]);
+  const [unseenRequests, setUnseenRequests] = useState(0);
+  const getRequest = () => {
+    API.get(`/request`).then((res) => {
+      const requests = res.data;
+      const newRequests = requests.filter(
+        (req) => req.userFrom === user.id && !req.isViewed,
+      );
+      setUnseenRequests(newRequests.length);
+      setRequest(requests);
+      newRequestAlert(requests);
+    });
+  };
+  const newRequestAlert = async () => {
+    await request.map((req) => {
+      console.log(req);
+    });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getRequest();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   const { user, logout } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -118,12 +149,20 @@ const Header = () => {
           </NavLink>
         )}
         {user && (
-          <NavLink className="navheader" to="chat">
-            <img
-              className="favorite"
-              src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/correo_hogtcn.png"
-              alt="favorite Logo"
-            />
+          <NavLink className="navheader" to="chat" onClick={() => setUnseenRequests(0)}>
+            {unseenRequests ? (
+              <img
+                className="favoritenew"
+                src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1680043436/warning_rdfkvd.png"
+                alt="Icono de solicitud nueva"
+              />
+            ) : (
+              <img
+                className="favorite"
+                src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/correo_hogtcn.png"
+                alt="chat Logo"
+              />
+            )}
             Inbox
           </NavLink>
         )}

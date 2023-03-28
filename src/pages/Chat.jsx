@@ -10,7 +10,7 @@ const ChatStyled = styled.main`
   display: grid;
   grid-template-columns: 20vw 1fr 20vw;
   padding: 2rem 4rem;
-  height: 80vh;
+  min-height: 80vh;
 
   & .chatinbox {
     display: flex;
@@ -78,6 +78,10 @@ const ChatStyled = styled.main`
     padding: 0.1rem 0.6rem;
     border-radius: 0.2rem;
   }
+  & .quote {
+    font-style: italic;
+    font-size: 13px;
+  }
 `;
 
 const Chat = () => {
@@ -141,7 +145,7 @@ const Chat = () => {
                     return (
                       <div className="requestCard" key={req._id}>
                         <h3>{req.userfrom.name} wants your product!!</h3>
-                        <p>{req.message}</p>
+                        <q className="quote">{req.message}</q>
                         <DivFlex gap={'4rem'}>
                           <img
                             className={'reqprod'}
