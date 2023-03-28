@@ -141,6 +141,13 @@ const RegisterStyled = styled.div`
     width: 20px;
     height: 20px;
   }
+  & .modalAlert {
+    color: red;
+    font-size: 12px;
+  }
+  & .hiddenAlert {
+    display: none !important;
+  }
 `;
 
 const RegisterModal = () => {
@@ -148,6 +155,7 @@ const RegisterModal = () => {
   const [showAvatar, setShowAvatar] = useState(null);
   const [valueAvatar, SetValueAvatar] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -179,11 +187,14 @@ const RegisterModal = () => {
   const { login } = useContext(UserContext);
 
   const formLoginSubmit = (formData) => {
-    API.post('/users/login', formData).then((res) => {
-      login(res.data.user, res.data.token);
-
-      navigate('/');
-    });
+    API.post('/users/login', formData)
+      .then((res) => {
+        login(res.data.user, res.data.token);
+        navigate('/');
+      })
+      .catch(() => {
+        setShowAlert(true);
+      });
   };
 
   const [showLogin, setShowLogin] = useState(false);
@@ -207,11 +218,18 @@ const RegisterModal = () => {
             <div className="form-box">
               <form className="form" onSubmit={handleSubmit(formLoginSubmit)}>
                 <span>
-                  <button className="close" onClick={() => setShowLogin(!showLogin)}>
+                  <button
+                    className="close"
+                    onClick={() => setShowLogin(!showLogin) & setShowAlert(false)}
+                  >
                     Close
                   </button>
                 </span>
                 <div className="title">Log In</div>
+                <div className={showAlert ? `modalAlert` : `hiddenAlert`}>
+                  Looks like either your email address or password were incorrect. Wanna
+                  try again?
+                </div>
                 <div className="form-container">
                   <label htmlFor="email">Email </label>
                   <input
@@ -302,16 +320,6 @@ const RegisterModal = () => {
                   />
                 </div>
 
-                <select
-                  className="input"
-                  name="gender"
-                  id="gender"
-                  {...register(`gender`)}
-                  required
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
                 <input
                   type="date"
                   className="input"

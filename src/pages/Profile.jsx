@@ -183,7 +183,12 @@ const Profile = () => {
               </h2>
               <p>{new Date(data.birthdate).toLocaleDateString('es-ES')}</p>
               <p>{data.email}</p>
-              <AverageRating ratings={data.rating} />
+              {data.rating.length ? (
+                <AverageRating ratings={data.rating} />
+              ) : (
+                <h1>No rates</h1>
+              )}
+
               <p>
                 <img
                   className="locationicon"
