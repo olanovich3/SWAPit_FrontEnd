@@ -71,20 +71,6 @@ const ProductFigureStyled = styled.div`
     font-size: 1rem;
     max-width: 10rem;
   }
-  & .caption p img {
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-  }
-  & .caption p {
-    height: 70px;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0.2rem;
-  }
 `;
 
 const ProductFigure = ({ product, gap }) => {
@@ -108,10 +94,6 @@ const ProductFigure = ({ product, gap }) => {
             <div className="overlay">View details</div>
           </div>
           <div className="caption">
-            <p>
-              <img src={product.owner.avatar} alt="Owner avatar" />
-              {product.owner.name}
-            </p>
             <figcaption>{product.title}</figcaption>
           </div>
         </figure>

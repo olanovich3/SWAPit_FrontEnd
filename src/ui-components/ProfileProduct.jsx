@@ -10,11 +10,11 @@ const ProductProfileStyled = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   & .productcard {
-    background-color: white;
+    background-color: rgb(248, 248, 248);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 250px;
-    min-height: 480px;
+    width: 230px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,12 +23,14 @@ const ProductProfileStyled = styled.div`
   }
   & .productcard img {
     width: auto;
-    height: 250px;
+    padding: 1rem;
+    height: 60%;
     border-radius: 5px;
     object-fit: contain;
     object-position: center;
   }
   & .description {
+    height: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
