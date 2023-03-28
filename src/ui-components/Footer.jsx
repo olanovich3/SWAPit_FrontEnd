@@ -15,8 +15,9 @@ const FooterStyled = styled.footer`
   color: ${Palette.primary};
   padding: 2rem;
   & .footergrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
   .footerLogo {
     font-family: 'Caveat Brush', cursive;
@@ -50,61 +51,60 @@ const Footer = () => {
   return (
     <FooterStyled>
       <div className="footergrid">
-        <DivFlex justify={'flex-start'}>
+        <DivFlex gap={'5rem'}>
           <NavLink to="/">
             <h1 className="footerLogo">Swap it</h1>
           </NavLink>
-        </DivFlex>
-        <DivFlex>
           <NavLink to="/terms-and-conditions">Terms and Conditions</NavLink>
           <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           <NavLink className={'aboutNav'} to="/about">
             About
           </NavLink>
         </DivFlex>
-        <DivFlex>
+        <DivFlex gap={'7rem'}>
           <p className="footerterms">Copyright © 2023 Swap it. All rights reserved.</p>
-
-          <p>Contact us:</p>
-          <Anchor
-            href="https://github.com/olanovich3?tab=repositories"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              className="footericons"
-              src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328484/Social%20Media/1200px-Octicons-mark-github.svg_aajitx.png"
-              alt="Github icon"
-            />
-          </Anchor>
-          <Anchor href="https://instagram.com" target="_blank" rel="noreferrer">
-            <img
-              className="footericons"
-              src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328544/Social%20Media/1200px-Instagram_icon_g8vrbb.png"
-              alt="Instagram icon"
-            />
-          </Anchor>
-          <Anchor href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-            <img
-              className="footericons"
-              src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328926/Social%20Media/LinkedIn_logo_initials_ajo1vm.png"
-              alt="Linkedin icon"
-            />
-          </Anchor>
-          <Anchor href="https://facebook.com" target="_blank" rel="noreferrer">
-            <img
-              className="footericons"
-              src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328683/Social%20Media/1200px-Facebook_Logo__282019_29_cz1vfx.png"
-              alt="Facebook icon"
-            />
-          </Anchor>
-          <Anchor href="https://twitter.com" target="_blank" rel="noreferrer">
-            <img
-              className="footericons"
-              src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328794/Social%20Media/2491px-Twitter-logo.svg_lj87qt.png"
-              alt="Twitter icon"
-            />
-          </Anchor>
+          <DivFlex gap={'2rem'}>
+            <p>Contact us:</p>
+            <Anchor
+              href="https://github.com/olanovich3?tab=repositories"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="footericons"
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328484/Social%20Media/1200px-Octicons-mark-github.svg_aajitx.png"
+                alt="Github icon"
+              />
+            </Anchor>
+            <Anchor href="https://instagram.com" target="_blank" rel="noreferrer">
+              <img
+                className="footericons"
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328544/Social%20Media/1200px-Instagram_icon_g8vrbb.png"
+                alt="Instagram icon"
+              />
+            </Anchor>
+            <Anchor href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+              <img
+                className="footericons"
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328926/Social%20Media/LinkedIn_logo_initials_ajo1vm.png"
+                alt="Linkedin icon"
+              />
+            </Anchor>
+            <Anchor href="https://facebook.com" target="_blank" rel="noreferrer">
+              <img
+                className="footericons"
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328683/Social%20Media/1200px-Facebook_Logo__282019_29_cz1vfx.png"
+                alt="Facebook icon"
+              />
+            </Anchor>
+            <Anchor href="https://twitter.com" target="_blank" rel="noreferrer">
+              <img
+                className="footericons"
+                src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328794/Social%20Media/2491px-Twitter-logo.svg_lj87qt.png"
+                alt="Twitter icon"
+              />
+            </Anchor>
+          </DivFlex>
         </DivFlex>
       </div>
     </FooterStyled>

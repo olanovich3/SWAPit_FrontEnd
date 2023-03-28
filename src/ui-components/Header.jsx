@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,12 +14,7 @@ const HeaderStyled = styled.header`
   padding: 0 5rem;
   align-items: center;
   background-color: ${Palette.background};
-
-  & .swapitlogo img {
-    height: 2rem;
-    width: auto;
-  }
-  .mainLogo {
+  & .mainLogo {
     font-family: 'Caveat Brush', cursive;
     color: #07689f;
     font-size: 3.2rem;
@@ -52,6 +47,57 @@ const HeaderStyled = styled.header`
     height: 28px;
     border-radius: 50%;
   }
+  & .nav_toggle {
+    display: none;
+  }
+  @media (max-width: 770px) {
+    .mainLogo {
+      font-size: 2.7rem;
+    }
+    .headerNav {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      background: ${Palette.secondary};
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: -webkit-fill-available;
+      transform: translateX(-100%);
+      transition: 0.3s ease all;
+    }
+    .headerNav > a {
+      color: white;
+    }
+    .headerNav.open {
+      transform: translate(0) !important;
+    }
+    .nav_toggle {
+      border: none;
+      background: none;
+      display: flex !important;
+      flex-direction: column;
+      margin: 15px;
+    }
+    .nav_toggle span {
+      width: 30px;
+      height: 4px;
+      background: ${Palette.secondary};
+      margin-bottom: 5px;
+      border-radius: 2px;
+      transform-origin: 5px 0px;
+      transition: all 0.2s linear;
+    }
+    .nav_toggle.open > span {
+      transform: rotate(45deg) translate(0px, 0px);
+    }
+    .nav_toggle.open > span:nth-child(2) {
+      display: none;
+    }
+    .nav_toggle.open > span:nth-child(3) {
+      transform: rotate(-45deg) translate(-5px, 1px);
+    }
+  }
 `;
 const Header = () => {
   const [request, setRequest] = useState([]);
@@ -81,6 +127,7 @@ const Header = () => {
   }, []);
 
   const { user, logout } = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <HeaderStyled>
       <NavLink className="swapitlogo" to="/">
@@ -90,7 +137,7 @@ const Header = () => {
         /> */}
         <h1 className="mainLogo">Swap it</h1>
       </NavLink>
-      <div className="headerNav">
+      <div className={`headerNav ${isOpen && 'open'}`}>
         {user && (
           <NavLink className="navheader" to="favorites">
             <img
@@ -146,6 +193,14 @@ const Header = () => {
           />
         )}
       </div>
+      <button
+        className={`nav_toggle ${isOpen && 'open'}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </HeaderStyled>
   );
 };
