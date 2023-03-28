@@ -33,7 +33,6 @@ const ProductFigureStyled = styled.div`
     width: 100%;
     max-width: 300px;
   }
-
   & .container img {
     height: 280px;
     width: 250px;
@@ -61,15 +60,30 @@ const ProductFigureStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
   }
-  & .caption:hover {
+  & .caption:hover figcaption {
     color: ${Palette.highlight};
   }
   & .caption figcaption {
     text-transform: uppercase;
     font-weight: 500;
     font-size: 1rem;
-    padding: 0 2rem;
+    max-width: 10rem;
+  }
+  & .caption p img {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+  }
+  & .caption p {
+    height: 70px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem;
   }
 `;
 
@@ -94,6 +108,10 @@ const ProductFigure = ({ product, gap }) => {
             <div className="overlay">View details</div>
           </div>
           <div className="caption">
+            <p>
+              <img src={product.owner.avatar} alt="Owner avatar" />
+              {product.owner.name}
+            </p>
             <figcaption>{product.title}</figcaption>
           </div>
         </figure>
