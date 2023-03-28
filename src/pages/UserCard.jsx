@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { API } from '../services/API';
 import AverageRating from '../ui-components/AverageRating';
 import Button from '../ui-components/Button';
-import StarRating from '../ui-components/StarsRating';
+import CommentsAll from '../ui-components/CommentsAll';
 import StarRatingInput from '../ui-components/StarsRatingInput';
 
 const UserStyled = styled.main`
@@ -152,34 +152,6 @@ const UserStyled = styled.main`
     width: 80%;
     height: 70%;
   }
-  & .opinionsdata {
-    height: 500px;
-    width: 700px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  & .comment {
-    background-color: rgb(248, 248, 248);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    width: 650px;
-    height: 125px;
-    display: flex;
-    align-items: center;
-
-    gap: 1.5rem;
-  }
-  & .comment img {
-    height: 80%;
-    width: 20%;
-  }
-  & .commentarist {
-    display: flex;
-    gap: 0.5rem;
-  }
 `;
 
 const UserCard = () => {
@@ -284,27 +256,7 @@ const UserCard = () => {
         ))}
 
       {review &&
-        (comments.length ? (
-          <div className="opinionsdata">
-            {comments.map((item) => (
-              <div className="comment" key={item._id}>
-                <img src={item.product.image1} alt="" />
-
-                <nav>
-                  <div className="commentarist">
-                    <h2>{item.userfrom.name}</h2>
-                    <h2>{item.userfrom.lastname}</h2>
-                  </div>
-
-                  <p>{item.comment}</p>
-                </nav>
-                <StarRating rating={item.rating} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <h1>no reviews</h1>
-        ))}
+        (comments.length ? <CommentsAll comment={comments} /> : <h1>no reviews</h1>)}
     </UserStyled>
   );
 };

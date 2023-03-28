@@ -1,17 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import AverageRating from '../ui-components/AverageRating';
 import Button from '../ui-components/Button';
+import CommentsAll from '../ui-components/CommentsAll';
 import DivFlex from '../ui-components/DivFlex';
-/* import Input from '../ui-components/Input'; */
-import StarsRating from '../ui-components/StarsRating';
+import ProductProfile from '../ui-components/ProfileProduct';
 
 const ProfileStyled = styled.main`
   min-height: 70vh;
@@ -46,8 +44,7 @@ const ProfileStyled = styled.main`
     text-align: center;
   }
   & .inputfile {
-    margin: 1rem 7.5rem;
-    color: ${Palette.background};
+    display: none;
   }
   & .locationicon {
     height: 1.3rem;
@@ -57,14 +54,7 @@ const ProfileStyled = styled.main`
     display: flex;
     gap: 4rem;
   }
-  & .opinionsdata {
-    height: 500px;
-    width: 700px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+
   & .buttonfile {
     padding: 8px;
     height: 35px;
@@ -77,73 +67,15 @@ const ProfileStyled = styled.main`
     background-color: ${Palette.secondary};
     color: ${Palette.background};
   }
-  & .comment {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    width: 650px;
-    height: 125px;
-    display: flex;
-    align-items: center;
-
-    gap: 1.5rem;
-  }
-  & .comment img {
-    height: 80%;
-    width: 20%;
-  }
-  & .commentarist {
-    display: flex;
-    gap: 0.5rem;
-  }
-  & .productdata {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
-  & .productcard {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 250px;
-    min-height: 480px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    padding-top: 1rem;
-  }
-  & .productcard img {
-    width: auto;
-    height: 250px;
-    border-radius: 5px;
-    object-fit: contain;
-    object-position: center;
-  }
-  & .description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-    gap: 0.5rem;
-  }
-  & .productcard button {
-    margin: 1rem;
-  }
-  /*   @media (max-width: 400) {
-  } */
 `;
 
 const Profile = () => {
   const { register, handleSubmit } = useForm();
-  let navigate = useNavigate();
+
   const [data, setData] = useState({});
   const [comments, setComments] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const { productsaved } = useContext(ProductContext);
+
   const { user, setUser, logout } = useContext(UserContext);
   const [editProfile, setEditProfile] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -379,47 +311,8 @@ const Profile = () => {
         )
       ) : null}
       {opinion &&
-        (comments.length ? (
-          <div className="opinionsdata">
-            {comments.map((item) => (
-              <div className="comment" key={item._id}>
-                <img src={item.product.image1} alt="" />
-                <nav>
-                  <div className="commentarist">
-                    <h2>{item.userfrom.name}</h2>
-                    <h2>{item.userfrom.lastname}</h2>
-                  </div>
-                  <p>{item.comment}</p>
-                </nav>
-                <StarsRating rating={item.rating} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <h1>no reviews</h1>
-        ))}
-      {products && (
-        <div className="productdata">
-          {data.products.map((item) => {
-            return (
-              <article className="productcard" key={item._id}>
-                <img src={item.image1} alt={item._id} />
-                <div className="description">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <Button
-                  text="EDIT"
-                  action={() => {
-                    navigate('/editproduct');
-                    productsaved(item);
-                  }}
-                />
-              </article>
-            );
-          })}
-        </div>
-      )}
+        (comments.length ? <CommentsAll comment={comments} /> : <h1>no reviews</h1>)}
+      {products && <ProductProfile data={data} />}
     </ProfileStyled>
   );
 };
