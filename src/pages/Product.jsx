@@ -286,6 +286,7 @@ const Product = () => {
                 className="btncontact"
                 onClick={() => {
                   productsaved(product);
+                  navigate('/usercard');
                 }}
               >
                 Contact with {product.owner.name}
