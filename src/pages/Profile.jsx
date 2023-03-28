@@ -24,7 +24,7 @@ const ProfileStyled = styled.main`
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
   }
   & .profavatar {
     width: 50%;
@@ -33,15 +33,18 @@ const ProfileStyled = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   & .profavatar img {
-    width: 100%;
+    width: 80%;
     border-radius: 50%;
-    padding: 3.5rem;
+    object-fit: cover;
+    padding: 3rem;
   }
   & .profavatar label {
     color: ${Palette.background};
     text-align: center;
+    margin-bottom: 1rem;
   }
   & .inputfile {
     display: none;

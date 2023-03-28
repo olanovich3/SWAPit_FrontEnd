@@ -47,11 +47,19 @@ const RegisterStyled = styled.div`
     background: none;
     border: 0;
     outline: 0;
-    height: 40px;
+    height: 25px;
     width: 60%;
     border-bottom: 1px solid #eee;
     font-size: 0.9rem;
     padding: 8px 15px;
+  }
+  & .label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #05060f99;
+    transition: color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
   }
 
   & .form-section {
@@ -141,6 +149,13 @@ const RegisterStyled = styled.div`
     width: 20px;
     height: 20px;
   }
+  & .modalAlert {
+    color: red;
+    font-size: 12px;
+  }
+  & .hiddenAlert {
+    display: none !important;
+  }
 `;
 
 const RegisterModalCreate = () => {
@@ -148,6 +163,8 @@ const RegisterModalCreate = () => {
   const [showAvatar, setShowAvatar] = useState(null);
   const [valueAvatar, SetValueAvatar] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertRegister, setShowAlertRegister] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -170,20 +187,27 @@ const RegisterModalCreate = () => {
 
     API.post('/users/register', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
-    }).then((res) => {
-      setShowRegister(!showRegister);
-      navigate('/');
-      login(res.data.user, res.data.token);
-    });
+    })
+      .then((res) => {
+        setShowRegister(!showRegister);
+        navigate('/');
+        login(res.data.user, res.data.token);
+      })
+      .catch(() => {
+        setShowAlertRegister(true);
+      });
   };
   const { login } = useContext(UserContext);
 
   const formLoginSubmit = (formData) => {
-    API.post('/users/login', formData).then((res) => {
-      login(res.data.user, res.data.token);
-
-      navigate('/');
-    });
+    API.post('/users/login', formData)
+      .then((res) => {
+        login(res.data.user, res.data.token);
+        navigate('/');
+      })
+      .catch(() => {
+        setShowAlert(true);
+      });
   };
 
   const [showLogin, setShowLogin] = useState(false);
@@ -193,7 +217,7 @@ const RegisterModalCreate = () => {
     <RegisterStyled>
       <Button
         className={'principal'}
-        text={'CREATE PRODUCT'}
+        text={'POST A PRODUCT'}
         action={() => {
           setShowLogin(!showLogin);
         }}
@@ -204,11 +228,18 @@ const RegisterModalCreate = () => {
             <div className="form-box">
               <form className="form" onSubmit={handleSubmit(formLoginSubmit)}>
                 <span>
-                  <button className="close" onClick={() => setShowLogin(!showLogin)}>
+                  <button
+                    className="close"
+                    onClick={() => setShowLogin(!showLogin) & setShowAlert(false)}
+                  >
                     Close
                   </button>
                 </span>
                 <div className="title">Log In</div>
+                <div className={showAlert ? `modalAlert` : `hiddenAlert`}>
+                  Looks like either your email address or password were incorrect. Wanna
+                  try again?
+                </div>
                 <div className="form-container">
                   <label htmlFor="email">Email </label>
                   <input
@@ -271,73 +302,83 @@ const RegisterModalCreate = () => {
           <div className="form-box">
             <form className="form" onSubmit={handleSubmit(formSubmit)}>
               <span>
-                <button className="close" onClick={() => setShowRegister(!showRegister)}>
+                <button
+                  className="close"
+                  onClick={() =>
+                    setShowRegister(!showRegister) & setShowAlertRegister(false)
+                  }
+                >
                   Close
                 </button>
               </span>
               <h1 className="title">Sign up</h1>
               <span className="subtitle">Create a free account with your email.</span>
+              <div className={showAlertRegister ? `modalAlert` : `hiddenAlert`}>
+                Looks like either your email address or password were not valid. Wanna try
+                again?
+              </div>
               <div className="form-container">
                 <div className="form-control">
+                  <label htmlFor="name" className="label">
+                    Name
+                  </label>
                   <input
                     type="text"
                     className="input"
                     id="name"
-                    placeholder="Name"
                     {...register(`name`)}
                     required
                   />
                 </div>
                 <div className="form-control">
+                  <label htmlFor="lastname" className="label">
+                    Lastname
+                  </label>
                   <input
                     type="text"
                     className="input"
                     id="lastname"
-                    placeholder="lastname"
                     {...register(`lastname`)}
                     required
                   />
                 </div>
-
-                <select
-                  className="input"
-                  name="gender"
-                  id="gender"
-                  {...register(`gender`)}
-                  required
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
+                <label htmlFor="birthdate" className="label">
+                  Birthdate
+                </label>
                 <input
                   type="date"
                   className="input"
                   id="birthdate"
-                  placeholder="birthdate"
                   {...register(`birthdate`)}
                   required
                 />
+                <label htmlFor="location" className="label">
+                  Location
+                </label>
                 <input
                   type="text"
                   className="input"
                   id="location"
-                  placeholder="location"
                   {...register(`location`)}
                   required
                 />
+                <label htmlFor="email" className="label">
+                  Email
+                </label>
                 <input
                   type="text"
                   className="input"
                   id="email"
-                  placeholder="email"
                   {...register(`email`)}
                   required
                 />
+                <label htmlFor="password" className="label">
+                  Password
+                </label>
                 <input
                   type={showPassword ? 'text' : 'password'}
                   className="input"
                   id="password"
-                  placeholder="password"
                   {...register(`password`)}
                   required
                 />
