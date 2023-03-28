@@ -12,9 +12,18 @@ export const ProductContextProvider = ({ children }) => {
     setEditProduct(null);
     localStorage.removeItem('product');
   };
+
+  const [request, setRequest] = useState([]);
   return (
     <ProductContext.Provider
-      value={{ editProduct, setEditProduct, productsaved, productdeleted }}
+      value={{
+        editProduct,
+        setEditProduct,
+        productsaved,
+        productdeleted,
+        request,
+        setRequest,
+      }}
     >
       {children}
     </ProductContext.Provider>

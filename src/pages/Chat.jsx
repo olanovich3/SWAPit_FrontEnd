@@ -5,60 +5,66 @@ import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 
 const ChatStyled = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 20vw 1fr 20vw;
+  padding: 2rem 4rem;
+
+  height: 80vh;
 
   & .chatinbox {
-    border: 1px solid #d4d4d4;
-    width: calc((100% - 1em) / 3);
-    background-color: whitesmoke;
-    float: left;
-    height: 100%;
-    padding: 4rem;
-  }
-  & .chatchat {
-    width: calc((100% - 1em) / 3 + 20em);
-    border: 1px solid #d4d4d4;
-    background-color: whitesmoke;
-    height: 100%;
-    padding: 4rem;
-  }
-  & .chatproduct {
-    width: calc((100% - 1em) / 3);
-    float: right;
-    border: 1px solid #d4d4d4;
-    background-color: whitesmoke;
-    height: 100%;
-    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    background-color: pink;
   }
 
-  & .chatinbox1 {
-    border-bottom: 1px solid #e5e5e5;
+  & .mainchat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    background-color: green;
+  }
+  & .requestchat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 3 / 3;
+    grid-row: 1 / 2;
+    background-color: blue;
   }
 `;
 
 const Chat = () => {
   const { user } = useContext(UserContext);
-  const [chat, setChat] = useState({});
-  const getChat = () => {
-    API.get(`/chats/:${user}`).then((res) => {
-      setChat(res.data);
-      console.log(chat);
+  user;
+  request;
+  const [request, setRequest] = useState([]);
+  const getAllRequest = () => {
+    API.get(`/request`).then((res) => {
+      setRequest(res.data);
     });
   };
+
   useEffect(() => {
-    getChat();
+    getAllRequest();
   }, []);
+
   return (
     <ChatStyled>
-      <div className="chatinbox">
-        <div className="chatinbox1">INBOX</div>
-        <div>CHAT</div>
-      </div>
+      <div className="chatinbox">InBox</div>
+      <div className="mainchat">Chat</div>
 
-      <div className="chatchat">CHAT</div>
-      <div className="chatproduct">PRODUCT</div>
+      <div className="requestchat">
+        <div>
+          <h3>Product Request</h3>
+          <h3>Product Request</h3>
+        </div>
+      </div>
     </ChatStyled>
   );
 };

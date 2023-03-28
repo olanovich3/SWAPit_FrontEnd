@@ -15,6 +15,7 @@ import CreateProduct from './pages/CreateProduct';
 import EditProduct from './pages/EditProduct';
 import Favorites from './pages/Favorites';
 import Home from './pages/Home';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Product from './pages/Product';
@@ -80,6 +81,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 />
                 <Route path="/terms-and-conditions" element={<TerminosYCondiciones />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
