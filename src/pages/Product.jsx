@@ -7,6 +7,7 @@ import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 import FavIcon from '../ui-components/Favicon';
+import RequestModal from '../ui-components/RequestModal';
 import Spinner from '../ui-components/Spinner';
 
 const ProductStyled = styled.main`
@@ -141,6 +142,7 @@ const Product = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { setDetail, user, setUser } = useContext(UserContext);
+  const { setModalRequest, setRequestID } = useContext(ProductContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const { productsaved } = useContext(ProductContext);
   const [product, setProduct] = useState(null);
@@ -148,6 +150,7 @@ const Product = () => {
   const [showImage3, setShowImage3] = useState(false);
   const [showImage2, setShowImage2] = useState(false);
   const [showImage1, setShowImage1] = useState(true);
+
   setDetail(id);
 
   const getProduct = () => {
@@ -290,7 +293,16 @@ const Product = () => {
               >
                 Contact with {product.owner.name}
               </button>
-
+              <button
+                onClick={() => {
+                  setModalRequest(true);
+                  setRequestID(product._id);
+                  localStorage.setItem('requestID', JSON.stringify(product._id));
+                }}
+              >
+                Request this product
+              </button>
+              <RequestModal />
               <button
                 onClick={() => {
                   handleFavs();
@@ -314,25 +326,6 @@ const Product = () => {
                   />
                 )}
               </button>
-            </div>
-            <div className="prodlocation">
-              {/* <div className="location">
-                <img
-                  src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679864286/Resources/927667_rngpr5.png"
-                  alt="Location icon"
-                />
-                {product.owner.location.toUpperCase()}
-              </div> */}
-              {/* {product.owner.location == 'madrid' ? (
-                <iframe
-                  title="madrid"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.38441032713!2d-3.8196196332355483!3d40.438131079723014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1679435067702!5m2!1ses!2ses"
-                  width="200"
-                  height="150"
-                ></iframe>
-              ) : (
-                <></>
-              )} */}
             </div>
           </div>
         </div>
