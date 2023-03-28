@@ -62,6 +62,7 @@ const Chat = () => {
       <div className="requestchat">
         <div>
           <h3>Product Request</h3>
+          <h3>Product Request</h3>
         </div>
       </div>
     </ChatStyled>
