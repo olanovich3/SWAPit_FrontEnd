@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import AverageRating from '../ui-components/AverageRating';
 import Button from '../ui-components/Button';
+import StarRating from '../ui-components/StarsRating';
 import StarRatingInput from '../ui-components/StarsRatingInput';
 
 const UserStyled = styled.main`
@@ -30,7 +30,8 @@ const UserStyled = styled.main`
   }
   .usercard img {
     display: block;
-    max-width: 100%;
+    max-width: 50%;
+    max-height: fit-content;
     height: auto;
     object-fit: cover;
     border-top-left-radius: 5px;
@@ -151,20 +152,45 @@ const UserStyled = styled.main`
     width: 80%;
     height: 70%;
   }
+  & .opinionsdata {
+    height: 500px;
+    width: 700px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .comment {
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    width: 650px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+
+    gap: 1.5rem;
+  }
+  & .comment img {
+    height: 80%;
+    width: 20%;
+  }
+  & .commentarist {
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 const UserCard = () => {
   let navigate = useNavigate();
-  const { user } = useContext(UserContext);
   const [userCard, setUserCard] = useState(true);
   const userProductStorage = JSON.parse(localStorage.getItem('product'));
   // const [chat, setChat] = useState(false);
   const [profile, setProfile] = useState(true);
   const [review, setReview] = useState(false);
+  const [comments, setComments] = useState();
   const resetComment = {
-    userfrom: user._id,
-    userto: userProductStorage.owner._id,
-    product: userProductStorage._id,
     comment: '',
     rating: 0,
   };
@@ -172,14 +198,25 @@ const UserCard = () => {
   const [newComment, setNewComment] = useState({ ...resetComment });
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(newComment);
-    API.post('/user/comments/new', newComment).then(() => {
+
+    API.post(`/user/comments/${userProductStorage._id}`, newComment).then(() => {
       navigate('/products');
     });
   };
+
+  const getComments = () => {
+    API.get(`/user/comments/${userProductStorage.owner._id}`).then((res) => {
+      setComments(res.data);
+      console.log(res.data);
+    });
+  };
+
   const handleRatingChange = (value) => {
     setNewComment({ ...newComment, rating: value });
   };
+  useEffect(() => {
+    getComments();
+  }, []);
 
   return (
     <UserStyled>
@@ -246,7 +283,28 @@ const UserCard = () => {
           </div>
         ))}
 
-      {review && <h1>Review</h1>}
+      {review &&
+        (comments.length ? (
+          <div className="opinionsdata">
+            {comments.map((item) => (
+              <div className="comment" key={item._id}>
+                <img src={item.product.image1} alt="" />
+
+                <nav>
+                  <div className="commentarist">
+                    <h2>{item.userfrom.name}</h2>
+                    <h2>{item.userfrom.lastname}</h2>
+                  </div>
+
+                  <p>{item.comment}</p>
+                </nav>
+                <StarRating rating={item.rating} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h1>no reviews</h1>
+        ))}
     </UserStyled>
   );
 };
