@@ -1,49 +1,37 @@
 import styled from 'styled-components';
 
 const SpinnerStyled = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 4px solid #444;
-  margin: calc(50vh - 28px) auto;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  animation: spin 5s linear infinite;
-  position: relative;
-
-  &:before,
-  &:after {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-top: 4px solid #444;
-    border-right: 4px solid #444;
-    position: absolute;
-    top: 5px;
-    left: -5px;
-    box-shadow: 4px -4px 0 4px #fff;
-  }
-
-  &:after {
-    top: 39px;
-    left: 35px;
-    border: none;
-    border-bottom: 4px solid #444;
-    border-left: 4px solid #444;
-    box-shadow: -4px 4px 0 4px #fff;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
+  padding: 7px;
+  background: conic-gradient(from 135deg at top, #07689f 90deg, #0000 0) 0 calc(50% - 4px) /
+      19px 9.5px,
+    radial-gradient(
+        farthest-side at bottom left,
+        #0000 calc(100% - 7px),
+        #07689f calc(100% - 6px) 99%,
+        #0000
+      )
+      top right/50% 50% content-box content-box,
+    radial-gradient(
+        farthest-side at top,
+        #0000 calc(100% - 7px),
+        #07689f calc(100% - 6px) 99%,
+        #0000
+      )
+      bottom / 100% 50% content-box content-box;
+  background-repeat: no-repeat;
+  animation: spinner-v8og74 1s infinite linear;
+  @keyframes spinner-v8og74 {
     100% {
-      transform: rotate(360deg);
+      transform: rotate(1turn);
     }
   }
 `;
 
 const Spinner = () => {
-  return <SpinnerStyled></SpinnerStyled>;
+  return <SpinnerStyled className="spinner"></SpinnerStyled>;
 };
 
 export default Spinner;
