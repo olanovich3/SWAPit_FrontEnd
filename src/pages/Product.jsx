@@ -231,7 +231,6 @@ const Product = () => {
 
   return (
     <ProductStyled>
-      {console.log(isFavorite)}
       {loaded ? (
         <div className="containerproduct">
           <div className="imgcontainer">

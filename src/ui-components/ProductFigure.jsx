@@ -108,10 +108,6 @@ const ProductFigure = ({ product, gap }) => {
             <div className="overlay">View details</div>
           </div>
           <div className="caption">
-            <p>
-              <img src={product.owner.avatar} alt="Owner avatar" />
-              {product.owner.name}
-            </p>
             <figcaption>{product.title}</figcaption>
           </div>
         </figure>

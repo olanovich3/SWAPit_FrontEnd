@@ -1,3 +1,5 @@
+import './Favorites.css';
+
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,16 +33,17 @@ const Favorites = () => {
 
   return (
     <main>
-      <DivFlex gap={'2rem'}>
+      <DivFlex gap={'2rem'} margin={'2rem'}>
         {user.favorites.map((item) => {
           return (
-            <DivFlex key={item._id}>
+            <DivFlex key={item._id} direction={'column'} gap={'0.5rem'}>
               <button
+                className="butonfav"
                 onClick={() => {
                   removeFavorite(item._id);
                 }}
               >
-                remove
+                Remove Item
               </button>
               <ProductFigure product={item}></ProductFigure>
             </DivFlex>
