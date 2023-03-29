@@ -44,6 +44,7 @@ const RequestStyled = styled.div`
   @media screen and (max-width: 1080px) {
     .request-box {
       width: 250px;
+      background: none;
     }
   }
   & .request-box form {
