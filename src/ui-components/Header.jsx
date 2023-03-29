@@ -174,7 +174,7 @@ const Header = () => {
         )}
         {user ? (
           <NavLink to="createproduct">
-            <Button className={'principal'} text={'Create Product'} />
+            <Button className={'principal'} text={'POST A PRODUCT'} />
           </NavLink>
         ) : (
           <RegisterModalCreate />
