@@ -5,7 +5,7 @@ const SearchStyled = styled.input`
   border-radius: 2rem;
   background-color: transparent;
   height: 38px;
-  width: 75vw;
+  width: 55vw;
   font-size: ${({ size }) =>
     size === 'lg' ? '25px' : size === 'sm' ? '14px' : size === 'xm' ? '10px' : '16px'};
   letter-spacing: 0.5px;

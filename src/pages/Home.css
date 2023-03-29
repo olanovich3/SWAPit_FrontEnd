@@ -36,6 +36,12 @@
   width: auto;
 }
 @media (max-width: 1082px) {
+  .h-search {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    width: 80vw;
+  }
   .home > h2 {
     font-weight: 600;
     padding: 0.5rem;
@@ -62,5 +68,21 @@
     padding: 0.3rem;
     letter-spacing: 0.1rem;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .home > h2 {
+    font-weight: 1000;
+    padding: 0.3rem;
+    letter-spacing: 0.1rem;
+    font-size: 9px;
+  }
+
+  h1 {
+    font-weight: 1200;
+    padding: 0.1rem;
+    letter-spacing: 0.1rem;
+    font-size: 12px;
   }
 }
