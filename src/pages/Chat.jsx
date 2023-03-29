@@ -104,7 +104,7 @@ const ChatStyled = styled.main`
   }
   @media screen and (max-width: 1080px) {
     .requestCard {
-      height: 220px;
+      height: 210px;
       justify-content: center;
     }
     .requestCard h3 {
@@ -154,7 +154,7 @@ const ChatStyled = styled.main`
   }
   @media screen and (max-width: 1080px) {
     .responsebox {
-      height: 180px;
+      height: 210px;
       justify-content: center;
       padding: 0%;
       justify-content: center;
