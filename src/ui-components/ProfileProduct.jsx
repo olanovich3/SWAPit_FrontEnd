@@ -10,38 +10,43 @@ const ProductProfileStyled = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   & .productcard {
-    background-color: rgb(248, 248, 248);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 230px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
+    display: inline-block;
     overflow: hidden;
-    padding-top: 1rem;
   }
-  & .productcard img {
-    width: auto;
-    padding: 1rem;
-    height: 60%;
-    border-radius: 5px;
-    object-fit: contain;
-    object-position: center;
+  & .container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
   }
-  & .description {
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  & .container img {
+    height: 280px;
+    width: 250px;
+    object-fit: cover;
+    display: block;
+  }
+  & .editbtn {
+    position: absolute;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    transition: all 0.5s ease 0s;
+    opacity: 0;
+    color: white;
+    font-size: 1rem;
+    padding: 20px;
     text-align: center;
-    padding: 1rem;
-    gap: 0.5rem;
   }
-  & .productcard button {
-    margin: 1rem;
+  & .caption {
+    height: 70px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 1rem;
   }
+
   @media only screen and (max-width: 750px) {
   }
 `;
@@ -54,18 +59,20 @@ const ProductProfile = ({ data }) => {
       {data.products.map((item) => {
         return (
           <article className="productcard" key={item._id}>
-            <img src={item.image1} alt={item._id} />
-            <div className="description">
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+            <div className="container">
+              <img src={item.image1} alt={item._id} />
+              <Button
+                className="editbtn"
+                text="EDIT"
+                action={() => {
+                  navigate('/editproduct');
+                  productsaved(item);
+                }}
+              />
             </div>
-            <Button
-              text="EDIT"
-              action={() => {
-                navigate('/editproduct');
-                productsaved(item);
-              }}
-            />
+            <div className="caption">
+              <h3>{item.title}</h3>
+            </div>
           </article>
         );
       })}

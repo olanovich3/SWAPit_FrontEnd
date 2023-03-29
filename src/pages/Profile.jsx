@@ -144,6 +144,10 @@ const ProfileStyled = styled.main`
     display: flex;
     gap: 8px;
   }
+  & .reviewlogo {
+    width: 50px;
+    height: 50px;
+  }
   @media only screen and (max-width: 750px) {
     & .profiledata {
       display: flex;
@@ -409,7 +413,15 @@ const Profile = () => {
         />
       </div>
       {opinion &&
-        (comments.length ? <CommentsAll comment={comments} /> : <h1>no reviews</h1>)}
+        (comments.length ? (
+          <CommentsAll comment={comments} />
+        ) : (
+          <img
+            className="reviewlogo"
+            src="https://res.cloudinary.com/dysog0ybg/image/upload/v1680116036/SWAPIT_PROYECT/customer-review_ifsan0.png"
+            alt="reviewlogo"
+          />
+        ))}
       {products && <ProductProfile data={data} />}
     </ProfileStyled>
   );
