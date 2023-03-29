@@ -6,7 +6,7 @@ import Anchor from './Anchor';
 import DivFlex from './DivFlex';
 
 const FooterStyled = styled.footer`
-  height: 20vh;
+  height: 22vh;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -45,13 +45,33 @@ const FooterStyled = styled.footer`
     width: 20px;
     height: 20px;
   }
+  @media (max-width: 740px) {
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #fafafa;
+    color: ${Palette.primary};
+    padding: 1.5rem;
+    & .footergrid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .footerLogo {
+      font-family: 'Caveat Brush', cursive;
+      color: #07689f;
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 const Footer = () => {
   return (
     <FooterStyled>
       <div className="footergrid">
-        <DivFlex gap={'5rem'}>
+        <DivFlex gap={'3rem'}>
           <NavLink to="/">
             <h1 className="footerLogo">Swap it</h1>
           </NavLink>
@@ -61,7 +81,7 @@ const Footer = () => {
             About
           </NavLink>
         </DivFlex>
-        <DivFlex gap={'7rem'}>
+        <DivFlex gap={'4rem'}>
           <p className="footerterms">Copyright © 2023 Swap it. All rights reserved.</p>
           <DivFlex gap={'2rem'}>
             <p>Contact us:</p>

@@ -95,6 +95,30 @@ const CategoriesNavBarStyled = styled.div`
       font-size: 10px;
     }
   }
+  @media (max-width: 640px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    & .categoriebtns img {
+      height: 0.9rem;
+      width: auto;
+      transition: all 0.2s ease-in-out;
+    }
+    & .categoriebtns {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+    & p {
+      font-size: 7px;
+    }
+  }
 `;
 
 const CategoriesNav = () => {
