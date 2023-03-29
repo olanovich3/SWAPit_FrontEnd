@@ -242,6 +242,7 @@ const UserCard = () => {
                 name="comment"
                 id="comment"
                 {...register(`comment`)}
+                maxLength={40}
               />
               <label htmlFor="rating">Rating:</label>
               <StarRatingInput onChange={handleRatingChange} />

@@ -42,6 +42,8 @@ const ProductProfileStyled = styled.div`
   & .productcard button {
     margin: 1rem;
   }
+  @media only screen and (max-width: 750px) {
+  }
 `;
 
 const ProductProfile = ({ data }) => {
