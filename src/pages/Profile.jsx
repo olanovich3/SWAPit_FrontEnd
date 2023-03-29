@@ -143,6 +143,38 @@ const ProfileStyled = styled.main`
     display: flex;
     gap: 8px;
   }
+  @media only screen and (max-width: 750px) {
+    & .profiledata {
+      display: flex;
+      flex-direction: column;
+      height: 350px;
+    }
+    & .profildataleft {
+      width: 80%;
+    }
+    & p {
+      font-size: 9px;
+    }
+    & .profiledataedit {
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      width: 70%;
+    }
+    & .profavatarimg {
+      width: 90%;
+    }
+    & .editleft {
+      width: 80%;
+    }
+    & .editright {
+      width: 80%;
+    }
+    & .editbtn {
+      display: flex;
+      width: 80%;
+    }
+  }
 `;
 
 const Profile = () => {
