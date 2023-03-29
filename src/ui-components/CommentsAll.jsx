@@ -13,8 +13,8 @@ const CommentsAllStyled = styled.div`
     background-color: rgb(248, 248, 248);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    width: 650px;
+    padding: 2rem;
+    width: 100%;
     height: 125px;
     display: flex;
     align-items: center;
@@ -28,6 +28,9 @@ const CommentsAllStyled = styled.div`
   & .commentarist {
     display: flex;
     gap: 0.5rem;
+  }
+  @media (max-width: 750px) {
+    width: 350px;
   }
 `;
 

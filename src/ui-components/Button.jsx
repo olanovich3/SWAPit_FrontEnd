@@ -23,6 +23,7 @@ const ButtonStyled = styled.button`
       ? '0.2rem 0.3rem'
       : ' 0 2rem'};
   transition: all 0.1s ease-in-out;
+  white-space: nowrap;
 
   &.principal:hover {
     background-color: ${Palette.highlight};
@@ -31,6 +32,12 @@ const ButtonStyled = styled.button`
   &.secondary:hover {
     background-color: ${Palette.secondary};
     color: ${Palette.background};
+  }
+  @media only screen and (max-width: 1082px) {
+    width: 80%;
+    height: 30px;
+    font-size: 12px;
+    padding: 8px 16px;
   }
 `;
 
