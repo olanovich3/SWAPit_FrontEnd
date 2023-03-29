@@ -6,6 +6,7 @@ import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
+import DivFlex from '../ui-components/DivFlex';
 import FavIcon from '../ui-components/Favicon';
 import RequestModal from '../ui-components/RequestModal';
 import Spinner from '../ui-components/Spinner';
@@ -84,7 +85,8 @@ const ProductStyled = styled.main`
   }
   & .restofcard {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    gap: 2.7rem;
     padding-right: 1.5rem;
     padding-top: 1.8rem;
   }
@@ -169,7 +171,6 @@ const Product = () => {
           setIsFavorite(true);
         }
       });
-      /* setIsFavorite(res.data.favorites.includes(product._id)); */ // actualiza el valor de isFavorite
     });
   };
 
@@ -285,15 +286,6 @@ const Product = () => {
             </div>
             <div className="restofcard">
               <button
-                className="btncontact"
-                onClick={() => {
-                  productsaved(product);
-                  navigate('/usercard');
-                }}
-              >
-                Contact with {product.owner.name}
-              </button>
-              <button
                 onClick={() => {
                   setModalRequest(true);
                   setRequestID(product._id);
@@ -302,6 +294,7 @@ const Product = () => {
               >
                 Request this product
               </button>
+
               <RequestModal />
               <button
                 onClick={() => {
@@ -327,6 +320,17 @@ const Product = () => {
                 )}
               </button>
             </div>
+            <DivFlex justify={'flex-start'}>
+              <button
+                className="btncontact"
+                onClick={() => {
+                  productsaved(product);
+                  navigate('/usercard');
+                }}
+              >
+                Contact with {product.owner.name}
+              </button>
+            </DivFlex>
           </div>
         </div>
       ) : (
