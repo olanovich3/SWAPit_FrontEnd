@@ -185,8 +185,7 @@ const Header = () => {
           </NavLink>
         )}
         {user ? (
-          <NavLink to="createproduct" onClick={() => setIsOpen(false)}>
-            <Button className={'principal'} text={'Create Product'} />
+
           </NavLink>
         ) : (
           <RegisterModalCreate />
