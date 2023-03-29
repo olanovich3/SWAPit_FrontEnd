@@ -29,6 +29,72 @@ const CategoriesNavBarStyled = styled.div`
   & .categoriebtns img:hover {
     transform: scale(1.5);
   }
+  @media (max-width: 1082px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    & .categoriebtns img {
+      height: 2.5rem;
+      width: auto;
+      transition: all 0.2s ease-in-out;
+    }
+    & .categoriebtns {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.7rem;
+      cursor: pointer;
+    }
+  }
+  @media (max-width: 900px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+    & .categoriebtns img {
+      height: 1.6rem;
+      width: auto;
+      transition: all 0.2s ease-in-out;
+    }
+    & .categoriebtns {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+  }
+  @media (max-width: 800px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    & .categoriebtns img {
+      height: 1.2rem;
+      width: auto;
+      transition: all 0.2s ease-in-out;
+    }
+    & .categoriebtns {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    & p {
+      font-size: 10px;
+    }
+  }
 `;
 
 const CategoriesNav = () => {
