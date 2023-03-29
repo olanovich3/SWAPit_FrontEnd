@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -156,22 +157,26 @@ const UserStyled = styled.main`
 
 const UserCard = () => {
   let navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
   const [userCard, setUserCard] = useState(true);
   const userProductStorage = JSON.parse(localStorage.getItem('product'));
   // const [chat, setChat] = useState(false);
   const [profile, setProfile] = useState(true);
   const [review, setReview] = useState(false);
   const [comments, setComments] = useState();
-  const resetComment = {
-    comment: '',
-    rating: 0,
+  const [rate, setRate] = useState(0);
+
+  const handleRatingChange = (value) => {
+    setRate(value);
   };
 
-  const [newComment, setNewComment] = useState({ ...resetComment });
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-
-    API.post(`/user/comments/${userProductStorage._id}`, newComment).then(() => {
+  const formSubmit = (formData) => {
+    const comment = {
+      comment: formData.comment,
+      rating: rate,
+    };
+    console.log(comment);
+    API.post(`/user/comments/${userProductStorage._id}`, comment).then(() => {
       navigate('/products');
     });
   };
@@ -179,13 +184,9 @@ const UserCard = () => {
   const getComments = () => {
     API.get(`/user/comments/${userProductStorage.owner._id}`).then((res) => {
       setComments(res.data);
-      console.log(res.data);
     });
   };
 
-  const handleRatingChange = (value) => {
-    setNewComment({ ...newComment, rating: value });
-  };
   useEffect(() => {
     getComments();
   }, []);
@@ -233,16 +234,14 @@ const UserCard = () => {
           </div>
         ) : (
           <div className="usercomment">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(formSubmit)}>
               <label htmlFor="comment">Comment:</label>
               <input
                 className="commentinput"
                 type="text"
                 name="comment"
                 id="comment"
-                onChange={(ev) =>
-                  setNewComment({ ...resetComment, comment: ev.target.value })
-                }
+                {...register(`comment`)}
               />
               <label htmlFor="rating">Rating:</label>
               <StarRatingInput onChange={handleRatingChange} />

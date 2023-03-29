@@ -19,10 +19,19 @@ const ProfileStyled = styled.main`
   & .profiledata {
     background-color: rgb(248, 248, 248);
     width: 100%;
-    height: 135px;
+    height: 185px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  & .profiledataedit {
+    background-color: rgb(248, 248, 248);
+    width: 100%;
+    height: 185px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
   & .profildataleft {
     width: 33%;
@@ -83,8 +92,56 @@ const ProfileStyled = styled.main`
     height: 125px;
     border-radius: 50%;
   }
+  & .profavatar > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
   & .inputfile {
     display: none;
+  }
+  & .editleft {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+    height: 100%;
+  }
+  & .editright {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 23%;
+    height: 100%;
+  }
+  & .editbtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 20%;
+    height: 100%;
+  }
+  & .middlebtn {
+    display: flex;
+    gap: 3rem;
+    padding: 2rem;
+  }
+  & .input {
+    font-family: inherit;
+    font-size: inherit;
+    background-color: #f4f2f2;
+    border: none;
+    color: #646464;
+    border-radius: 30px;
+    width: 12em;
+    transition: all ease-in-out 0.5s;
+    margin-right: -2rem;
+  }
+  & .ratio {
+    display: flex;
+    gap: 8px;
   }
 `;
 
@@ -120,6 +177,7 @@ const Profile = () => {
       setComments(res.data);
     });
   };
+  console.log(data);
 
   const formSubmit = (formData) => {
     const updatedata = {
@@ -162,11 +220,10 @@ const Profile = () => {
               <h2>
                 {data.name} {data.lastname}
               </h2>
-              {data.rating.length ? (
+              <nav className="ratio">
                 <AverageRating ratings={data.rating} />
-              ) : (
-                <h1>No rates</h1>
-              )}
+                <p>{data.comments.length}</p>
+              </nav>
             </nav>
           </nav>
           <nav className="profiledatacenter">
@@ -191,7 +248,7 @@ const Profile = () => {
           </nav>
         </div>
       ) : (
-        <form className="profiledata" onSubmit={handleSubmit(formSubmit)}>
+        <form className="profiledataedit" onSubmit={handleSubmit(formSubmit)}>
           <div className="profavatar">
             <nav className="profavatarimg">
               <img src={showAvatar} alt="" />
@@ -208,82 +265,91 @@ const Profile = () => {
               onChange={onChangeAvatar}
             />
           </div>
-
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="input"
-            id="name"
-            placeholder="name"
-            {...register(`name`)}
-            defaultValue={data.name}
-          />
-          <label htmlFor="lastname">Last name</label>
-          <input
-            type="text"
-            className="input"
-            id="lastname"
-            placeholder="lastname"
-            {...register(`lastname`)}
-            defaultValue={data.lastname}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            className="input"
-            id="email"
-            placeholder="email"
-            {...register(`email`)}
-            defaultValue={data.email}
-          />
-          <label htmlFor="birthdate">Birthdate</label>
-          <input
-            type="date"
-            className="input"
-            id="birthdate"
-            placeholder="birthdate"
-            {...register(`birthdate`)}
-            defaultValue={new Date(data.birthdate).toLocaleDateString('es-ES')}
-          />
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            className="input"
-            id="location"
-            placeholder="location"
-            {...register(`location`)}
-            defaultValue={data.location}
-          />
-          <Button
-            text="Change Password"
-            type="button"
-            action={() => setShowPassword(!showPassword)}
-          />
-          {showPassword && (
-            <>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="input"
-                id="password"
-                placeholder="password"
-                {...register(`password`)}
-                pattern="[A-Za-z][A-Za-z0-9]*[0-9][A-Za-z0-9]*"
-              />
-            </>
-          )}
-
-          <Button type="submit" className={'principal'} text={'UPDATE'} />
+          <nav className="editleft">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              className="input"
+              id="name"
+              placeholder="name"
+              {...register(`name`)}
+              defaultValue={data.name}
+            />
+            <label htmlFor="lastname">Last name</label>
+            <input
+              type="text"
+              className="input"
+              id="lastname"
+              placeholder="lastname"
+              {...register(`lastname`)}
+              defaultValue={data.lastname}
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              className="input"
+              id="email"
+              placeholder="email"
+              {...register(`email`)}
+              defaultValue={data.email}
+            />
+            <label htmlFor="birthdate">Birthdate</label>
+            <input
+              type="date"
+              className="input"
+              id="birthdate"
+              placeholder="birthdate"
+              {...register(`birthdate`)}
+              defaultValue={new Date(data.birthdate).toLocaleDateString('es-ES')}
+            />
+          </nav>
+          <nav className="editright">
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              className="input"
+              id="location"
+              placeholder="location"
+              {...register(`location`)}
+              defaultValue={data.location}
+            />
+            <Button
+              text="Change Password"
+              type="button"
+              action={() => setShowPassword(!showPassword)}
+            />
+            {showPassword && (
+              <>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="input"
+                  id="password"
+                  placeholder="password"
+                  {...register(`password`)}
+                />
+              </>
+            )}
+          </nav>
+          <nav className="editbtn">
+            <Button type="submit" className={'principal'} text={'UPDATE'} />
+            <Button
+              type="button"
+              className={'principal'}
+              text={'BACK'}
+              action={() => setProfile(true)}
+            />
+          </nav>
         </form>
       )}
-      <div>
+      <div className="middlebtn">
         <Button
           className={'secondary'}
           bg={'second'}
           color={'second'}
-          text={'PROFILE'}
+          text={'PRODUCTS'}
           border={'yes'}
-          action={() => setProfile(true) & setOpinion(false) & setProducts(false)}
+          action={() => setOpinion(false) & setProducts(true)}
         />
         <Button
           className={'secondary'}
@@ -291,7 +357,7 @@ const Profile = () => {
           color={'second'}
           text={'REVIEWS'}
           border={'yes'}
-          action={() => setOpinion(true) & setProfile(false) & setProducts(false)}
+          action={() => setOpinion(true) & setProducts(false)}
         />
       </div>
       {opinion &&
