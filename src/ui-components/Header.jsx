@@ -50,19 +50,21 @@ const HeaderStyled = styled.header`
   & .nav_toggle {
     display: none;
   }
-  @media (max-width: 770px) {
+  @media (max-width: 830px) {
     .mainLogo {
       font-size: 2.7rem;
     }
     .headerNav {
       position: absolute;
-      top: 100px;
+      position: fixed;
+      z-index: 2;
+      top: 10vh;
       left: 0;
       background: ${Palette.secondary};
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: -webkit-fill-available;
+      height: 100vh;
       transform: translateX(-100%);
       transition: 0.3s ease all;
     }
@@ -97,6 +99,9 @@ const HeaderStyled = styled.header`
     .nav_toggle.open > span:nth-child(3) {
       transform: rotate(-45deg) translate(-5px, 1px);
     }
+    body {
+      overflow: hidden;
+    }
   }
 `;
 const Header = () => {
@@ -130,12 +135,12 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <HeaderStyled>
-      <NavLink className="swapitlogo" to="/">
+
         <h1 className="mainLogo">Swap it</h1>
       </NavLink>
       <div className={`headerNav ${isOpen && 'open'}`}>
         {user && (
-          <NavLink className="navheader" to="favorites">
+          <NavLink className="navheader" to="favorites" onClick={() => setIsOpen(false)}>
             <img
               className="favorite"
               src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/heart_juccjj.png"
@@ -145,7 +150,14 @@ const Header = () => {
           </NavLink>
         )}
         {user && (
-          <NavLink className="navheader" to="chat" onClick={() => setUnseenRequests(0)}>
+          <NavLink
+            className="navheader"
+            to="chat"
+            onClick={() => {
+              setUnseenRequests(0);
+              setIsOpen(false);
+            }}
+          >
             {unseenRequests ? (
               <img
                 className="favoritenew"
@@ -163,14 +175,13 @@ const Header = () => {
           </NavLink>
         )}
         {user && (
-          <NavLink className="navheader" to="profile">
+          <NavLink className="navheader" to="profile" onClick={() => setIsOpen(false)}>
             <img className="favoriteavatar" src={user.avatar} alt="favorite Logo" />
             {user.name}
           </NavLink>
         )}
         {user ? (
-          <NavLink to="createproduct">
-            <Button className={'principal'} text={'Create Product'} />
+
           </NavLink>
         ) : (
           <RegisterModalCreate />
@@ -185,7 +196,10 @@ const Header = () => {
             text={'Log out'}
             border={'yes'}
             padding={'sm'}
-            action={() => logout()}
+            action={() => {
+              logout();
+              setIsOpen(false);
+            }}
           />
         )}
       </div>
