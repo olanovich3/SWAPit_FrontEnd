@@ -57,7 +57,9 @@ const FooterStyled = styled.footer`
     & .footergrid {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
     }
     .footerLogo {
       font-family: 'Caveat Brush', cursive;
@@ -71,17 +73,19 @@ const Footer = () => {
   return (
     <FooterStyled>
       <div className="footergrid">
-        <DivFlex gap={'3rem'}>
+        <DivFlex gap={'1.5rem'}>
           <NavLink to="/">
             <h1 className="footerLogo">Swap it</h1>
           </NavLink>
-          <NavLink to="/terms-and-conditions">Terms and Conditions</NavLink>
-          <NavLink to="/privacy-policy">Privacy Policy</NavLink>
-          <NavLink className={'aboutNav'} to="/about">
-            About
-          </NavLink>
+          <DivFlex className={'terms'} gap={'3rem'}>
+            <NavLink to="/terms-and-conditions">Terms and Conditions</NavLink>
+            <NavLink to="/privacy-policy">Privacy Policy</NavLink>
+            <NavLink className={'aboutNav'} to="/about">
+              About
+            </NavLink>
+          </DivFlex>
         </DivFlex>
-        <DivFlex gap={'4rem'}>
+        <DivFlex gap={'3rem'}>
           <p className="footerterms">Copyright © 2023 Swap it. All rights reserved.</p>
           <DivFlex gap={'2rem'}>
             <p>Contact us:</p>
