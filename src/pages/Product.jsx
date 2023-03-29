@@ -12,7 +12,9 @@ import RequestModal from '../ui-components/RequestModal';
 import Spinner from '../ui-components/Spinner';
 
 const ProductStyled = styled.main`
-  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & .containerproduct {
     display: grid;
@@ -138,6 +140,42 @@ const ProductStyled = styled.main`
   & .disabled {
     opacity: 0.1;
     pointer-events: none;
+  }
+  @media (max-width: 640px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .containerproduct {
+      display: flex;
+      grid-gap: 1rem;
+      grid-template-columns: 1fr 1fr;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 4rem auto;
+      width: 380px;
+      padding: 1rem;
+      height: 480px;
+      background-color: ${Palette.background};
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      border-radius: 0.5rem;
+    }
+
+    & .imgcontainer {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      position: relative;
+    }
+    & .imgcontainer img {
+      height: 100%;
+      width: 90%;
+      object-fit: contain;
+    }
   }
 `;
 const Product = () => {
