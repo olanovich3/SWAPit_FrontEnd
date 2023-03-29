@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import StarRating from './StarsRating';
 
 const CommentsAllStyled = styled.div`
-  height: 500px;
+  height: 400px;
   width: 700px;
   overflow-y: scroll;
   display: flex;
