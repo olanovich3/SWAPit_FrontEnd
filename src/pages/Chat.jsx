@@ -7,7 +7,7 @@ import Palette from '../styles/Palette';
 
 const ChatStyled = styled.main`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
   grid-template-rows: 6vh 1fr;
   padding: 2rem 4rem;
   border-radius: 0.5rem;
@@ -15,6 +15,7 @@ const ChatStyled = styled.main`
 
   & .chatinbox {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-starts;
     align-items: center;
@@ -27,6 +28,7 @@ const ChatStyled = styled.main`
 
   & .requestchat {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
@@ -47,6 +49,18 @@ const ChatStyled = styled.main`
     border-radius: 0.5rem;
     width: 100%;
   }
+  @media screen and (max-width: 1080px) {
+    .requestitle {
+      font-size: 11px;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      padding-left: 0;
+    }
+    .requestitle h3 {
+      text-align: center;
+    }
+  }
 
   & .requestitle2 {
     display: flex;
@@ -58,6 +72,18 @@ const ChatStyled = styled.main`
     grid-column: 2 / 3;
     grid-row: 1 / 1;
     border-radius: 0.5rem;
+    width: 100%;
+  }
+  @media screen and (max-width: 1080px) {
+    .requestitle2 {
+      font-size: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 0.5rem;
+    }
+    .requestitle2 h3 {
+      text-align: center;
+    }
   }
 
   & .reqprod {
@@ -67,6 +93,7 @@ const ChatStyled = styled.main`
 
   & .requestCard {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 0.5rem;
     border-radius: 1rem;
@@ -74,6 +101,15 @@ const ChatStyled = styled.main`
     border: 1px solid lightgray;
     width: 100%;
     height: 70px;
+  }
+  @media screen and (max-width: 1080px) {
+    .requestCard {
+      height: 220px;
+      justify-content: center;
+    }
+    .requestCard h3 {
+      text-align: center;
+    }
   }
   & .requestCard img {
     border-radius: 50%;
@@ -116,6 +152,17 @@ const ChatStyled = styled.main`
     width: 100%;
     height: 70px;
   }
+  @media screen and (max-width: 1080px) {
+    .responsebox {
+      height: 180px;
+      justify-content: center;
+      padding: 0%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
   & .responsebox button {
     background: none;
     border: none;
@@ -145,6 +192,22 @@ const ChatStyled = styled.main`
     gap: 1rem;
     padding-top: 0.2rem;
   }
+  @media screen and (max-width: 1080px) {
+    .spanreq {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .textrequest h3 {
+      font-size: 14px;
+      align-items: center;
+    }
+    .quote {
+      display: none;
+    }
+    .textrequest {
+      padding-left: 0;
+    }
+  }
   .spanreq button {
     background: none;
     border: none;
@@ -154,14 +217,14 @@ const ChatStyled = styled.main`
     border-radius: 0.2rem;
   }
   .red:hover {
-    background-color: crimson;
+    background-color: ${Palette.secondary};
     color: ${Palette.background};
-    border: 1px solid crimson;
+    border: 1px solid ${Palette.secondary};
   }
   .green:hover {
-    background-color: lightgreen;
+    background-color: ${Palette.secondary};
     color: ${Palette.background};
-    border: 1px solid lightgreen;
+    border: 1px solid ${Palette.secondary};
   }
 `;
 
