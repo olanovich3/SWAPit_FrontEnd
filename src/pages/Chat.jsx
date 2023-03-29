@@ -8,38 +8,42 @@ import DivFlex from '../ui-components/DivFlex';
 
 const ChatStyled = styled.main`
   display: grid;
-  grid-template-columns: 20vw 1fr 20vw;
-  padding: 2rem 4rem;
-  min-height: 80vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10vw 90vw;
+  padding: 0 4rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  padding-bottom: 4rem;
 
   & .chatinbox {
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #e5e5e5;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    background-color: pink;
+
+    grid-column: 2 / 3;
+    grid-row: 2/ 3;
+    background-color: ${Palette.background};
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 0.5rem;
   }
 
-  & .mainchat {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    background-color: green;
-  }
   & .requestchat {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     align-items: center;
-    grid-column: 3 / 3;
-    grid-row: 1 / 2;
-    border: 1px solid black;
+    grid-column: 1 / 2;
+    grid-row: 2 / 2;
+
     width: 100%;
+    background-color: ${Palette.background};
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 0.5rem;
   }
+
   & .reqprod {
     width: 80px;
     height: 80px;
@@ -50,16 +54,16 @@ const ChatStyled = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid ${Palette.secondary};
-    background-color: ${Palette.background};
+
     padding: 1rem;
-    width: 18vw;
+    width: 100%;
     border-radius: 0.5rem;
     gap: 0.6rem;
   }
 
   .requestCard h3 {
     display: flex;
+    background-color: ${Palette.background};
     align-items: center;
     font-weight: bold;
     font-size: 16px;
@@ -81,6 +85,22 @@ const ChatStyled = styled.main`
   & .quote {
     font-style: italic;
     font-size: 13px;
+  }
+  & .responsebox {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: white;
+  }
+  & .responsebox button {
+    background: none;
+    border: none;
+  }
+  & .responsebox p {
+    font-size: 13px;
+    color: gray;
+
+    padding: 0.5rem 1.5rem;
+    border-radius: 1rem;
   }
 `;
 
@@ -111,6 +131,11 @@ const Chat = () => {
       setRequest(updatedRequest);
     });
   };
+
+  const deleteRequest = (id) => {
+    API.delete(`/request/${id}`).then(() => {});
+  };
+
   const productosByUser = user.products;
   const userProductsIds = user.products.map((product) => product._id);
   console.log(productosByUser);
@@ -125,9 +150,6 @@ const Chat = () => {
 
   return (
     <ChatStyled>
-      <div className="chatinbox">InBox</div>
-      <div className="mainchat">Chat</div>
-
       <div className="requestchat">
         <h3>Product Request</h3>
         <div>
@@ -136,10 +158,33 @@ const Chat = () => {
               {filteredRequests.length > 0 ? (
                 filteredRequests.map((req) => {
                   if (req.status == 'accepted') {
-                    return <div key={req._id}>Petición aceptada</div>;
+                    return (
+                      <div className={'responsebox'} key={req._id}>
+                        <button
+                          onClick={() => {
+                            deleteRequest();
+                          }}
+                        >
+                          X
+                        </button>
+                        <p>
+                          <strong>Request accepted!</strong>
+                          <br /> You will shortly receive an email with all the data of
+                          the new swapper
+                        </p>
+                      </div>
+                    );
                   }
                   if (req.status == 'rejected') {
-                    return <div key={req._id}>Petición rechazada</div>;
+                    return (
+                      <div key={req._id} className={'responsebox'}>
+                        <p>
+                          <strong>Request rejected</strong>
+                          <br />
+                          Oh no!! We will inform the user of your decision
+                        </p>
+                      </div>
+                    );
                   }
                   if (user._id !== req.userfrom._id) {
                     return (
@@ -182,6 +227,7 @@ const Chat = () => {
           )}
         </div>
       </div>
+      <div className="chatinbox">InBox</div>
     </ChatStyled>
   );
 };
