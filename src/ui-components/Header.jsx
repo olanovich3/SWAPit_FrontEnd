@@ -135,12 +135,16 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <HeaderStyled>
-
+      <NavLink className="swapitlogo" to="/">
+        {/* <img
+          src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679422771/SWAPit/SwapitLogo_wybblb.png"
+          alt="Swapit logo"
+        /> */}
         <h1 className="mainLogo">Swap it</h1>
       </NavLink>
       <div className={`headerNav ${isOpen && 'open'}`}>
         {user && (
-          <NavLink className="navheader" to="favorites" onClick={() => setIsOpen(false)}>
+          <NavLink className="navheader" to="favorites">
             <img
               className="favorite"
               src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/heart_juccjj.png"
@@ -181,7 +185,8 @@ const Header = () => {
           </NavLink>
         )}
         {user ? (
-
+          <NavLink to="createproduct">
+            <Button className={'principal'} text={'Create Product'} />
           </NavLink>
         ) : (
           <RegisterModalCreate />
