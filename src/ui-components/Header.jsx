@@ -55,7 +55,6 @@ const HeaderStyled = styled.header`
       font-size: 2.7rem;
     }
     .headerNav {
-      position: absolute;
       position: fixed;
       z-index: 2;
       top: 10vh;
@@ -64,7 +63,7 @@ const HeaderStyled = styled.header`
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 100vh;
+      height: -webkit-fill-available;
       transform: translateX(-100%);
       transition: 0.3s ease all;
     }
@@ -144,7 +143,7 @@ const Header = () => {
       </NavLink>
       <div className={`headerNav ${isOpen && 'open'}`}>
         {user && (
-          <NavLink className="navheader" to="favorites">
+          <NavLink className="navheader" to="favorites" onClick={() => setIsOpen(false)}>
             <img
               className="favorite"
               src="https://res.cloudinary.com/dnkacmdmh/image/upload/v1679436989/heart_juccjj.png"
@@ -180,12 +179,12 @@ const Header = () => {
         )}
         {user && (
           <NavLink className="navheader" to="profile" onClick={() => setIsOpen(false)}>
-            <img className="favoriteavatar" src={user.avatar} alt="favorite Logo" />
+            <img className="favoriteavatar" src={user.avatar} alt="Profile Avatar" />
             {user.name}
           </NavLink>
         )}
         {user ? (
-          <NavLink to="createproduct">
+          <NavLink to="createproduct" onClick={() => setIsOpen(false)}>
             <Button className={'principal'} text={'Create Product'} />
           </NavLink>
         ) : (
