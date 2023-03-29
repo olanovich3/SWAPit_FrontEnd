@@ -7,6 +7,7 @@ const CategoriesNavBarStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 4rem;
 
   & .categoriebtns {
@@ -98,10 +99,11 @@ const CategoriesNavBarStyled = styled.div`
   @media (max-width: 640px) {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: 3rem;
     & .categoriebtns img {
-      height: 0.9rem;
+      height: 2rem;
       width: auto;
       transition: all 0.2s ease-in-out;
     }
