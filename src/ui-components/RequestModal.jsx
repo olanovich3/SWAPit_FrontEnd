@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
+import Palette from '../styles/Palette';
 
 const RequestStyled = styled.div`
   & .modal {
@@ -25,6 +26,65 @@ const RequestStyled = styled.div`
   & .hidden {
     display: none !important;
     background: none;
+  }
+
+  & .request-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: 40%;
+    background: ${Palette.background};
+    overflow: hidden;
+    border-radius: 16px;
+    color: #010101;
+    gap: 2rem;
+  }
+  @media screen and (max-width: 1080px) {
+    .request-box {
+      width: 250px;
+      background: none;
+    }
+  }
+  & .request-box form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  & .request-box form .reqmessage {
+    width: 100%;
+    height: 100px;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid ${Palette.secondary};
+  }
+  & .request-box span .requestbtn {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.5rem;
+    background: ${Palette.secondary};
+    color: ${Palette.background};
+  }
+  & .request-box form .requestbtn {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.5rem;
+    background: ${Palette.secondary};
+    color: ${Palette.background};
+  }
+  & .request-box span .requestbtn:hover {
+    background-color: ${Palette.highlight};
+  }
+  & .request-box form .requestbtn:hover {
+    background-color: ${Palette.highlight};
+  }
+  & .textarea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
   }
 `;
 
@@ -59,16 +119,30 @@ const RequestModal = () => {
   return (
     <RequestStyled>
       <div className={modalRequest ? 'modal' : 'hidden'}>
-        <form onSubmit={handleSubmit(RequestSubmit)}>
-          <label htmlFor="reqmessage">Send your message to {user.name} </label>
-          <input
-            type="text"
-            id="reqmessage"
-            placeholder="Hi! I`m interesting in your product..."
-            {...register(`message`)}
-          />
-          <button>Submit</button>
-        </form>
+        <div className="request-box">
+          <span>
+            <button
+              type="button"
+              className="requestbtn"
+              onClick={() => setModalRequest(false)}
+            >
+              Close
+            </button>
+          </span>
+          <form onSubmit={handleSubmit(RequestSubmit)}>
+            <span className="textarea">
+              <label htmlFor="reqmessage">Send your message to {user.name} </label>
+              <textarea
+                type="text"
+                id="reqmessage"
+                className="reqmessage"
+                placeholder="Hi! I`m interesting in your product..."
+                {...register(`message`)}
+              />
+            </span>
+            <button className="requestbtn">Submit</button>
+          </form>
+        </div>
       </div>
     </RequestStyled>
   );
