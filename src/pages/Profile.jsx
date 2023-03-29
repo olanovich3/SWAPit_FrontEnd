@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-
+import Swal from 'sweetalert2';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import AverageRating from '../ui-components/AverageRating';
@@ -178,7 +178,22 @@ const Profile = () => {
     });
   };
   console.log(data);
-
+  const prewDeleteUser = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', 'Your user has been deleted :(', 'success');
+        deleteUser(data);
+      }
+    });
+  };
   const formSubmit = (formData) => {
     const updatedata = {
       name: formData.name,
@@ -242,7 +257,7 @@ const Profile = () => {
               className={'principal'}
               text="DELETE"
               action={() => {
-                deleteUser(data);
+                prewDeleteUser();
               }}
             />
           </nav>
