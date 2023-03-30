@@ -183,14 +183,12 @@ const ProfileStyled = styled.main`
 `;
 
 const Profile = () => {
+  const valores = JSON.parse(localStorage.getItem('user'));
   const { register, handleSubmit } = useForm();
-
   const [data, setData] = useState({});
   const [comments, setComments] = useState({});
   const [loaded, setLoaded] = useState(false);
-
   const { user, setUser, logout } = useContext(UserContext);
-
   const [showPassword, setShowPassword] = useState(false);
   const [profile, setProfile] = useState(true);
   const [opinion, setOpinion] = useState(false);
@@ -214,7 +212,14 @@ const Profile = () => {
       setComments(res.data);
     });
   };
-  console.log(data);
+  let defaultValues = {
+    name: valores.name,
+    lastname: valores.lastname,
+    email: valores.email,
+    birthdate: valores.birthdate,
+    location: valores.location,
+  };
+
   const prewDeleteUser = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -231,6 +236,7 @@ const Profile = () => {
       }
     });
   };
+
   const formSubmit = (formData) => {
     const updatedata = {
       name: formData.name,
@@ -288,7 +294,7 @@ const Profile = () => {
             <Button
               className={'principal'}
               text="EDIT"
-              action={() => setProfile(false)}
+              action={() => setProfile(false) & getProfile()}
             />
             <Button
               className={'principal'}
@@ -325,16 +331,16 @@ const Profile = () => {
               id="name"
               placeholder="name"
               {...register(`name`)}
-              defaultValue={data.name}
+              defaultValue={defaultValues?.name}
             />
-            <label htmlFor="lastname">Last name</label>
+            <label htmlFor="lastname">Lastname</label>
             <input
               type="text"
               className="input"
               id="lastname"
               placeholder="lastname"
               {...register(`lastname`)}
-              defaultValue={data.lastname}
+              defaultValue={defaultValues?.lastname}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -343,7 +349,7 @@ const Profile = () => {
               id="email"
               placeholder="email"
               {...register(`email`)}
-              defaultValue={data.email}
+              defaultValue={defaultValues?.email}
             />
             <label htmlFor="birthdate">Birthdate</label>
             <input
@@ -352,7 +358,9 @@ const Profile = () => {
               id="birthdate"
               placeholder="birthdate"
               {...register(`birthdate`)}
-              defaultValue={new Date(data.birthdate).toLocaleDateString('es-ES')}
+              defaultValue={new Date(defaultValues?.birthdate).toLocaleDateString(
+                'es-ES',
+              )}
             />
           </nav>
           <nav className="editright">
@@ -363,7 +371,7 @@ const Profile = () => {
               id="location"
               placeholder="location"
               {...register(`location`)}
-              defaultValue={data.location}
+              defaultValue={defaultValues?.location}
             />
             <Button
               text="Change Password"

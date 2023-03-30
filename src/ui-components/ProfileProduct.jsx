@@ -30,12 +30,13 @@ const ProductProfileStyled = styled.div`
     width: 100%;
     gap: 1rem;
   }
-  & .editbtn {
+  & .caption > button {
     height: 20%;
-    width: 80%;
+    width: 30%;
   }
 
-  @media only screen and (max-width: 750px) {
+  & .container {
+    border-radius: 50%;
   }
 `;
 
