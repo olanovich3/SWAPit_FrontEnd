@@ -38,17 +38,13 @@ const Home = () => {
         ></Search>
         <Button action={handleSearch} text={'Search'}></Button>
       </div>
-      <DivFlex direction={'column'} gap={'2rem'} padding={'2rem 0'}>
+      <DivFlex direction={'column'} padding={'1.5rem 0'}>
         <h2>Discover our categories</h2>
       </DivFlex>
       <CategoriesNav />
-      <div>
+      <div className="home-carousel">
         <CarouselUltimosProductos />
-      </div>
-      <div>
         <CarouselByFavorites />
-      </div>
-      <div>
         <Carousel />
       </div>
     </main>

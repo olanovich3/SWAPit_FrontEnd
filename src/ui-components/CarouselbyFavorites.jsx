@@ -106,6 +106,17 @@ const CarouselStyled = styled.div`
   & .container:hover .overlay {
     opacity: 1;
   }
+  @media (max-width: 850px) {
+    height: 20vh;
+    padding: 0;
+    .scroll-container {
+      height: 10rem;
+    }
+    .container img {
+      height: 8rem;
+      width: 8rem;
+    }
+  }
 `;
 
 const CarouselByFavorites = () => {

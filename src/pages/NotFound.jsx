@@ -1,19 +1,22 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Button from '../ui-components/Button';
+
 const NotFound = () => {
+  const navigate = useNavigate();
   return (
     <NotFoundContainer>
       <Img
         src="https://res.cloudinary.com/damtbzspb/image/upload/v1679435830/e78c5f4d033f7f8841ab0157ec9f16bc_ngchpf.jpg"
         alt="Error 404 gif"
       />
-      <Title className="h1">¡Nada por aquí!</Title>
+      <Title className="h1">Nothing over here!</Title>
       <Description className="p">
-        Uish... Esta página no existe en Swap It, lo que sí que existen son miles de
-        oportunidades esperándote..
+        Oops... This page does not exist in Swap It, what does exist are thousands of
+        opportunities waiting for you...
       </Description>
-      <Button onClick={() => (window.location.href = '/')}>Ver productos</Button>
+      <Button action={() => navigate('/products')} text={'See products'}></Button>
     </NotFoundContainer>
   );
 };
@@ -23,6 +26,7 @@ const NotFoundContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 0rem;
+  height: 72vh;
 `;
 
 const Title = styled.h1`
@@ -41,21 +45,6 @@ const Img = styled.img`
   width: 100%;
   max-width: 500px;
   margin: 2rem 0;
-`;
-
-const Button = styled.button`
-  background-color: #008cba;
-  color: white;
-  font-size: 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  padding: 1rem 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #005f6b;
-  }
 `;
 
 export default NotFound;
