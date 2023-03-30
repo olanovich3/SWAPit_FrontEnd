@@ -10,41 +10,28 @@ const ProductProfileStyled = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   & .productcard {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    background-color: rgb(248, 248, 248);
   }
   & .container {
-    position: relative;
     width: 100%;
-    max-width: 300px;
+    height: 50%;
   }
-  & .container img {
-    height: 280px;
-    width: 250px;
-    object-fit: cover;
-    display: block;
+
+  & .caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 50%;
+    width: 100%;
+    gap: 1rem;
   }
   & .editbtn {
-    position: absolute;
-    bottom: 0px;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    transition: all 0.5s ease 0s;
-    opacity: 0;
-    color: white;
-    font-size: 1rem;
-    padding: 20px;
-    text-align: center;
-  }
-  & .caption {
-    height: 70px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    gap: 1rem;
+    height: 20%;
   }
 
   @media only screen and (max-width: 750px) {
@@ -59,8 +46,11 @@ const ProductProfile = ({ data }) => {
       {data.products.map((item) => {
         return (
           <article className="productcard" key={item._id}>
-            <div className="container">
-              <img src={item.image1} alt={item._id} />
+            <img className="container" src={item.image1} alt={item._id} />
+
+            <div className="caption">
+              <h3>{item.title}</h3>
+
               <Button
                 className="editbtn"
                 text="EDIT"
@@ -69,9 +59,6 @@ const ProductProfile = ({ data }) => {
                   productsaved(item);
                 }}
               />
-            </div>
-            <div className="caption">
-              <h3>{item.title}</h3>
             </div>
           </article>
         );
