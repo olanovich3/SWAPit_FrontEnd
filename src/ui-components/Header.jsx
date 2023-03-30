@@ -98,9 +98,6 @@ const HeaderStyled = styled.header`
     .nav_toggle.open > span:nth-child(3) {
       transform: rotate(-45deg) translate(-5px, 1px);
     }
-    body {
-      overflow: hidden;
-    }
   }
 `;
 const Header = () => {
