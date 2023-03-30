@@ -15,6 +15,7 @@ const ProductStyled = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 4rem;
 
   & .containerproduct {
     display: grid;
@@ -23,27 +24,28 @@ const ProductStyled = styled.main`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 4rem auto;
-    width: 50vw;
-    padding-right: 1rem;
-    height: 480px;
-    background-color: ${Palette.background};
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    width: 100%;
+
+    background-color: white;
+
     border-radius: 0.5rem;
   }
 
   & .imgcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     height: 100%;
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
+    width: 100%;
   }
   & .imgcontainer img {
     height: 100%;
-    width: 90%;
     object-fit: cover;
   }
   & .imgcontainer button {
@@ -67,27 +69,35 @@ const ProductStyled = styled.main`
   & .textcontainer {
     grid-column: 2 / 2;
     grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 4rem;
+
+    gap: 1rem;
+    padding: 1rem;
+  }
+  & .textcontainer h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    color: ${Palette.secondary};
   }
   & .favicon {
     width: 25px;
     height: 25px;
   }
-  & .textcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 
-    gap: 1rem;
-    padding: 1rem;
-  }
   & .textcontainer button {
     height: 100%;
+
     background: none;
     border: none;
   }
   & .restofcard {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: center;
     gap: 2.7rem;
     padding-right: 1.5rem;
     padding-top: 1.8rem;
@@ -95,6 +105,8 @@ const ProductStyled = styled.main`
   & .btncontact {
     cursor: pointer;
     font-weight: bolder;
+    font-size: 1rem;
+    border: 1px solid ${Palette.secondary};
     padding: 0.4rem;
     height: 1rem;
     transition: all 0.2s ease-in-out;
@@ -108,8 +120,16 @@ const ProductStyled = styled.main`
   }
   & .articles {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
     gap: 1rem;
     padding-top: 1rem;
+  }
+  & .articles2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5rem;
   }
   & .articles span {
     display: flex;
@@ -175,6 +195,12 @@ const ProductStyled = styled.main`
       height: 100%;
       width: 90%;
       object-fit: contain;
+    }
+    .articlescontainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: 2rem;
     }
   }
 `;
@@ -307,23 +333,13 @@ const Product = () => {
             </button>
           </div>
           <div className="textcontainer">
-            <h2>{product.title}</h2>
+            <h2 className="productitle">{product.title}</h2>
 
             <p>{product.description}</p>
 
-            <div className="articles">
-              <span>
-                <p>{product.category}</p>
-              </span>
-              <span>
-                <p>{product.condition} </p>
-              </span>
-              <span>
-                <p> {product.status}</p>
-              </span>
-            </div>
             <div className="restofcard">
               <button
+                className="btncontact"
                 onClick={() => {
                   setModalRequest(true);
                   setRequestID(product._id);
@@ -333,32 +349,6 @@ const Product = () => {
                 Request this product
               </button>
 
-              <RequestModal />
-              <button
-                onClick={() => {
-                  handleFavs();
-                }}
-              >
-                {isFavorite == false ? (
-                  <FavIcon
-                    src={
-                      'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
-                    }
-                    alt={'favadd icon'}
-                    className={'favicon'}
-                  />
-                ) : (
-                  <FavIcon
-                    src={
-                      'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
-                    }
-                    alt={'favadd icon'}
-                    className={'favicon'}
-                  />
-                )}
-              </button>
-            </div>
-            <DivFlex justify={'flex-start'}>
               <button
                 className="btncontact"
                 onClick={() => {
@@ -368,8 +358,49 @@ const Product = () => {
               >
                 Contact with {product.owner.name}
               </button>
-            </DivFlex>
+              <RequestModal />
+            </div>
+
+            <div className="articlescontainer">
+              <div className="articles">
+                <span>
+                  <p>{product.category}</p>
+                </span>
+                <span>
+                  <p>{product.condition} </p>
+                </span>
+                <span>
+                  <p> {product.status}</p>
+                </span>
+                <div className="articles2">
+                  <button
+                    onClick={() => {
+                      handleFavs();
+                    }}
+                  >
+                    {isFavorite == false ? (
+                      <FavIcon
+                        src={
+                          'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
+                        }
+                        alt={'favadd icon'}
+                        className={'favicon'}
+                      />
+                    ) : (
+                      <FavIcon
+                        src={
+                          'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
+                        }
+                        alt={'favadd icon'}
+                        className={'favicon'}
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+          <DivFlex justify={'flex-start'}></DivFlex>
         </div>
       ) : (
         <Spinner />

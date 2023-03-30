@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import ProductFigure from '../ui-components/ProductFigure';
 
-const ProductsStyled = styled.div`
+const ProductsStyled = styled.main`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
