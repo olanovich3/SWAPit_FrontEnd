@@ -259,12 +259,7 @@ const Chat = () => {
     });
   };
 
-  const userProductsIds = user.products.map((product) => product);
-  console.log(userProductsIds);
-
-  const filteredRequests = request.filter(
-    (res) => res.userfrom !== user._id /* && userProductsIds.includes(req.product._id) */,
-  );
+  const filteredRequests = request.filter((res) => res.userto._id == user._id);
   console.log(filteredRequests);
   const filteredRequestsent = request.filter((res) =>
     res.userfrom._id.includes(user._id),

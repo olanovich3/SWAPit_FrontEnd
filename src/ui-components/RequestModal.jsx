@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { ProductContext } from '../context/ProductContext';
-import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
 
@@ -90,14 +89,12 @@ const RequestStyled = styled.div`
 
 const RequestModal = () => {
   const { requestID, modalRequest, setModalRequest } = useContext(ProductContext);
-  const { user } = useContext(UserContext);
+
   const { register, handleSubmit } = useForm();
   const [item, setItem] = useState([]);
-  item;
 
   const getProduct = () => {
     API.get(`/products/${requestID}`).then((res) => {
-      console.log(res.data);
       setItem(res.data);
     });
   };
@@ -131,7 +128,9 @@ const RequestModal = () => {
           </span>
           <form onSubmit={handleSubmit(RequestSubmit)}>
             <span className="textarea">
-              <label htmlFor="reqmessage">Send your message to {user.name} </label>
+              <label htmlFor="reqmessage">
+                Send your message to {item[0].owner.name}{' '}
+              </label>
               <textarea
                 type="text"
                 id="reqmessage"

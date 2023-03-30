@@ -3,18 +3,18 @@ import styled from 'styled-components';
 import StarRating from './StarsRating';
 
 const CommentsAllStyled = styled.div`
-  height: 400px;
+  height: 500px;
   width: 700px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 16px;
   & .comment {
-    background-color: rgb(248, 248, 248);
+    background-color: #f8f8f8;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
-    padding: 2rem;
-    width: 100%;
+    padding: 20px;
+    width: 650px;
     height: 125px;
     display: flex;
     align-items: center;
@@ -28,9 +28,6 @@ const CommentsAllStyled = styled.div`
   & .commentarist {
     display: flex;
     gap: 0.5rem;
-  }
-  @media (max-width: 750px) {
-    width: 350px;
   }
 `;
 
