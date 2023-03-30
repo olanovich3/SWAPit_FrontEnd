@@ -19,19 +19,13 @@ const ProductStyled = styled.main`
 
   & .containerproduct {
     display: grid;
-    grid-gap: 1rem;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    width: 100%;
-
-    background-color: white;
-
-    border-radius: 0.5rem;
+    height: 50vh;
+    width: 70vw;
   }
-
   & .imgcontainer {
     display: flex;
     justify-content: center;
@@ -42,17 +36,22 @@ const ProductStyled = styled.main`
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
-    width: 100%;
+    width: 80%;
   }
   & .imgcontainer img {
-    height: 100%;
-    object-fit: cover;
+    height: 70vh;
+    width: 20vw;
+    object-fit: contain;
   }
   & .imgcontainer button {
     height: 2rem;
     background: rgba(255, 255, 255, 0.7);
     border: none;
     padding: 5px;
+  }
+  & .imgcontainer button img {
+    height: 2rem;
+    width: auto;
   }
   & .prevbtn {
     position: absolute;
@@ -74,31 +73,27 @@ const ProductStyled = styled.main`
     justify-content: center;
     height: 100%;
     padding: 4rem;
-
     gap: 1rem;
     padding: 1rem;
   }
   & .textcontainer h2 {
     font-family: 'Anton', sans-serif;
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     color: ${Palette.secondary};
   }
   & .favicon {
     width: 25px;
     height: 25px;
   }
-
   & .textcontainer button {
     height: 100%;
-
     background: none;
     border: none;
   }
   & .restofcard {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2.7rem;
+    flex-direction: column;
+    gap: 2.5rem;
     padding-right: 1.5rem;
     padding-top: 1.8rem;
   }
@@ -107,45 +102,41 @@ const ProductStyled = styled.main`
     font-weight: bolder;
     font-size: 1rem;
     border: 1px solid ${Palette.secondary};
-    padding: 0.4rem;
+    padding: 0.6rem;
     height: 1rem;
     transition: all 0.2s ease-in-out;
     border-radius: 0.3rem;
+    background-color: rgba(248, 251, 252, 0.6);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   & .btncontact:hover {
     background: ${Palette.secondary};
     color: ${Palette.background};
-    padding: 0.4rem;
-    border-radius: 0.3rem;
+  }
+  & .articlescontainer {
+    display: flex;
+    gap: 3rem;
   }
   & .articles {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
-    padding-top: 1rem;
+    gap: 5rem;
   }
   & .articles2 {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 5rem;
   }
   & .articles span {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.6rem;
-    border-radius: 0.5rem;
-    background-color: rgba(248, 251, 252, 0.6);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   & .articles span p {
     text-align: center;
-    color: ${Palette.primary};
+    color: ${Palette.terciary};
     font-size: 14px;
-    color: gray;
     text-transform: capitalize;
   }
   & .prodlocation {
@@ -160,6 +151,27 @@ const ProductStyled = styled.main`
   & .disabled {
     opacity: 0.1;
     pointer-events: none;
+  }
+  & .statusdisabled {
+    padding: 0.6rem;
+    opacity: 0.4;
+    pointer-events: none;
+    border-radius: 0.3rem;
+    background-color: rgba(248, 251, 252, 0.6);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  & .articles span .red {
+    color: red;
+  }
+  & .articles span .orange {
+    color: orange;
+  }
+  & .articles span .green {
+    color: green;
+  }
+  & .notimg {
+    opacity: 0.5;
   }
   @media (max-width: 640px) {
     display: flex;
@@ -182,7 +194,6 @@ const ProductStyled = styled.main`
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       border-radius: 0.5rem;
     }
-
     & .imgcontainer {
       grid-column: 1 / 2;
       grid-row: 1 / 2;
@@ -196,7 +207,7 @@ const ProductStyled = styled.main`
       width: 90%;
       object-fit: contain;
     }
-    .articlescontainer {
+    & .articlescontainer {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
@@ -311,9 +322,27 @@ const Product = () => {
                 alt="Previous icon"
               />
             </button>
-            {showImage1 && <img src={product.image1} alt={product.title} />}
-            {showImage2 && <img src={product.image2} alt={product.title} />}
-            {showImage3 && <img src={product.image3} alt={product.title} />}
+            {showImage1 && (
+              <img
+                className={product.status === 'not available' ? 'notimg' : ''}
+                src={product.image1}
+                alt={product.title}
+              />
+            )}
+            {showImage2 && (
+              <img
+                className={product.status === 'not available' ? 'notimg' : ''}
+                src={product.image2}
+                alt={product.title}
+              />
+            )}
+            {showImage3 && (
+              <img
+                className={product.status === 'not available' ? 'notimg' : ''}
+                src={product.image3}
+                alt={product.title}
+              />
+            )}
             <button
               className={`nextbtn ${
                 product.image2 == null && product.image3 == null
@@ -338,30 +367,6 @@ const Product = () => {
             <p>{product.description}</p>
 
             <div className="restofcard">
-              <button
-                className="btncontact"
-                onClick={() => {
-                  setModalRequest(true);
-                  setRequestID(product._id);
-                  localStorage.setItem('requestID', JSON.stringify(product._id));
-                }}
-              >
-                Request this product
-              </button>
-
-              <button
-                className="btncontact"
-                onClick={() => {
-                  productsaved(product);
-                  navigate('/usercard');
-                }}
-              >
-                Contact with {product.owner.name}
-              </button>
-              <RequestModal />
-            </div>
-
-            <div className="articlescontainer">
               <div className="articles">
                 <span>
                   <p>{product.category}</p>
@@ -370,33 +375,71 @@ const Product = () => {
                   <p>{product.condition} </p>
                 </span>
                 <span>
-                  <p> {product.status}</p>
-                </span>
-                <div className="articles2">
-                  <button
-                    onClick={() => {
-                      handleFavs();
-                    }}
+                  <p
+                    className={
+                      product.status === 'not available'
+                        ? 'red'
+                        : product.status === 'reserved'
+                        ? 'orange'
+                        : 'green'
+                    }
                   >
-                    {isFavorite == false ? (
-                      <FavIcon
-                        src={
-                          'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
-                        }
-                        alt={'favadd icon'}
-                        className={'favicon'}
-                      />
-                    ) : (
-                      <FavIcon
-                        src={
-                          'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
-                        }
-                        alt={'favadd icon'}
-                        className={'favicon'}
-                      />
-                    )}
-                  </button>
-                </div>
+                    {product.status}
+                  </p>
+                </span>
+              </div>
+
+              <div className="articlescontainer">
+                <button
+                  className={
+                    product.status === 'not available' || product.status === 'reserved'
+                      ? 'statusdisabled'
+                      : 'btncontact'
+                  }
+                  onClick={() => {
+                    setModalRequest(true);
+                    setRequestID(product._id);
+                    localStorage.setItem('requestID', JSON.stringify(product._id));
+                  }}
+                >
+                  Request this product
+                </button>
+
+                <button
+                  className="btncontact"
+                  onClick={() => {
+                    productsaved(product);
+                    navigate('/usercard');
+                  }}
+                >
+                  View more products from {product.owner.name}
+                </button>
+                <RequestModal />
+              </div>
+              <div className="articles2">
+                <button
+                  onClick={() => {
+                    handleFavs();
+                  }}
+                >
+                  {isFavorite == false ? (
+                    <FavIcon
+                      src={
+                        'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738836/love_jtiq6k.png'
+                      }
+                      alt={'favadd icon'}
+                      className={'favicon'}
+                    />
+                  ) : (
+                    <FavIcon
+                      src={
+                        'https://res.cloudinary.com/dnkacmdmh/image/upload/v1679738833/heart_2_ii0nmr.png'
+                      }
+                      alt={'favadd icon'}
+                      className={'favicon'}
+                    />
+                  )}
+                </button>
               </div>
             </div>
           </div>

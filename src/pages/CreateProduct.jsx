@@ -12,6 +12,7 @@ const CreateProductStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 72vh;
   & .form {
     border: 1px solid black;
     border-radius: 16px;
@@ -53,6 +54,8 @@ const CreateProductStyled = styled.div`
   & .img3 {
     width: 100%;
     object-fit: cover;
+  }
+  @media (max-width: 420px) {
   }
 `;
 const CreateProduct = () => {
@@ -116,9 +119,10 @@ const CreateProduct = () => {
             type="text"
             id="title"
             name="title"
-            placeholder="Select a name of the product"
+            placeholder="Max 40 characters"
             {...register('title')}
             required
+            maxLength={40}
           />
           <input
             type="file"

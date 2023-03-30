@@ -15,6 +15,9 @@ const FooterStyled = styled.footer`
   background-color: #fafafa;
   color: ${Palette.primary};
   padding: 0 6rem;
+  & a {
+    color: ${Palette.primary};
+  }
   & .footer1 {
     display: flex;
     flex-direction: column;
@@ -27,9 +30,8 @@ const FooterStyled = styled.footer`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: justify;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 1rem;
     grid-column: 2 / 3;
     grid-row: 1 / 2;
   }
@@ -37,8 +39,8 @@ const FooterStyled = styled.footer`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 1rem;
     grid-column: 3/ 4;
     grid-row: 1 / 2;
   }
@@ -46,10 +48,16 @@ const FooterStyled = styled.footer`
     font-size: 1rem;
     font-family: 'Caveat Brush', cursive;
     font-size: 3rem;
+    color: ${Palette.secondary};
   }
-  & .footericons {
-    width: 20px;
-    height: 20px;
+  & .footericons img {
+    height: 1.5rem;
+    width: auto;
+    padding-right: 1.5rem;
+    filter: saturate(0%);
+  }
+  & .footericons img:hover {
+    filter: saturate(100%);
   }
 `;
 
@@ -71,47 +79,42 @@ const Footer = () => {
       <div className="footer3">
         <p className="footerterms">Copyright © 2023 Swap it.</p>
         <p>All rights reserved.</p>
-        <span className="icons">
+        <div className="footericons">
           <Anchor
             href="https://github.com/olanovich3?tab=repositories"
             target="_blank"
             rel="noreferrer"
           >
             <img
-              className="footericons"
               src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328484/Social%20Media/1200px-Octicons-mark-github.svg_aajitx.png"
               alt="Github icon"
             />
           </Anchor>
           <Anchor href="https://instagram.com" target="_blank" rel="noreferrer">
             <img
-              className="footericons"
               src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328544/Social%20Media/1200px-Instagram_icon_g8vrbb.png"
               alt="Instagram icon"
             />
           </Anchor>
           <Anchor href="https://www.linkedin.com" target="_blank" rel="noreferrer">
             <img
-              className="footericons"
               src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328926/Social%20Media/LinkedIn_logo_initials_ajo1vm.png"
               alt="Linkedin icon"
             />
           </Anchor>
           <Anchor href="https://facebook.com" target="_blank" rel="noreferrer">
             <img
-              className="footericons"
               src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328683/Social%20Media/1200px-Facebook_Logo__282019_29_cz1vfx.png"
               alt="Facebook icon"
             />
           </Anchor>
           <Anchor href="https://twitter.com" target="_blank" rel="noreferrer">
             <img
-              className="footericons"
               src="https://res.cloudinary.com/dlvbfzkt9/image/upload/v1679328794/Social%20Media/2491px-Twitter-logo.svg_lj87qt.png"
               alt="Twitter icon"
             />
           </Anchor>
-        </span>
+        </div>
       </div>
     </FooterStyled>
   );
