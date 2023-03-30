@@ -34,7 +34,7 @@ const ButtonStyled = styled.button`
     color: ${Palette.background};
   }
   @media only screen and (max-width: 1082px) {
-    width: 80%;
+    width: 50%;
     height: 30px;
     font-size: 12px;
     padding: 8px 16px;

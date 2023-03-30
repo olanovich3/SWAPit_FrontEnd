@@ -51,34 +51,14 @@ const CategoriesNavBarStyled = styled.div`
       cursor: pointer;
     }
   }
-  @media (max-width: 900px) {
+  @media (max-width: 850px) {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.6rem;
+    padding-bottom: 2rem;
+    gap: 1.7rem;
     & .categoriebtns img {
-      height: 1.6rem;
-      width: auto;
-      transition: all 0.2s ease-in-out;
-    }
-    & .categoriebtns {
-      background: none;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-    }
-  }
-  @media (max-width: 800px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    & .categoriebtns img {
-      height: 1.2rem;
+      height: 3rem;
       width: auto;
       transition: all 0.2s ease-in-out;
     }
@@ -96,14 +76,15 @@ const CategoriesNavBarStyled = styled.div`
       font-size: 10px;
     }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 450px) {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 1rem;
     & .categoriebtns img {
-      height: 2rem;
+      height: 1.5rem;
       width: auto;
       transition: all 0.2s ease-in-out;
     }
@@ -114,7 +95,6 @@ const CategoriesNavBarStyled = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 0.3rem;
       cursor: pointer;
     }
     & p {
