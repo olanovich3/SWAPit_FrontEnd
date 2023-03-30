@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -91,12 +91,9 @@ const RequestModal = () => {
   const { requestID, modalRequest, setModalRequest } = useContext(ProductContext);
 
   const { register, handleSubmit } = useForm();
-  const [item, setItem] = useState([]);
 
   const getProduct = () => {
-    API.get(`/products/${requestID}`).then((res) => {
-      setItem(res.data);
-    });
+    API.get(`/products/${requestID}`).then(() => {});
   };
 
   const RequestSubmit = (formData) => {
@@ -128,14 +125,12 @@ const RequestModal = () => {
           </span>
           <form onSubmit={handleSubmit(RequestSubmit)}>
             <span className="textarea">
-              <label htmlFor="reqmessage">
-                Send your message to {item[0].owner.name}{' '}
-              </label>
+              <label htmlFor="reqmessage">Send your message </label>
               <textarea
                 type="text"
                 id="reqmessage"
                 className="reqmessage"
-                placeholder="Hi! I`m interesting in your product..."
+                placeholder="Hi! I`m interested in your product..."
                 {...register(`message`)}
               />
             </span>
