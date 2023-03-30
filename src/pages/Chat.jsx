@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { ProductContext } from '../context/ProductContext';
 import { UserContext } from '../context/UserContext';
 import { API } from '../services/API';
 import Palette from '../styles/Palette';
+import CommentModal from '../ui-components/CommentModal.';
 
 const ChatStyled = styled.main`
   display: grid;
@@ -229,6 +231,7 @@ const ChatStyled = styled.main`
 `;
 
 const Chat = () => {
+  const { setComment } = useContext(ProductContext);
   const [loaded, setLoaded] = useState(false);
   const { user } = useContext(UserContext);
 
@@ -238,6 +241,8 @@ const Chat = () => {
     API.get(`/request`).then((res) => {
       setRequest(res.data);
       setLoaded(true);
+      console.log(res.data);
+      localStorage.setItem('requestprod', JSON.stringify(res.data));
     });
   };
 
@@ -254,11 +259,13 @@ const Chat = () => {
     });
   };
 
-  const userProductsIds = user.products.map((product) => product._id);
+  const userProductsIds = user.products.map((product) => product);
+  console.log(userProductsIds);
 
-  const filteredRequests = request.filter((req) =>
-    userProductsIds.includes(req.product._id),
+  const filteredRequests = request.filter(
+    (res) => res.userfrom !== user._id /* && userProductsIds.includes(req.product._id) */,
   );
+  console.log(filteredRequests);
   const filteredRequestsent = request.filter((res) =>
     res.userfrom._id.includes(user._id),
   );
@@ -303,7 +310,8 @@ const Chat = () => {
                     </div>
                   );
                 }
-                if (user._id !== req.userfrom._id) {
+
+                if (user._id != req.userfrom) {
                   return (
                     <div className="requestCard" key={req._id}>
                       <div className="imgreq">
@@ -361,6 +369,14 @@ const Chat = () => {
               return (
                 <div className={'responsebox'} key={item._id}>
                   <p>Tu solicitud está aceptada</p>
+                  <button
+                    onClick={() => {
+                      setComment(true);
+                    }}
+                  >
+                    Comment
+                  </button>
+                  <CommentModal />
                 </div>
               );
             }
