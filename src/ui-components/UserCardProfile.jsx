@@ -1,11 +1,6 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-import { ProductContext } from '../context/ProductContext';
-import Button from './Button';
-
-const ProductProfileStyled = styled.div`
+const ProductUserCardStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
@@ -39,11 +34,9 @@ const ProductProfileStyled = styled.div`
   }
 `;
 
-const ProductProfile = ({ data }) => {
-  let navigate = useNavigate();
-  const { productsaved } = useContext(ProductContext);
+const UserCardProfile = ({ data }) => {
   return (
-    <ProductProfileStyled>
+    <ProductUserCardStyled>
       {data.products.map((item) => {
         return (
           <article className="productcard" key={item._id}>
@@ -51,21 +44,12 @@ const ProductProfile = ({ data }) => {
 
             <div className="caption">
               <h3>{item.title}</h3>
-
-              <Button
-                className="editbtn"
-                text="EDIT"
-                action={() => {
-                  navigate('/editproduct');
-                  productsaved(item);
-                }}
-              />
             </div>
           </article>
         );
       })}
-    </ProductProfileStyled>
+    </ProductUserCardStyled>
   );
 };
 
-export default ProductProfile;
+export default UserCardProfile;
