@@ -16,6 +16,7 @@ export const ProductContextProvider = ({ children }) => {
   const [request, setRequest] = useState([]);
   const [modalRequest, setModalRequest] = useState(false);
   const [requestID, setRequestID] = useState([]);
+  const [Comment, setComment] = useState(false);
   return (
     <ProductContext.Provider
       value={{
@@ -29,6 +30,8 @@ export const ProductContextProvider = ({ children }) => {
         setModalRequest,
         requestID,
         setRequestID,
+        Comment,
+        setComment,
       }}
     >
       {children}
