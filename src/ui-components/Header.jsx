@@ -123,7 +123,7 @@ const Header = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       getRequest();
-    }, 300000);
+    }, 30000000);
     return () => clearInterval(interval);
   }, []);
 

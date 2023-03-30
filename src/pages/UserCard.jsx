@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import UserCardProfile from '../ui-components/UserCardProfile';
 
 import { API } from '../services/API';
 import AverageRating from '../ui-components/AverageRating';
 import Button from '../ui-components/Button';
 import CommentsAll from '../ui-components/CommentsAll';
+import ProductFigure from '../ui-components/ProductFigure';
 
 const UserStyled = styled.main`
   display: flex;
@@ -58,6 +58,19 @@ const UserStyled = styled.main`
     width: 50px;
     height: 50px;
   }
+  & .usercardproducts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  @media only screen and (max-width: 750px) {
+    & .usercard {
+      display: flex;
+      flex-direction: column;
+      height: 350px;
+    }
+  }
 `;
 
 const UserCard = () => {
@@ -78,7 +91,7 @@ const UserCard = () => {
       setProducts(res.data);
     });
   };
-  console.log(products);
+  console.log(products.products);
 
   useEffect(() => {
     getComments();
@@ -120,13 +133,16 @@ const UserCard = () => {
           action={() => setProduct(false) & setReview(true)}
         />
       </div>
-
-      {product &&
-        (Object.keys(products).length != 0 ? (
-          <UserCardProfile data={products} />
-        ) : (
-          <h2>no products</h2>
-        ))}
+      <nav className="usercardproducts">
+        {product &&
+          (Object.keys(products).length != 0 ? (
+            products.products.map((item) => (
+              <ProductFigure product={item} key={item._id} />
+            ))
+          ) : (
+            <h2>no products</h2>
+          ))}
+      </nav>
 
       {review &&
         (comments.length ? (
