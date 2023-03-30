@@ -11,7 +11,7 @@ import CommentsAll from '../ui-components/CommentsAll';
 import ProductProfile from '../ui-components/ProfileProduct';
 
 const ProfileStyled = styled.main`
-  min-height: 70vh;
+  min-height: 75vh;
   display: flex;
   flex-direction: column;
   align-items: center;
